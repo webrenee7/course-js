@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>99乘法表+隔行变色</title>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        ul{
+            list-style: none;
+        }
+        span{
+            padding:0 10px;
+        }
+        .bg1{
+            background: yellow;
+        }
+        .bg2{
+            background: pink;
+        }
+        .bg3{
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <ul id="box"></ul>
+    <script>
+        var oBox=document.getElementById("box");
+        var str="";
+        for(var i=1;i<=9;i++){
+            str+="<li>";
+            for(var j=1;j<=i;j++){
+                str+='<span>'+j+'*'+i+'='+j*i+'</span>';
+            }
+            str+="</li>";
+        }
+        oBox.innerHTML=str;
+        var oLis=document.getElementsByTagName("li");
+        for(var i=0;i<oLis.length;i++){
+            if(i%2==0){
+                oLis[i].className="bg1";
+                oLis[i].bg="bg1";
+            }else{
+                oLis[i].className="bg2";
+                oLis[i].bg="bg2";
+            }
+            oLis[i].onmouseover=function () {
+                this.className="bg3";
+            }
+            oLis[i].onmouseout=function () {
+                this.className=this.bg;
+            }
+            oLis[i].index=i;
+            oLis[i].onclick=function () {
+                alert('我是第'+(this.index+1)+"行");
+            }
+        }
+    </script>
+</body>
+</html>

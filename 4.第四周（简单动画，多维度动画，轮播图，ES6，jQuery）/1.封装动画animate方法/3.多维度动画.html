@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #div1{
+            position: absolute;
+            left:100px;
+            top:100px;
+            width:100px;
+            height:100px;
+            background:lightsalmon;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script src="utils-2.0.js"></script>
+<script>
+    var oDiv=document.getElementById("div1");
+    var time=0;//花费的时间
+    var duration=1000;//规定的时间
+    var target={//目标值
+        width:300,
+        height:300,
+        left:300,
+        top:300,
+        opacity:0
+    }
+    var begin={}/*开始值*/,change={}/*改变的值*/;
+    for(var key in target){//遍历target，根据target属性，给begin和change添加属性
+        //key:width height left
+        //value:target[key]
+        begin[key]=utils.css(oDiv,key);
+        change[key]=target[key]-begin[key];
+    }
+    oDiv.timer=window.setInterval(function () {
+        time+=10;//花费的时间越来越多
+        if(time>=duration){//当花费的时间大于等于规定的时间
+            clearInterval(oDiv.timer);//停止定时器
+            utils.css(oDiv,target);//设置目标值
+            return;
+        }
+        for(var key in change){
+            var value=linear(time,begin[key],change[key],duration);
+            utils.css(oDiv,key,value);
+        }
+    },10);
+    function linear(t,b,c,d) {//匀速运动
+        return b+t/d*c;
+    }
+</script>
+</body>
+</html>

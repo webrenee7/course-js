@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一堆选项卡</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="box">
+        <ul class="clear">
+            <li>页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+        <div>内容二</div>
+        <div>内容三</div>
+    </div>
+    <div class="box">
+        <ul class="clear">
+            <li>页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+        <div>内容二</div>
+        <div>内容三</div>
+    </div>
+    <div class="box">
+        <ul class="clear">
+            <li>页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+            <li>页卡四</li>
+        </ul>
+        <div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+        <div>内容二</div>
+        <div>内容三</div>
+        <div>内容四</div>
+    </div>
+    <script src="js/utils-2.0.js"></script>
+    <script src="js/tab3.js"></script>
+    <script>
+        var boxList=utils.getElesByClass("box");
+        /*for(var i=0,len=boxList.length;i<len;i++){
+            /!*if(i===len-1){
+                continue;
+            }*!/
+//            tab(boxList[i],2);
+            new TabChange(boxList[i],2);
+        }*/
+        var box1=new TabChange(boxList[0],2);
+        var box2=new TabChange(boxList[1],2);
+        var box3=new TabChange(boxList[2],2);
+    </script>
+</body>
+</html>

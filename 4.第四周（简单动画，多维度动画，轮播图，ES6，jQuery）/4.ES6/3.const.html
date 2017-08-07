@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>const</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        input,button{
+            background:none;
+            border:none;
+            -webkit-appearance: none;
+            outline: none;
+        }
+        .form{
+            width:200px;
+            margin:30px auto;
+        }
+        .form input{
+            width:178px;
+            height:28px;
+            line-height: 28px;
+            border:1px solid #000;
+            margin-bottom:10px;
+            padding:0 10px;
+            border-radius: 10px;
+        }
+        .form label{
+            display: inline-block;
+            margin-bottom:5px;
+        }
+        .form button{
+            width:200px;
+            height:30px;
+            border-radius: 10px;
+            font-size: 14px;
+            border:1px solid #000;
+            background: lightcyan;
+            margin-top:10px;
+            cursor: pointer;
+        }
+        .form span{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <div>
+            <!--label的for和input的id是关联的，关联后点击label，input会聚焦-->
+            <label for="name">姓名：</label><input type="text" id="name" placeholder="6-10个字符"/>
+        </div>
+        <div>
+            <label for="pwd">密码：</label><input type="password" id="pwd"/>
+        </div>
+        <span id="errorInfo"></span>
+        <button type="button" id="btn">登录</button>
+    </div>
+    <script>
+        let name=document.getElementById("name");
+        let pwd=document.getElementById("pwd");
+        let btn=document.getElementById("btn");
+        let errorInfo=document.getElementById("errorInfo");
+        const eInfo={
+            nameError:"请输入用户名",
+            pwdError:"请输入密码"
+        }
+        btn.onclick=function () {
+            var nameVal=name.value;
+            var pwdVal=pwd.value;
+            if(!nameVal){
+                errorInfo.innerHTML=eInfo["nameError"];
+                return;
+            }
+            if(!pwdVal){
+                errorInfo.innerHTML=eInfo["pwdError"];
+            }
+
+            //ajax请求方式
+            /*$.ajax({
+                url:"",
+                data:{},
+                success:function (res) {
+                    errorInfo.innerHTML=res.pwd;
+                }
+            });*/
+        }
+    </script>
+</body>
+</html>

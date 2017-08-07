@@ -1,0 +1,163 @@
+第五周第一节关键字：
+    常用事件和事件对象
+    鼠标事件对象和键盘事件对象等常用属性和兼容问题
+    DOM0 和 DOM2事件
+    DOM2事件兼容问题以及兼容处理
+    拖拽实现以及拖拽类封装
+    多级菜单 放大镜 拉钩效果实现
+
+    事件对象
+        ele.onclick = function (e){  e = arguments[0] } 标准浏览器
+        ele.onclick = function (e){ e = window.event } IE6-8
+    事件对象兼容性
+        e.pageX
+        e.pageY
+        e.stopPropagation = function (){ e.cancelBubble=true }
+        e.preventDefault = function(){ e.returnValue= false }
+        e.target = e.srcElement
+=======================================================================================
+1、事件对象
+   1.当事件被触发的时候，在绑定函数中打印arguments浏览器默认给我们传了一个事件对象
+        ps:在IE低版本中，这个事件对象不在arguments上，而是在window.event上
+            解决：e=e||window.event;
+        ps:事件对象e只存在真正绑定的那个函数中
+   2.鼠标事件对象   MouseEvent:Object
+        1>.e.clientX/e.clientY：鼠标点击距离"浏览器"左上角的X/Y坐标值。
+        2>.e.pageX/e.pageX：鼠标点击位置距离"页面"的X/Y坐标。在ie6-8中有兼容性问题
+            解决：e.pageX=e.pageX||(e.clientX+document.documentElemnt.scrollLeft||document.body.scrollLeft);
+                  e.pageY=e.pageX||(e.clientY+document.documentElemnt.scrollTop||document.body.scrollTop)
+        3>.e.type：事件类型  例如："click"  ==》注意没有前缀"on"
+        4>.e.target：事件源  ie6-8不兼容
+            解决：e.target=e.target||e.srcElement
+        5>.e.stopPropagation()  阻止事件冒泡  ie6-8不兼容
+            解决：e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+                  或者：e.stopPropagation=e.stopPropagation||function () {
+                            e.cancelBubble=true;
+                        }
+        6>.e.preventDefault()  阻止默认行为，例如a链接的跳转行为  ie6-8不兼容
+            解决：e.preventDefault?e.preventDefault():e.returnValue=false;
+                  或者：e.preventDefault=e.preventDefault||function () {
+                            e.returnValue=false;
+                        }
+                  或者：return false;
+            阻止a标签的默认跳转行为：
+                <a href="javascript:;"></a>
+                <a href="javascript:void 0;"></a>
+                <a href="javascript:void 1;"></a>
+2、事件传播
+    冒泡:当事件发生在子元素上，那么在触发子元素的的事件时，还会继续向上，把子元素所有的祖先元素的事件分别触发
+    事件发生的顺序：
+        1>.捕获阶段：从外向里查找元素  html-->body-->...
+        2>.目标阶段：当前事件源本身的操作
+        3>.冒泡阶段：从内到外依次触发相关的行为（常用）....-->body-->html
+    DOM0级事件：把函数的引用地址赋值给dom的事件属性
+         inner.onclick=function () {};
+         ps:DOM0级事件绑定都是在冒泡阶段发生
+    DOM2级事件：元素调用事件原型上的addEventListener方法
+        三个参数：事件类型，函数，false/true
+        false:函数在冒泡阶段发生，true:函数在捕获阶段发生
+        举例：
+            inner.addEventListener("click",function () {
+                alert("inner");
+            },false);
+        ps:只有DOM2级事件绑定才能设置函数是在冒泡阶段发生还是捕获阶段发生
+        一般来说，DOM2级事件都是绑定实名函数，为了移除事件的时候能找到对应的函数
+3、DOM2事件兼容问题
+    标准浏览器中的DOM2级事件：
+         1>.同一个事件绑定多个函数，事件触发的时候，按照绑定顺序执行
+         2>.同一个事件，同一个函数，同一个阶段不能重复绑定
+         3>.绑定事件函数中的this仍然和DOM0一样
+    IE低版本浏览器中的DOM2级事件：
+         1>.type:on+"click"  事件类型需要在前面加"on"
+         2>.不能设置冒泡还是捕获，默认都是冒泡阶段发生
+         3>.同一个事件绑定多个函数，事件触发的时候，不会按照绑定顺序执行
+         4>.同一个事件，同一个函数，同一个阶段能重复绑定
+         5>.绑定事件函数中的this是window
+
+     标准浏览器绑定事件：addEventListener
+     标准浏览器移除事件：removeEventListener
+     IE低版本浏览器绑定事件：attachEvent
+     两个参数：事件类型，函数
+     举例：inner.attachEvent("onclick",function(){
+               alert("inner");
+           });
+     IE低版本浏览器移除事件：detachEvent
+
+
+执行顺序问题
+重复绑定问题
+this问题
+
+
+总结：
+    e=e||window.event;
+    e.clientX
+    e.clientY
+    e.pageX=e.pageX||(e.clientX+document.documentElement.scrollLeft||document.body.scrollLeft);
+    e.pageY=e.pageY||(e.clientY+document.documentElement.scrollTop||document.body.scrollTop);
+    e.target=e.target||e.srcElement;
+    e.type  "click"
+    e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+    e.preventDefault?e.preventDefault():e.returnValue=false;
+
+===========================================================================
+1、实战案例-放大镜
+    ******放大镜原理：
+        四个盒子：
+                box:左边大盒子
+                boxInner:左边小盒子
+                showImg:右边小盒子
+                showImgInner:右边大盒子
+         ===>左边小盒子/右边小盒子=左边大盒子/右边大盒子
+                boxInner/showImg=box/showImgInner
+         或者===>左边小盒子/左边大盒子=右边小盒子/右边大盒子
+                boxInner/box=showImg/showImgInner
+        showImgInner.style.left=-右边大盒子宽度/左边大盒子宽度*右边大盒子宽度/右边小盒子宽度*left+"px";
+2、键盘事件对象
+    KeyboardEvent{
+        keyCode:当前触发事件的按键对应的唯一识别码
+    }
+    keyCode
+        Enter:13
+        Left:37
+        Top:38
+        Right:39
+        Bottom:40
+        Space:32
+        Backspace:8
+        0-9数字:48-57
+
+ajax有多少个方法???
+    打印实例的原型  xhr.__proto__
+KeyBoardEvent==>UIEvent==>Event==>Object
+MouseEvent==>UIEvent==>Event==>Object
+
+********forEach和map的区别：
+    forEach没有返回值，map有返回值
+    forEach是将回调函数执行n(数组的长度)次
+    map是将回调函数执行n(数组的长度)次,并且返回每次函数执行结果组成的新数组
+    模拟forEach方法：
+            var _this=this;
+            Array.prototype.myforEach=function (callback,_this) {
+                for(var i=0;i<this.length;i++){
+                    callback.call(_this,this[i],i);
+                }
+            };
+
+            ary.myforEach(function (item,index) {
+                console.log(item,index);
+            });
+    模拟map方法：
+            var _this=this;
+            Array.prototype.myMap=function (callback,_this) {
+                var tempArr=[];
+                for(var i=0;i<this.length;i++){
+                    tempArr.push(callback.call(_this,this[i],i));
+                }
+                return tempArr;
+            };
+
+            var res=ary.myMap(function (item,index) {
+                console.log(item,index);
+            });
+            console.log(res);

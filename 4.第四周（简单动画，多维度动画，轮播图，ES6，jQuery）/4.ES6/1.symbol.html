@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Es6</title>
+</head>
+<body>
+    <script>
+        //symbol
+        var a;
+        var obj={
+            [a]:"这是一个symbol"
+        }
+        console.log(obj);//{undefined: "这是一个symbol"}
+
+        var a=Symbol("a");
+        var obj={
+            [a]:"这是一个symbol"
+        }
+        console.log(obj);//{Symbol(a): "这是一个symbol"}
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图（渐隐渐现版）</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <script src="js/utils-2.0.js"></script>
+    <script src="js/animate.js"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+    <div class="banner" id="banner">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <div class="banner" id="banner2">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+
+    <!--原生js-->
+        <!--<script src="js/banner.js"></script>-->
+
+    <!--用构造函数封装成插件-->
+        <script src="js/BannerFadeIn.js"></script>
+        <script>
+            var banner=document.getElementById("banner");
+            var banner2=document.getElementById("banner2");
+            new BannerFadeIn(banner,"data/data.txt",2000);
+            new BannerFadeIn(banner2,"data/data.txt",5000);
+        </script>
+
+    <!--jquery-->
+        <!--<script src="js/banner_jquery.js"></script>-->
+
+    <!--jquery扩展-->
+        <!--<script src="js/bannerExtend.js"></script>-->
+        <!--<script>-->
+            <!--var $banner=$("#banner");-->
+            <!--//调用$类上的bannerFadeIn方法-->
+<!--//            $.bannerFadeIn($banner,"data/data.txt",2000);-->
+            <!--//调用$原型上的bannerFadeIn方法-->
+            <!--$banner.bannerFadeIn("data/data.txt",2000);-->
+        <!--</script>-->
+</body>
+</html>

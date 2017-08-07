@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>99乘法表</title>
+</head>
+<body>
+    <ul id="list"></ul>
+    <script>
+        //99乘法表的第一个数字是列数，第二个数字是行数
+        //我们需要两个数，一个代表列，一个代表行
+        //用两个变量分别代表行和列，那么这两个变量应该是从1开始到9结束
+        //先有行还是列？--》现有行才有列
+        var str='';
+        for(var i=1;i<=9;i++) {
+            str += '<li>';
+            for(var j=1;j<=i;j++){
+                str += '<span> '+j+'*'+i+'='+j*i+' </span>';
+            }
+            str+='</li>';
+        }
+        list.innerHTML=str;
+    </script>
+</body>
+</html>

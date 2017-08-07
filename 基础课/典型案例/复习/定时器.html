@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器</title>
+    <style>
+        div{
+            width:100px;
+            height: 100px;
+            line-height: 100px;
+            background: black;
+            color:#fff;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>点击获取验证码</div>
+    <script>
+        //输出10随机数，停止定时器
+        //0-9不重复数字4个
+        function getCode() {
+            var arr=[];
+            while(arr.length<4) {
+                var val=Math.round(Math.random() * 9);
+                if(arr.indexOf(val)===-1){
+                    arr.push(val);
+                }
+            }
+           return arr.join(' ');
+        }
+        var oBox=document.getElementsByTagName("div")[0];
+        getCode();
+        oBox.onclick=function () {
+            var count=0;
+            var t=setInterval(function(){
+                oBox.innerHTML=getCode();
+                count++;
+                if(count==3){
+                    clearInterval(t);
+                }
+            },1000);
+        }
+    </script>
+</body>
+</html>

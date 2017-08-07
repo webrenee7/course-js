@@ -1,0 +1,130 @@
+.header { width: 100%; height: 638px; }
+.header nav { position: fixed; left: 0; top: 0; z-index: 111; width: 100%; height: 83px; background: rgba(0, 0, 0, 0.4); }
+.navCon { width: 100%; height: 100%; }
+.navCon h1 { float: left; padding-top: 24px; }
+.navCon ul { line-height: 83px; float: right; font-size: 16px; }
+.navCon ul li { float: left; margin: 0 25px; }
+.navCon ul li a { color: #fff; }
+.navCon h1 a{ display: block; width:325px; height: 33px; background: url(../images/logo1.png) no-repeat;}
+.banner { position: relative; height: 100%; }
+.slide1, .slide2 { position: absolute; width: 100%; height: 100%;  }
+.slide1 { background: url(../images/banner1.jpg) no-repeat center; }
+.slide2 { background: url(../images/banner2.jpg) no-repeat center; }
+.channel{ padding: 40px 0;}
+.channel ul{ text-align: center;}
+.channel ul li{ display: inline-block; margin: 0 15px;}
+.channel ul li span{ display: block; font-size: 16px; padding-top: 20px;}
+.start{ position: relative; width:100%; height: 751px;}
+.startBg{ position: absolute; top:0; left: 0; width: 100%; height: 100%; background: url(../images/slide-view.jpg) no-repeat center;}
+.start ul{ position: absolute; bottom:85px; width: 100%; text-align: center;}
+.start ul li{ width:90px; height: 90px; line-height: 90px; background: #fff; display: inline-block; text-align: center; margin: 0 10px; border-radius: 50%;}
+.start ul li a{ display: block; font-size: 16px; color: #000; box-shadow: 0 0 0 0 rgba(0,204,153,0.5); border-radius: 50%; overflow: hidden}
+.start ul li a:hover{ box-shadow: 0 0 0 30px transparent;-webkit-transition:box-shadow 1s;-moz-transition:box-shadow 1s ;-ms-transition:box-shadow 1s ;-o-transition:box-shadow 1s ;transition:box-shadow 1s ; background: #00cc99; color: #fff;}
+.service{ padding: 40px 0;}
+.service ul{ text-align: center;}
+.service ul li{ width: 263px; display: inline-block; border: 1px solid #fff; background: #fff;}
+.service ul li h4{ font-size: 18px; padding: 10px 0}
+.service ul li p{ font-size: 14px; text-align: left; padding:0 10px 10px 10px;}
+@media screen and (min-width: 1001px) {/*屏幕宽度大于等于1000px*/
+    .navCon { width: 1000px; margin: 0 auto; }
+}
+@media screen and (max-width: 1000px){
+    .navCon ul li{
+        margin:0 15px;
+    }
+    .header,.start{
+        height: 465px;
+    }
+    .header h1 a{
+        width:135px;
+        background: url(../images/logo2.png) no-repeat;
+        background-size: 272px 100%;
+    }
+    .slide1,.slide2,.startBg{
+        background-size: 1399px 465px;
+        /*1920/638=x/465*/
+    }
+    .channel ul li{
+        max-width: 16%;
+    }
+    .channel ul li img{
+        width: 100%;
+    }
+    .channel ul li.pic1 img{
+        width:80px;
+    }
+    .channel ul li.pic2 img,.channel ul li.pic3 img{
+        width:50px;
+    }
+    .service ul li{
+        width:30%;
+        vertical-align: top;
+    }
+    .service ul li img{
+        width:100%;
+    }
+    .service ul li h4{ font-size: 14px;}
+    .service ul li p{ font-size: 12px;}
+}
+@media screen and (max-width: 604px){
+    .navCon ul li{
+        margin:0 6px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .header{
+        height: 300px;
+    }
+    .header nav{
+        height: 50px;
+        background: red;
+    }
+    .header h1{
+        padding-top:10px;
+    }
+    .navCon ul{
+        width: 100%;
+        line-height: 40px;
+        background: red;
+        display: none;
+    }
+    .navCon ul li{
+        float: none;
+    }
+    .slide1,.slide2,.startBg{
+        background-size: 902px 300px;
+    }
+    .channel ul li{
+        width:30%;
+        max-width: 100%;
+    }
+    .channel ul li span{
+        padding:10px 0;
+    }
+    .start{
+        height: 300px;
+    }
+    .start ul li{
+        width:50px;
+        height: 50px;
+        line-height: 50px;
+    }
+    .start ul li a{
+        font-size: 14px;
+    }
+    .service ul li{
+        width: 90%;
+        margin:0 5%;
+        border:none;
+    }
+    .service ul li img{
+        width:20px;
+        height: 20px;
+        float: left;
+        margin:10px 10px 0 0;
+    }
+    .service ul li h4{
+        text-align: left;
+        font-size: 12px;
+    }
+}

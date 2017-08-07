@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:400px;
+            height: 400px;
+            border:1px solid #ccc;
+        }
+        .bg1{
+            background-color: yellow;
+        }
+        .bg2{
+            background-color: green;
+        }
+        .bg3{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" id="btn1" value="第一个按钮"/>
+    <!--<input type="button" id="btn2" value="第二个按钮"/>
+    <input type="button" id="btn3" value="第三个按钮"/>-->
+    <div id="div">我是div</div>
+    <script>
+        var oBtn1=document.getElementById("btn1");
+        /*var oBtn2=document.getElementById("btn2");
+        var oBtn3=document.getElementById("btn3");*/
+        var oDiv=document.getElementById("div");
+        oBtn1.onclick=function () {
+            var bg=oDiv.className;
+            if(bg=="bg1"){
+                oDiv.className="bg2";
+            }else if(bg=="bg2"){
+                oDiv.className="bg3";
+            }else{
+                oDiv.className="bg1";
+            }
+        };
+
+    </script>
+</body>
+</html>

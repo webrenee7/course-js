@@ -1,0 +1,24 @@
+=============================flexbox布局==================================
+flexbox：
+    按照想要的方式布局
+    对齐方式
+    对剩余空间的处理
+传统：从上到下从左到右/定位
+
+1、设置弹性盒模型display:flex
+2、确定主轴的方向flex-direction：row|column
+3、子元素超过父容器时是否换行flex-wrap:wrap|nowrap
+4、确定子元素在主轴或者交叉轴的对齐方式
+    justify-content(主轴对齐方式)|align-items（交叉轴对齐方式）
+    align-self|align-content
+5、order安排子元素的排列顺序
+6、溢出处理
+    flex-grow  当盒子有剩余空间时起作用  扩展比率  默认值0
+    flex-shrink  当有内容超出时起作用  收缩比率  默认值1
+    flex-basis  基准值  当扩展容器或者收缩容器时，以flex-basis的值为基准  默认值auto
+    flex:0 1 auto;默认值
+
+    flex:1->flex:1 1 %0;
+    flex:none->flex:0 0 auto;
+    flex:auto->flex:1 1 auto;
+

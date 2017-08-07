@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标移入移出</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        body{
+            background-color:paleturquoise;
+        }
+        ul,li{
+            list-style: none;
+        }
+        li{
+            width:600px;
+            margin:0 auto;
+            height:20px;
+        }
+        .bg1{
+            background-color:pink;
+        }
+        .bg2{
+            background-color:green;
+        }
+        .bg3{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+    <script>
+        var oLis=document.getElementsByTagName('li');
+        /*var oldBg=null;
+        for(var i=0;i<oLis.length;i++){
+            if(i%2==0){
+                oLis[i].className="bg1";
+            }else{
+                oLis[i].className="bg2";
+            }
+            //在js中鼠标经过，分为移入和移出两个事件
+            oLis[i].onmouseover=function(){
+                oldBg=this.className;//存原来得到的类名
+                this.className="bg3";
+            }
+            oLis[i].onmouseout=function(){
+                this.className=oldBg;
+            }
+        }*/
+        /*for(var i=0;i<oLis.length;i++){
+            if(i%2==0){
+                oLis[i].className="bg1";
+                oLis[i].myname='bg1';//自定义属性存的值
+            }else{
+                oLis[i].className="bg2";
+                oLis[i].myname='bg2';
+            }
+            oLis[i].onmouseover=function(){
+                this.className="bg3";
+            }
+            oLis[i].onmouseout=function(){
+                this.className=this.myname;
+            }
+        }*/
+        for(var i=0,n=oLis.length;i<n;i++){
+            var cur=oLis[i];
+            cur.className='bg'+(i%2+1);
+            var oldBg=null;
+            cur.onmouseover=function(){
+                oldBg=this.className;
+                this.className='bg3';
+            }
+            cur.onmouseout=function(){
+                this.className=oldBg;
+            }
+        }
+    </script>
+</body>
+</html>

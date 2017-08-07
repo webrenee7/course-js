@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var reg=/(\w)/;
+        var reg1=/(\d)/;
+        var str="zhangwen";
+        var str1="1234";
+        reg.test(str);
+        console.log(RegExp.$1);//z   RegExp.$1保存着最后一个正则实例捕获到的分组内容 不兼容  最大$9
+        var res=reg1.test(str1);
+        console.log(RegExp.$1);//1
+
+        reg.constructor.xx="fds";
+        console.log(RegExp.$1);//1
+    </script>
+</body>
+</html>

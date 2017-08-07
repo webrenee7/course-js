@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点赞多种写法</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            width:200px;
+            height:50px;
+            line-height: 50px;
+            margin:30px auto;
+            font-size: 30px;
+            text-align: center;
+            color:#fff;
+            background:darkred;
+            cursor: pointer;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">点赞<span>0</span></div>
+    <script>
+        var oBox=document.getElementById("box");
+        var oTag=oBox.getElementsByTagName("span")[0];
+
+        //1.全局作用域下定义变量count，变量容易被污染。===》不推荐
+        /*var count=0;
+        oBox.onclick=function () {
+            count++;
+            oTag.innerHTML=count;
+        }*/
+
+
+        //2.这种写法虽然简单，但是每次执行后都会重新渲染页面，增加浏览器负担。===》不推荐
+        /*oBox.onclick = function () {
+            //oTag.innerHTML = oTag.innerHTML+1;//oTag.innerHTML获取的是一个字符串，所以会进行拼接
+            //oTag.innerHTML = oTag.innerHTML/1+1;
+            //oTag.innerHTML = oTag.innerHTML*1+1;//除了加法，-  * /  %都会强制转化数字
+            //oTag.innerHTML++;//++i和i++也会强制转化数字
+             ++oTag.innerHTML;//++i与i++如果不参与其他运算时，一样
+        }*/
+
+
+        //3.用自执行函数造闭包，这样比较安全===>推荐
+        /*;(function() {
+             var count = 0;
+             oBox.onclick = function () {
+                 count++;
+                 oTag.innerHTML = count;
+            }
+         })();*/
+        /*;(function(count) {//形参相当于在函数中声明的私有变量 var count=0;
+             oBox.onclick = function () {
+                oTag.innerHTML = ++count;
+             }
+         })(0);*/
+
+
+        //4.用自执行函数造闭包。将自执行函数返回的引用数据类型赋值给对象的属性，让作用域不销毁。===>推荐
+        oBox.onclick=(function(count){
+            return function(){
+                oTag.innerHTML=++count;
+            }
+        })(0);
+
+    </script>
+</body>
+</html>

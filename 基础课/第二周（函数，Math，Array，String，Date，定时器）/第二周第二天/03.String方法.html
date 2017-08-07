@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>String方法</title>
+</head>
+<body>
+    <script>
+        var str="123abc aaasf";
+        /*for(attr in str){
+            console.log(str[attr]);
+        }
+        console.log(str[0]);*/
+        console.log(str.charAt(2));//3
+        console.log(str.charCodeAt(4));//97
+
+        console.log(str.substr(1,4));//23ab
+        console.log(str.substring(1,4));//23a
+        console.log(str.slice(1,4));//23a
+
+        console.log(str.indexOf("a"));//3
+        console.log(str.lastIndexOf("a"));//9
+
+        console.log(str.toUpperCase());//123ABC AAASF
+        console.log(str.toLowerCase());//123abc aaasf
+
+        console.log(str.replace(/123/g,'bbb'));//bbbabc aaasf
+        console.log(str.search('s'));//10   --找到返回对应字符的索引
+        console.log(str.search('n'));//-1   --找不到返回-1
+        console.log(str.match('s'));//["s", index: 10, input: "123abc aaasf"]  --找到，将内容以数组形式返回
+        console.log(str.match('n'));//null   --找不到返回null
+
+        console.log(str.split(' '));//['123abc','aaasf']
+
+    </script>
+</body>
+</html>

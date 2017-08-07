@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>布尔数据类型</title>
+</head>
+<body>
+    <script>
+        //布尔数据类型的判断规则： 0 NaN '' null undefined false为假，其余都为空
+        console.log(Boolean(0));//false
+        console.log(Boolean(''));//false
+        console.log(Boolean([]));//true
+        console.log(Boolean({}));//true
+        console.log(Boolean(NaN));//false
+        console.log(Boolean('NaN'));//true
+        console.log(Boolean(null));//false
+        console.log(Boolean(undefined));//false
+        console.log(Boolean(false));//false
+        console.log(Boolean('false'));//true
+        console.log(Boolean(1+'1'));//true   字符串中是数字，遇到+，优先进行字符串拼接
+        console.log(Boolean(1-'1'));//false  字符串中是数字，遇到-，优先进行算数运算
+    </script>
+</body>
+</html>

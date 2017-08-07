@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animate</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #div1{
+            position: absolute;
+            left:100px;
+            top:100px;
+            width:100px;
+            height:100px;
+            background:lightsalmon;
+        }
+        #div2{
+            position: absolute;
+            left:200px;
+            top:200px;
+            width:200px;
+            height:200px;
+            background:lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <script src="utils-2.0.js"></script>
+    <script src="animate.js"></script>
+    <script>
+        var oDiv=document.getElementById("div1");//获取要操作的元素
+        var oDiv2=document.getElementById("div2");
+        var duration=1000;//规定的时间
+        var target={//目标值
+            width:300,
+            height:300,
+            left:300,
+            top:300/*,
+            opacity:0*/
+        }
+        function fn1() {
+            div1.style.background="green";//div1写死了，所以用this
+            this.style.background="green";
+        }
+        /*function fn2() {
+            this.style.background="yellow";
+        }*/
+        /*animate(oDiv,target,duration,fn1);
+        /!*animate({ele:oDiv,target:{},duration:1000});//如果传递参数不分顺序，可以传对象*!/
+        animate(oDiv2,{width:400,height:400,left:500,top:500},duration,function() {
+            /!*animate(this,{left:700},duration,function () {
+                this.style.background="lightskyblue";
+            });*!/
+            this.style.background="lightskyblue";
+        });*/
+
+        //回调函数
+        //sort,forEach,map,定时器
+        //回调函数中的this是window
+
+        //对象传值(可以不分顺序)：
+        animate({
+            callback:function(){
+                this.style.background="purple";
+            },
+            ele:oDiv,
+            target:{width:200,height:300,top:300,left:300},
+            /*effect:linear,*/
+            /*effect:["Elastic","easeInOut"]*/  //容易出错==》指定默认值
+            effect:2
+        });
+        //将animate添加到原型上
+        /*oDiv.animate({
+            callback:function () {
+                this.style.background="purple";
+            },
+            target:{width:200,height:300,top:300,left:300}
+        });*/
+    </script>
+</body>
+</html>

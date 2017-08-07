@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+<script>
+    /*快速排序思想：
+    找一个基准点（--->向下取整(数组长度/2)），将数组中的每一项与基准点比较，如果小于它，放到一个空数组，如果大于它，放到另一个空数组
+    * */
+    var ary=[5,3,1,2,4,7,5,3,8];
+    function fSort(arr){
+        if(arr.length<=1){
+            return arr;
+        }
+        var eg=Math.floor(arr.length/2);
+        var val=arr.splice(eg,1)[0];
+        var lAry=[],rAry=[];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]<val){
+                lAry.push(arr[i]);
+            }else{
+                rAry.push(arr[i]);
+            }
+        }
+        return fSort(lAry).concat([val],fSort(rAry));
+    }
+    console.log(fSort(ary));
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+@import "reset";/*reset里面的代码最后要给浏览器看，必须要编译*/
+@import (reference) "public";/*只是把对应文件中的变量或者方法引入使用，最后编译的时候不编译*/
+
+/*
+less中提供一些常用的方法：
+  darken([color value],xxx%);把之前的颜色变深
+  lighten([color value],xxx%)：把之前的颜色变浅
+  unit([value],[单位])：给一个值加单位，但是这个值之前有单位，则为去单位
+*/
+html,body{
+  width:100%;
+  height: 100%;
+  background: #f4f4f4;
+  overflow: hidden;
+}
+/*header*/
+.header{
+  @H:63;
+  height: 63px;
+  border-bottom: 1px solid darken(@color-border,10%);
+  background: @color-white;
+  .content{
+    width:unit((@main-width)-20,px);
+    margin:0 auto;
+    padding:0 10px;
+
+    /*logo*/
+    .logo{
+      float: left;
+      width:160px;
+      height: unit(@H,px);
+      margin-right: 60px;
+      a{
+        display: block;
+        width:100%;
+        height: 100%;
+        background: url(../img/kbs-logo.png) no-repeat center center;
+        font-size: 0;
+      }
+    }
+
+    /*nav*/
+    .nav{
+      float: left;
+      li{
+        float: left;
+        a{
+          display: block;
+          width: 90px;
+          line-height: unit((@H)-8,px);
+          color: @color-text;
+          font-weight: bold;
+          border-top:4px solid transparent;
+          border-bottom:4px solid transparent;
+          text-align: center;
+          &.bg{
+            color: @color-white;
+            background: @color-blue;
+          }
+          &:hover{
+            border-top-color: #346aff;
+          }
+          &.liveQQ{
+            border-top:none;
+            width:unit(@H,px);
+            height:unit(@H,px) ;
+            img{
+              display: block;
+              width:100%;
+              height: 100%;
+            }
+          }
+          &.download{
+            position: relative;
+            .weChat{
+              position: absolute;
+              top:unit((@H)-4,px);
+              left: -15px;
+              z-index: 110;
+              width: 92px;
+              height: 0;
+              overflow: hidden;
+              padding:0 14px;
+              .transitionFn(@duration: .3s);
+              /*
+              让背景颜色变为半透明
+              ->background:rgba(0,0,0,0.8);不兼容低版本浏览器
+              ->opacity:0.8;可以实现效果，但是当前容器里面的子元素也都透明了
+              ->给当前元素追加一个和容器一样大的层，让追加的这个层有半透明的背景
+              */
+              img{
+                display: block;
+                width:100%;
+                margin-bottom: 4px;
+              }
+              span{
+                display: block;
+                line-height: 20px;
+                font-size: 14px;
+                font-weight: normal;
+                text-align: center;
+                color: @color-text;
+              }
+              &:after{
+                position: absolute;
+                top:0;
+                left: 0;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+                display: block;
+                content: "";
+                background: @color-white;
+                opacity: 0.8;
+              }
+            }
+            &:hover{
+              .weChat{
+                height: 142px;/*auto不可以*/
+                padding:18px 14px;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    /*login*/
+    .login{
+      float: right;
+      display: block;
+      width: 46px;
+      height: 28px;
+      line-height: 28px;
+      margin:unit(((@H)-28)/2,px) 20px 0 0;
+      text-align: center;
+      border-radius: 2px;
+      font-size: 12px;
+      background: @color-blue;
+      color: @color-white;
+      &:hover{
+        background: darken(@color-blue,12%);
+      }
+    }
+  }
+}
+
+/*main*/
+.main{
+  width:unit(@main-width,px);
+  height: auto;
+  margin:20px auto;/*HEIGHT=一屏幕的高度-HEADER的高度-40*/
+  .menuNav{
+    position: relative;
+    float: left;
+    width:198px;
+    border:1px solid @color-border;
+    background: @color-white;
+    overflow:hidden;
+    a{
+      position: relative;
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      border-left:5px solid transparent;
+      padding-left:24px;
+      font-size: 16px;
+      color: @color-text;
+      &:hover,&.bg{
+        border-left-color:@color-blue;
+        color: darken(@color-blue,15%);
+        background:@color-blue-lighten ;
+      }
+      &.bg{
+        i{
+          display: block;
+        }
+      }
+      .arrow{
+        position: absolute;
+        right:4px;
+        top:50%;
+        margin-top:-6px;
+        display: none;
+        width:0;
+        height: 0;
+        font-size:0;
+        border:6px solid transparent;
+        border-left-color:@color-blue;
+      }
+      .arrow:after{
+        .arrow;
+        display: block;
+        content: "";
+        right:-4px;
+        border-left-color:@color-blue-lighten
+      }
+    }
+    .iScrollIndicator{
+      opacity: 0.3;
+      filter:alpha(opacity=30);
+    }
+  }
+  .con{
+    float: right;
+    width:820px;
+    height: 100%;
+    overflow: hidden;
+    .calendar{
+      position: relative;
+      border: 1px solid @color-border;
+      background: @color-white;
+      .prev,.next{
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 25px;
+        height: 100%;
+        cursor: pointer;
+        .arrow{
+          position: absolute;
+          left:5px;
+          top:50%;
+          margin-top:-10px;
+          border:10px solid transparent;
+          border-left-color:lighten(@color-text,20%);
+        }
+        .arrow:after{
+          .arrow;
+          display: block;
+          content: "";
+          left:-15px;
+          border-left-color:@color-white;
+        }
+        &:hover .arrow{
+          border-left-color:@color-blue;
+        }
+      }
+      .prev{
+        left: 0;
+        transform: rotate(180deg);
+        /*.arrow{
+          border-left-color:lighten(@color-text,50%);
+        }*/
+      }
+      .next{
+        right:0;
+      }
+      .calendarInfo{
+        position: relative;
+        height: 70px;
+        margin: 5px 25px;
+        overflow: hidden;
+        .wrapper{
+          position: absolute;
+          left:0;
+          top:0;
+/*          width:100000px;*/
+          li{
+            float: left;
+            width: 110px;
+            height: 70px;
+            text-align: center;
+            line-height: 27px;
+            cursor: pointer;
+            a{
+              display: block;
+              height: 61px;
+              padding-top:9px;
+              span{
+                display: block;
+                font-size: 16px;
+              }
+              .week{
+                color: #999;
+              }
+              .date{
+                color: @color-text;
+              }
+              &:hover,&.bg{
+                background: @color-blue-lighten;
+                span{
+                  color: #3374e0;
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
+/*
+!*滚动条样式*!
+::-webkit-scrollbar { width: 3px; }
+
+!*定义滚动条轨道 内阴影+圆角*!
+::-webkit-scrollbar-track { background-color: #fff; }
+
+!*定义滑块 内阴影+圆角*!
+::-webkit-scrollbar-thumb { background-color: #eee; }*/

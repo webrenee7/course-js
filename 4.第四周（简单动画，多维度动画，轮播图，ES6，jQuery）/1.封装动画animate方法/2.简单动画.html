@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单动画</title>
+    <style>
+        #div1{
+            position: absolute;
+            top:100px;
+            left:100px;
+            width:100px;
+            height:100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <script src="utils-2.0.js"></script>
+    <script>
+        var oDiv=document.getElementById("div1");
+        var maxLeft=utils.win("clientWidth")+oDiv.offsetWidth;
+        var timer=window.setInterval(function () {
+            var left=utils.css(oDiv,"left");
+            if(left+100>=maxLeft){
+                utils.css(oDiv,"left",maxLeft);
+                clearInterval(timer);
+            }
+            left+=100;
+            utils.css(oDiv,"left",left);
+        },100);
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+第二周第一天知识点概要：
+    1、函数
+    2、DOM
+
+===================================================================
+1、函数
+    函数就是一个方法，将重复使用的功能代码，封装成一个函数，那么其他地方都可以调用这个函数，并且每次调用都是独立执行
+    语法：
+        定义部分：
+            function 函数名(形参){//定义形参，接收实参
+                函数体
+            }
+        执行部分：
+            函数名(实参);//向函数内传递实参
+        p.s:设置形参而实参没有传递，形参获取到的值为undefined
+    闭包：
+        外界无法获取函数内的变量或者其他值，我们将这种机制叫做闭包
+        需要函数向外界传递值的时候，就要用到return
+    return:
+            return--带有返回值的函数
+            return--只能返回值
+            return出现在函数里，函数停止运行
+            return可以单独出现，不进行返值，那么外面获取到函数的执行结果为undefined
+            return返回变量代表的值，而不是变量本身**********
+            函数本身的执行结果，就是我们的返回值***********
+    arguments：
+        函数接收参数的集合，是一个类数组，有索引有长度
+        如何获得这个集合的长度--arguments.length
+        如何获得这个集合的第一项--arguments[0]
+        arguments本身是一个对象，有属性值和属性名
+        函数接收参数的方法：形参/arguments*********************
+        实例：任意数求和（必考）***************
+    匿名函数：
+        匿名函数分为自执行函数和函数表达式
+        自执行函数：函数定义和执行一起完成
+        函数表达式：将函数定义部分当做值赋值给一个变量或者是某一个对象的一个行为
+        oDiv.onclick=sum()与oDiv.onclick=sum的区别：
+            oDiv.onclick=sum()  右侧是函数的执行结果
+            oDiv.onclick=sum    右侧是函数本身，当发生点击事件的时候，执行sum这个函数
+2、DOM
+    DOM：描述html的关系图谱
+    js可以通过操作html的DOM来获取、修改、删除、增加DOM对象
+    2.1 DOM获取元素的方法
+        1>.通过元素的id获取一个元素
+            document.getElementById('id名称');
+            id在文件中独一无二，所以获取范围只能是整个文档（document）
+            如果id名在同一页面出现两次或两次以上，获取到的元素为第一个元素
+            在ie6,7中，表单元素的name属性也会被当做id名，所以在ie6,7下，需要单独处理
+            在ie6,7中，id名获取时不区分大小写，所以不能通过大小写来区分元素
+            如果没有获取到，返回结果为null
+            可以直接通过元素id名访问（不推荐）
+            项目使用中注意：不要让表单元素的name和其他元素的id重复
+                            不要用id大小写来区分不同元素
+        2>.通过元素的标签名(tagName)获取一组元素
+            document/context.getElementsByTagName('标签名');
+            标签名不是唯一的，所以可以人为指定获取范围
+            获取的是一个对象数据类型，并且是一个类数组
+            获取其中某一项：obj[0]/obj.item[0]
+        3>.通过元素的name名获取一组元素
+            document/context.getElementsByName('name名');
+            获取其中某一项：obj[0]/obj.item[0]
+            ie6-9，只对表单元素起作用
+        4>.通过元素的class名获取一组元素
+            document/context.getElementsClassName('class名');
+            获取其中某一项：obj[0]/obj.item[0]
+            ie6,7,8不支持
+        5>.获取根元素
+            document.documentElement;//获取html元素
+            document.body;//获取body元素
+        6>.获取当前页面的宽度和高度
+            var width=document.documentElement.clientWidth||document.body.clientWidth;
+            var height=document.documentElement.clientHeight||document.body.clientHeight;
+        7>.移动端获取元素常用的方法：
+            document.querySelector("#id");//返回指定匹配选择器的第一个元素
+            document.querySelectorAll("input[type='radio']");//返回指定匹配选择器的所有元素
+            p.s:jquery中的选择器参考css选择器的规则
+    2.2 DOM的节点和关系属性
+        获取关系的属性：
+            childNodes：获取所有子节点（一组）
+            children：获取所有元素子节点（一组）
+            parentNode：获取父亲节点
+            previousSibling：获取上一个节点  previousElementSibling：获取上一个元素节点（不兼容）
+            nextSibling：获取弟弟节点  nextElementSibling：获取下一个元素节点（不兼容）
+            firstChild：获取子节点中的第一个
+            lastChild：获取子节点中的最后一个
+        常见节点类型有哪些？
+            节点类型           nodeType              nodeName            nodeValue
+        元素节点（元素标签）      1                大写的标签名            null
+        文本节点（文字）          3                    #text             文字内容
+        注释节点（注释）          8                   #comment           注释内容
+        document(整个文档)        9                   #document            null
+        p.s:在标准浏览器中，会将空格（space）和回车（Enter）当做文本节点处理
+        标准浏览器：除了（ie6,7,8）
+    2.3 DOM的增删改查及应用
+        1>.createElement()  --创建元素节点
+            var oDiv=document.createElement('div');
+        2>.createTextNode  --创建文本节点
+            var textnode=document.createTextNode("文本节点");
+        3>.appendChild  --把新的子节点添加到指定节点
+            parent.appendChild(newTag)
+            //oDiv.appendChild(textnode);
+        4>.insertBefore  --将新的节点添加到已有节点之前
+            父级元素.insertBefore(要放置的元素，放在谁之前)
+            oldTag.parentNode.insertBefore(newTag,odlTag)
+        5>.createAttribute  --创建一个属性节点
+            创建的键值对，可以直接显示在html标签中
+            setAttribute（'属性名'，'属性值'）--直接向对象添加一对键值对
+        6>.getAttribute  --获取属性的值
+            obj.getAttribute('属性名')
+            关于"."和Attribute
+                1.如果标签上定义了自定义属性，通过"."获取不到，但是通过getAttribute能获取到；
+                2.通过"."设置自定义属性，在标签上看不到；但是通过setAttribute设置自定义属性，标签上可以看到；
+                注意事项：. 和 attribute 一定不能混搭；即 通过点设置属性，就通过点来获取属性；
+                通过setAttribute来设置属性，就getAttribute来获取属性；
+        7>.removeAttribute  --删除指定的属性
+            obj.removeAttribute('属性名')
+        8>.removeChild  --删除元素
+            父级元素.removeChild(删除的对象)
+            oDiv.parentNode.removeChild(oDiv)
+            任何的元素节点都可以移除
+        9>.cloneNode  --克隆元素
+            oDiv.cloneNode(true)
+            如果参数为true：是将当前元素下所有的元素克隆一份
+            默认参数为false：只克隆当前元素
+        10>.replaceChild  --替换元素
+            父级元素.replaceChild(替换的对象，被替换的对象)
+            oDiv.parentNode.replaceChild(替换的对象，被替换的对象)

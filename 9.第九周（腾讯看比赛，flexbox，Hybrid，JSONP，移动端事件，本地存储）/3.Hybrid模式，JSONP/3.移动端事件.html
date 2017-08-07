@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端事件</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+    <div style="width:100px; height: 100px; background: red; cursor: pointer;" id="box"></div>
+    <script>
+        var box=document.getElementById("box");
+        box.addEventListener("touchstart",function (e) {
+            //TouchEvent 手指事件对象'
+            //touches和changedTouches都记录了当前操作手指的信息，但是在手指离开的时候，changedTouches信息依然存在（存的是最后离开屏幕时候的位置），而touches没有了，其他时候获取的结果是一样的
+            var point=e.changedTouches[0];
+            this.startX=point.pageX;
+            this.startY=point.pageY;
+            this.changeX=null;
+            this.changeY=null;
+            this.isMove=false;
+        },false);
+        box.addEventListener("touchmove",function (e) {
+            //获取最新的坐标位置-开始的坐标位置=改变的位置值
+            var point=e.changedTouches[0];
+            this.changeX=point.pageX-this.startX;
+            this.changeY=point.pageY-this.startY;
+            //手指滑动会有偏差，一般以10或者30为偏差值
+            if(Math.abs(this.changeX)>10||Math.abs(this.changeY)>10){
+                this.isMove=true;
+            }
+        },false);
+        box.addEventListener("touchend",function (e) {
+            if(!this.isMove){
+                this.style.background="green";
+                return;
+;            }
+            //水平方向移动值>垂直方向移动值==》左右滑动  正==》向右  负==》向左
+            //水平方向移动值<垂直方向移动值==》上下滑动  正==》向下  负==》向上
+            console.log(Math.abs(this.changeX)>Math.abs(this.changeY)?this.changeX>0?"right":"left":this.changeY>0?"down":"up");
+        },false);
+    </script>
+</body>
+</html>

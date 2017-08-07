@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取上一个元素节点</title>
+</head>
+<body>
+    <div id="div1">
+        <ul id="list">
+            <li>11</li>
+            <!----><li id="list2">11</li>
+            //fdsa<li>11</li>
+            <li>11</li>
+        </ul>
+        <p>123</p>
+        <p>22</p><!--><!----><!---->
+        <p id="p3">22</p>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+    </div>
+    <script>
+        //模拟previousElementSibling
+        var oP=document.getElementById("p3");
+        var pre=oP.previousSibling;//获取p#p3的所有哥哥节点
+        //没有一个属性可以让我们得到哥哥节点的集合，所有没有长度范围
+        //for循环只和次数有关，每次累加多少
+        //所以不能用for循环，用while循环
+        while(pre&&pre.nodeType!==1){
+            pre=pre.previousSibling;
+        }
+        console.log(pre);
+    </script>
+</body>
+</html>

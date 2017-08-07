@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        .clear:after{
+            display: block;
+            content: "";
+            clear: both;
+        }
+        li{
+            float: left;
+            width:100px;
+            height: 40px;
+            line-height: 40px;
+            font-size:20px;
+            background: yellow;
+            text-align: center;
+            cursor: pointer;
+        }
+        li.cur{
+            background:pink;
+        }
+        div{
+            width:300px;
+            height:200px;
+            line-height: 200px;
+            font-size: 40px;
+            text-align: center;
+            background: yellow;
+            display: none;
+        }
+        div.cur{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul class="clear">
+        <li class="cur">第一项</li>
+        <li>第二项</li>
+        <li>第三项</li>
+    </ul>
+    <div class="cur">第一个div</div>
+    <div>第二个div</div>
+    <div>第三个div</div>
+    <script>
+        var oLis=document.getElementsByTagName("li");
+        var oDivs=document.getElementsByTagName("div");
+        for(var i=0;i<oLis.length;i++){
+            oLis[i].index=i;
+            oLis[i].onclick=function () {
+                for(var j=0;j<oLis.length;j++){
+                    oLis[j].className="";
+                    oDivs[j].className="";
+                }
+                this.className="cur";
+                oDivs[this.index].className="cur";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+第一周第二节关键词：
+    ☛ 面向对象
+    ☛ 面向对象中的设计模式（单例模式==》工厂模式==》构造函数模式==》原型链模式）
+    ☛ 几种方法
+    ☛ 函数的三种角色
+    ☛ 继承
+===============================================================================
+1、面向对象相关概念
+    对象：万物皆对象
+    类：对象的具体分类，例如人类
+    实例：人类中的具体某个人
+    面向对象的三大特点：封装、继承、多态（重载、重写）
+        封装：把实现一个功能的代码放在一个函数中封装起来，以后再想实现这个功能的时候，我们不需要重新的编写代码了，只需要执行对应的函数即可，我们把这种机制就称之为"函数的封装" -->低耦合高内聚:减少页面中的冗余代码,提高代码的重复使用率
+        继承：子类继承父类中的属性和方法
+        多态：当前方法的多种形态，在后台语言中，多态包含重载和重写
+        重载(Reload)：多个方法,方法名相同,参数的个数或者参数的类型不一样
+        重写(Rewrite)：子类重写父类的方法
+        1>.JS中如果函数名相同了,后面的会把前面的函数给覆盖掉,所以JS中不存在重载
+            fn(); ->2
+            function fn(){console.log(1);}
+        2>.JS中的多态指的是一个方法的多种形态:一个方法,我们通过传递进来的参数值的不一样,实现不一样的功能
+            //根据传递的n和m的值不一样,我们获取的结果也不一样,例如:如果执行的时候不传递任何的参数,返回[0-1)之间的随机小数,如果传递了两个值1/10,返回的是[1-10]之间的随机整数
+            function getRandom(n,m){
+                n=Number(n);
+                m=Number(m);
+                if(isNaN(n) || isNaN(m)){
+                    return Math.random();
+                }
+                if(n>m){
+                    n=m+n;
+                    m=n-m;
+                    n=n-m;
+                }
+                return Math.round(Math.random()*(m-n)+n);
+            }
+2、面向对象中的常见设计模式
+    1、单例模式（其实就是一个对象，解决命名冲突的问题）
+        把描述同一个事物（同一个对象）的方法放在同一个空间中，起到了分组作用，这样不同事物之间的属性，即使属性名一样，也不会冲突，我们把这种分组编写代码的模式叫做”单例模式“
+        实例：
+            var person1={
+                name:'xy',
+                age:25
+            }
+            var person2={
+                name:'丫丫',
+                age:19
+            }
+            console.log(person1.name);//"xy"
+            console.log(person2.name);//"丫丫"
+        单例模式也叫命名空间(namepSpace)，把person1或person2也叫做“命名空间”
+        单例模式属性函数之间的调用使用this就可以，这个this就是这个对象
+            var obj={
+                fn:function(){},
+                fn2:function(){
+                    this.fn();
+                }
+            }
+            console.log(obj.fn2());//undefined
+        ”模块化开发“：对于一个相对来说比较大的项目，需要多人协作的开发，我们一般会根据当前项目的需求划分成几个功能板块，每个人负责一部分，同时开发，最后把每个人的代码进行合并
+    2、工厂模式(解决批量的问题，其实就是一个函数)
+        单例模式虽然解决了分组的作用，但是不能实现批量的生产，属于手工作业模式
+        ==>工厂模式:把实现同一个功能的代码放到一个函数当中，以后再想实现这个功能，不需要重新编写这些代码了，只需要执行当前的函数即可
+        工厂模式--》函数的封装--》低耦合高内聚：减少页面中的冗余代码。提高代码的重复利用率
+        结构：在函数开始的阶段创建一个对象
+              中间的代码都是向这个对象添加属性
+              在函数结尾return这个对象
+        实例：
+            function creatJsPerson(name,age){
+                obj.name=name;
+                obj.age=age;
+                obj.writeJs=function(){
+                    console.log("my name is"+this.name+'我会js啦！');
+                }
+            }
+            var p1=creatJsPerson('张三',23);
+            var p1=creatJsPerson('李四',32);
+    3、构造函数模式(类 实例 对象)    内置类不够用，所以构造其他类
+        function 类名(){
+            this.xxx=value;//构造函数中的this指当前实例，也就是new的这个实例
+        }
+        var 实例=new 类名();
+        构造函数不用创建对象也会默认返回一个对象
+        普通函数不会返回，普通函数模拟构造函数---》工厂模式
+        实例：
+            function CreatJsPerson(name,age){
+                this.name=name;
+                this.age=age;
+                this.writeJs=function(){
+                    console.log("my name is"+this.name+',我会js啦！');
+                }
+            }
+            var p1=new CreatJsPerson('李四',23);
+            var p2=CreatJsPerson("王五",43);
+            console.log(p1);
+            console.log(p2);
+        p.s:1>.在构造函数模式中，new Fn()执行，如果Fn不需要传递参数的话，后面的小括号可以省略
+            2>.在构造函数模式中，浏览器会默认把我们的实例返回（返回的是一个对象数据类型）
+               如果手动返回：
+                    若返回的是基本数据类型的值：当前实例是不变的
+                    返回的是引用数据类型的值：当前实例会被自己返回的值覆盖
+    4>.原型模式   公共方法和属性放置问题
+        1>.函数定义结束就会天生自带一个属性叫prototype（原型），这个属性的值仍然是一个对象数据类型。并且这个属性值也天生自带两个属性，一个是constructor，另一个是__proto__，其中constructor的值是函数自己
+        2>.任何一个实例天生自带一个属性__proto__，这个属性的值也是一个对象数据类型。这个值就是这个实例自己所属于的那个类的原型
+            var fe1=new FE()
+            fe1.__proto__===FE.prototype
+        3>.任何一个引用数据类型都天生自带一个__proto__,这个__proto属性永远都指向自己所属类的原型
+        4>.任何一个引用数据类型都是Object的一个实例
+        5>.批量设置==》把天生自带的原型重新赋值为一个新的对象，导致constructor丢失，导致再去打印实例的constructor时，直接在原型上获取不到了，通过原型的__proto__到Object的原型获取到constructor属性。p.s：实例的constructor属性至少是function Object(){}
+3、几个方法
+    实例 instanceof 类：判断某个实例是否属于某个类
+    属性 in 对象：判断某个属性是否属于某个对象
+    对象.hasOwnProperty("属性")：判断某个属性是否是对象的私有属性
+    对象.propertyIsEnumerable：判断对象的某个属性是否可枚举
+    对象.isPrototypeOf('属性')：判断某个属性是否在原型上
+4、函数的三种角色
+    1>.普通函数  Fn()
+    2>.构造函数  new Fn()
+    3>.对象  Fn.xxx
+    举例：
+        function Foo(){//刚开始不能确定它的身份
+            getName = function(){console.log(1);};
+            return this;
+        }
+        Foo.getName = function(){console.log(2);};//把Foo当做对象添加方法
+        Foo.prototype.getName = function(){console.log(3);};//Foo的原型上添加方法==》Foo是构造函数
+        var getName = function(){console.log(4);};
+        function getName(){console.log(5);};//当函数名和变量名重名，以变量的值为最终值
+
+        Foo.getName();//2  Foo此时是对象
+        getName();//4
+        new Foo.getName();//2   先执行Foo.getName()，然后执行new Foo.getName()
+        new Foo().getName();//3   先执行new Foo()，然后执行new Foo().getName()
+        new new Foo().getName();3  先执行new Foo()，然后执行new Foo().getName()，最后执行new new Foo().getName()
+        getName();//1
+5、继承
+    1>.原型继承
+        a.子类的原型指向父类的实例即可。
+        b.原型继承是把父类中私有和公有的属性和方法都当做子类中公有的。原理不是把父类中的方法直接的继承复制过来一份,而是通过原型链的查找机制
+        一级级的向上查找使用的。
+        c.子类可以通过原型链的查找机制把父类原型上的属性和方法进行添加、修改、删除,如果这样操作完成后,我们父类的其他实例都会受到影响 ->子类重写父类的方法->类的重写。
+        代码：
+            function A(){
+                this.x=100;
+            }
+            A.prototype.getX=function(){
+                console.log(this.x);
+            }
+            function B(){}
+            B.prototype=new A;//原型继承核心代码
+            B.prototype.constructor=B;
+    2>.call继承
+        a.在子类的函数体中,把父类当做一个普通的函数执行,让父类执行的时候里面的this变为子类的一个实例,这样就相当于直接的给子类的实例增加私有的属性和方法
+        b.call继承只能继承父类私有的属性和方法,而且继承过来后也是子类实例自己私有的
+        c.call继承是直接的把父类中的私有属性和方法相当于克隆一份直接的给子类
+        代码：
+            function A(){
+                this.x=100;
+            }
+            A.prototype.getX=function(){
+                console.log(this.x);
+            }
+            function B(){
+                A.call(this);
+            }
+            var a=new A;
+            var b=new B;
+            console.log(a.getX==b.getX);
+    3>.冒充对象继承
+        a.在子类的函数体中,我们创建一个父类的实例,然后把这个实例当做一个普通的对象进行遍历,在每一次遍历的时候,把父类中私有/公有的属性和方法,都当做子类实例的私有属性和方法进行存储
+        b.父类的私有和公有都可以继承,而是是相当于复制了一份继承过来的
+        c.继承过来的都是子类实例私有的属性和方法
+        代码：
+            function A(){
+                this.x=100;
+            }
+            A.prototype.getX=function(){
+                console.log(this.x);
+            }
+            function B(){
+                var a=new A;
+                for(key in b){
+                    if(b.hasOwnProperty(key)){
+                        this[key]=b[key];
+                    }
+                }
+            }
+            var a=new A;
+            var b=new B;
+            console.log(a.getX==b.getX);
+    4>.混合继承
+        原型继承和call继承/冒充对象继承,任意一个组合到一起来实现的,一般来说都是和call继承组合
+        父类的私有和公有继承过来当做子类的公有继承，父类的私有当做子类的私有。
+        function A(){
+            this.x=100;
+        }
+        A.prototype.getX=function(){
+            console.log(this.x);
+        }
+        B.prototype=new A;
+        B.prototype.constructor=B;
+        function B(){
+            A.call(this);
+        }
+    5>.中间件继承 不兼容  子类的公有继承父类的公有  周氏继承法
+        子类的原型指向父类的原型
+        function A() {
+            this.x=100;
+        }
+        A.prototype.getX=function(){
+            console.log(this.x);
+        }
+        function B() {}
+        B.prototype=A.prototype;//核心代码
+    6>.寄生组合继承  不兼容
+        function A() {
+            this.x=100;
+        }
+        A.prototype.getX=function(){
+            console.log(this.x);
+        }
+        function B() {}
+        function objectCreate(o){
+            B.prototype=o;
+            return new B;
+        }
+        B.prototype=objectCreate(A.prototype);
+        B.prototype.constructor=B;
+        function B(){
+            A.call(this);
+        }
+        var n=new B;
+
+
+
+

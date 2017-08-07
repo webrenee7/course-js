@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+    <script>
+        var ary=[5,3,1,2,4,7,5,3,8];
+        function fSort(arr){
+            if(arr.length<=1){
+                return arr;
+            }
+            var eg=Math.floor(arr.length/2);
+            var val=arr.splice(eg,1)[0];
+            var lAry=[],rAry=[];
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]<val){
+                    lAry.push(arr[i]);
+                }else{
+                    rAry.push(arr[i]);
+                }
+            }
+            return fSort(lAry).concat([val],fSort(rAry));
+        }
+        console.log(fSort(ary));
+    </script>
+</body>
+</html>

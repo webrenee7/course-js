@@ -1,0 +1,130 @@
+/*header*/
+nav{ position: absolute; top:0; left: 0; z-index: 111; width:100%; height:89px; background: url(../images/nav-b.png) repeat-x; overflow: hidden;}
+.nav_Con{ width:960px; height:89px; margin:0 auto;}
+.nav_Con h1{ float: left; padding-top:19px;}
+.nav_Con ul{ float: right;}
+.nav_Con ul li{ position: relative; float: left; padding:0 30px; height: 88px; line-height: 88px; text-align: center;}
+.nav_Con ul li a{ display: inline-block; font-size: 18px; color: #f4f4f4;}
+.nav_Con ul li i{ position: absolute; top:0; left: 0; width:100%; height: 88px; background: rgba(0,0,0,0.1);  transform: scale(0,1); -webkit-transform: scale(0,1); -moz-transform: scale(0,1); -ms-transform: scale(0,1); -o-transform: scale(0,1);}
+.nav_Con ul li a:hover,.nav_Con ul li a.cur{color: #fff;}
+.nav_Con ul li a:hover i{ animation: nav_hover 0.3s both; -webkit-animation: nav_hover 0.3s both; -moz-animation: nav_hover 0.3s both; -ms-animation: nav_hover 0.3s both; -o-animation: nav_hover 0.3s both;}
+.banner{ position: relative; width: 100%; height: 579px; overflow: hidden;}
+.slide1{ position: absolute; z-index: 1; width: 100%; height: 100%; background:#ff6900; text-align: center; }
+.slide2{ position: absolute; width: 100%; height: 100%; background:#193d85;}
+.slide1_a{ position: absolute; left: 60%; margin-left:-476px; top:100px; opacity: 0;}
+.slide1_b{ position: absolute; left: 50%; margin-left:-216px; top:406px; transform: scale(0); -webkit-transform: scale(0); -moz-transform: scale(0); -ms-transform: scale(0); -o-transform: scale(0); }
+.slide2_a{ position: absolute; left: 45%; margin-left:-540px; top:0;}
+.slide2_b{ position: absolute; left: 55%; top:228px;}
+/*display属性和transition属性分离开，不要同时添加，否则导致过渡动画效果失效*/
+.slide1.active .slide1_a{ opacity: 1; left: 50%; transition:0.6s; -webkit-transition:0.6s; -moz-transition:0.6s; -ms-transition:0.6s; -o-transition:0.6s;}
+.slide1.active .slide1_b{ transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); -ms-transform: scale(1); -o-transform: scale(1); transition:0.6s; -webkit-transition:0.6s; -moz-transition:0.6s; -ms-transition:0.6s; -o-transition:0.6s;}
+.slide2.active .slide2_a,.slide2.active .slide2_b{ opacity: 1; left: 50%; transition:0.6s; -webkit-transition:0.6s; -moz-transition:0.6s; -ms-transition:0.6s; -o-transition:0.6s; }
+.slide2_b p{ display: block; padding-top: 20px; font-size: 16px; color: #fff; clear: both;}
+.prev,.next{ position: absolute; top:267px; z-index: 100; display: block; width:44px; height: 44px;}
+.prev{ left: 70px; background: url(../images/l-btn.png);}
+.next{ right: 70px; background: url(../images/r-btn.png);}
+.focus_list{ position: absolute; left: 50%; margin-left: -35px; bottom:10px; z-index: 100;}
+.focus_list li{ float: left; width:24px; height: 5px; background: #444; margin-right:11px; opacity: 0.3; filter: alpha(opacity=30); cursor: pointer;}
+.focus_list li.cur{ background: #fff;}
+@keyframes nav_hover {
+    0%{ transform: scale(0,1); -webkit-transform: scale(0,1); -moz-transform: scale(0,1); -ms-transform: scale(0,1); -o-transform: scale(0,1);}
+    100%{ transform: scale(1,1); -webkit-transform: scale(1,1); -moz-transform: scale(1,1); -ms-transform: scale(1,1); -o-transform: scale(1,1);}
+}
+@-webkit-keyframes nav_hover {
+    0%{ transform: scale(0,1); -webkit-transform: scale(0,1); -moz-transform: scale(0,1); -ms-transform: scale(0,1); -o-transform: scale(0,1);}
+    100%{ transform: scale(1,1); -webkit-transform: scale(1,1); -moz-transform: scale(1,1); -ms-transform: scale(1,1); -o-transform: scale(1,1);}
+}
+@-moz-keyframes nav_hover {
+    0%{ transform: scale(0,1); -webkit-transform: scale(0,1); -moz-transform: scale(0,1); -ms-transform: scale(0,1); -o-transform: scale(0,1);}
+    100%{ transform: scale(1,1); -webkit-transform: scale(1,1); -moz-transform: scale(1,1); -ms-transform: scale(1,1); -o-transform: scale(1,1);}
+}
+@-ms-keyframes nav_hover {
+    0%{ transform: scale(0,1); -webkit-transform: scale(0,1); -moz-transform: scale(0,1); -ms-transform: scale(0,1); -o-transform: scale(0,1);}
+    100%{ transform: scale(1,1); -webkit-transform: scale(1,1); -moz-transform: scale(1,1); -ms-transform: scale(1,1); -o-transform: scale(1,1);}
+}
+@-o-keyframes nav_hover {
+    0%{ transform: scale(0,1); -webkit-transform: scale(0,1); -moz-transform: scale(0,1); -ms-transform: scale(0,1); -o-transform: scale(0,1);}
+    100%{ transform: scale(1,1); -webkit-transform: scale(1,1); -moz-transform: scale(1,1); -ms-transform: scale(1,1); -o-transform: scale(1,1);}
+}
+
+/*main*/
+.tool_list{ background: #f8f8f8; border: 1px solid #ebebeb;}
+.tool_list ul{ width:960px; height: 296px; margin:0 auto;}
+.tool_list ul li{ float: left; width:33.3333%; text-align: center;}
+.tool_list ul li a{ position: relative; display: block; height: 296px; z-index: 1;}
+.tool_list  span{ display: inline-block; width:152px; height: 124px; margin-top: 58px; background: url(../images/icon-24.png);}
+.tool_list .icon_pc{ background-position: left top;}
+.tool_list .icon_phone{ background-position: -300px top;}
+.tool_list .icon_wifi{ width: 124px; background-position: -617px -128px;}
+.tool_list h3{ font-size: 18px; font-weight: normal; margin:15px 0 6px; color: #ff6900;}
+.tool_list p{ color: #333;}
+.tool_list i{ position: absolute; z-index: -1; left: 50%; margin-left: -82px; top:34px;  display: block; width:164px; height: 165px; background: url(../images/radius-24.png) no-repeat left top; transform:scale(0); -webkit-transform: scale(0); -moz-transform: scale(0); -ms-transform: scale(0); -o-transform: scale(0); transition:0.6s; -webkit-transition:0.6s; -moz-transition:0.6s; -ms-transition:0.6s; -o-transition:0.6s;}
+.tool_list a:hover i{ transform: scale(1);}
+.hot_news{ width:960px; margin:0 auto; padding:50px 0 30px 0;}
+.title{ font-size: 20px; font-weight: normal; color: #ff6900;}
+.one_news{ position: relative; height: 160px; padding: 25px 0;}
+.news_img,.news_img img{ width: 300px; height: 160px;}
+.news_img{ position: absolute; top:25px; left: 0; overflow: hidden;}
+.news_img a:hover img{ transform: scale(1.2); -webkit-transform: scale(1.2); -moz-transform: scale(1.2); -ms-transform: scale(1.2); -o-transform: scale(1.2); transition: 1s; -webkit-transition:1s; -moz-transition:1s; -ms-transition:1s; -o-transition:1s;}
+.news_info{ padding-left:334px;}
+.news_info h4{ font-weight: normal; font-size: 18px; height: 24px; overflow: hidden; white-space: nowrap;}
+.news_info h4 a{ color: #333;}
+.news_info .time_share{ height: 32px; line-height: 32px; color: #000;}
+.time_share i{ font-style: normal;}
+.time_share span{ display: inline-block; padding:0 8px 0 30px;}
+.time_share a{ display: inline-block; width: 22px; height: 22px; margin-right: 10px; background: url(../images/back.png) no-repeat; vertical-align: middle;}
+.time_share .icon_sina{ background-position: 2px -147px;}
+.time_share .icon_qq{ background-position: -37px -146px;}
+.time_share .icon_space{ background-position: -70px -146px;}
+.news_info p a{ display: block; color: #666; line-height: 22px;}
+.news_info .detail{ position: absolute; bottom:25px; right:0; display: block; width:107px; height: 35px; line-height: 35px; text-indent:22px; background: url(../images/back.png) no-repeat left -54px; color: #ff6900; z-index: 2;}
+.bbs_box{ width:960px; margin:0 auto;}
+.bbs_list{ width: 960px; padding:20px 0 30px;}
+.bbs_list ul li{ float: left; width: 33.333333%; height: 30px; line-height: 30px; overflow: hidden;}
+.bbs_list ul li a{ display: block; padding: 0 10px 0 24px; background: url(../images/back.png) no-repeat left -219px; color: #666;}
+
+/*footer*/
+footer{ width: 100%; height: 160px; background: #464646; text-align: center; overflow: hidden;}
+.bar_link{ color: #c0c0c0; line-height: 40px; padding-top:40px;}
+.bar_link a{ display: inline-block; padding: 0 10px; color: #c0c0c0;}
+.copyright em{display: block; font-style: normal; height: 22px; line-height: 22px; color: #6d6d6d;}
+/*屏幕小于等于760时*/
+@media all  and (max-width: 760px){
+    .nav_Con ul,.slide2_b p,.prev,.next{ display: none;}
+    nav{ height: 46px; background-size: auto 46px;}
+    .nav_Con{ width: 100%; height: 46px;}
+    .nav_Con h1{ height: 28px; padding:10px;}
+    .nav_Con h1 img{ height: 28px;}
+    .banner{ height: 280px;}
+    .slide img{ height:100%;}
+    .slide1_a{ width:80%; height: 110px; top:80px; margin-left: -40%;}
+    .slide1_b{ width:40%; height: 40px; top:200px; margin-left: -20%;}
+    .slide2_a{ height: 280px; line-height: 280px; margin-left:-210px;}
+    .slide2_a img{ height: 90%; vertical-align: bottom;}
+    .slide2_b{ height: 48px; top:140px; padding-left: 10px;}
+    .tool_list ul,.tool_list ul li a{ width: 100%; height: 200px;}
+    .tool_list span{ margin-top:30px; width: 76px; height: 62px; top: 28px; background-size: 370px 126px; }
+    .tool_list .icon_pc{ background-position: left -64px;}
+    .tool_list .icon_phone{ background-position: -150px -64px;}
+    .tool_list .icon_wifi{ width: 62px; background-position: -308px 1px;}
+    .tool_list h3{ font-size: 14px; margin:15px 0 6px;}
+    .tool_list p{ padding:0 10px;}
+    .tool_list i{ left: 50%; margin-left: -41px; top:17px; width:82px; height: 83px;background-size: 100% auto;}
+    .hot_news{ padding:20px 0;}
+    .title{ font-size: 16px; padding-left: 10px; font-weight: bold;}
+    .one_news{ width: 960px; padding: 15px 10px; overflow: hidden;}
+    .hot_news,.one_news,.news_img,.news_img img{ width: 100%; height: auto; overflow: hidden;}
+    .news_img{ top: 15px; left: 10px; width:32%; height: 60px;}
+    .news_info{ width:58%; padding-left: 37%;}
+    .news_info h4{ font-size: 14px;}
+    .news_info h4,.news_info p{ height: 22px; overflow: hidden; line-height: 22px;}
+    .news_info .time_share{ display: none;}
+    .news_info .detail{ background: none; height: 20px; line-height: 20px; bottom: -4px; font-size: 12px;}
+    footer{ height: 32px; padding-top: 8px;}
+    .bbs_box{ width:100%;}
+    .bbs_list{ padding:10px;}
+    .bbs_list ul{ height: 154px; overflow: hidden;}
+    .bbs_list ul li{ width: 100%; height: auto;}
+    .bar_link,.copyright em:nth-child(1){ display: none;}
+    .copyright em{display: block; font-style: normal; height: 22px; line-height: 22px; color: #6d6d6d;}
+}

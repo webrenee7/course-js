@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的扩展</title>
+</head>
+<body>
+    <script>
+        //1、可以设置默认参数
+        function add(a=1,b=2) {
+            return a+b;
+        }
+        console.log(add());//3
+
+
+        //2、reset参数
+        //reset参数是在函数定义的时候用，生成的是一个数组
+        //扩张运算符，是在函数调用的时候用，作用是将一个数组转化为逗号分隔的参数序列
+        //实例1：
+        function equal(...ele) {
+            var item=[...ele];
+            console.log(item);
+        }
+        console.log(equal([1,2,3,4]));//[Array[4]]
+        //实例2：
+        var item=[1,2,3,4]
+        var res=Math.max(...item);//4
+        console.log(res);
+
+
+        //3、箭头函数  function换成=>   放到()后面
+        let fn1=function(a=1,b=2){
+            return a+b;
+        }
+        let fn1=(a=1,b=2)=>{
+            return a+b;
+        }
+        console.log(fn1);
+        //如果里面只有return，也可以这样写
+        let fn2=(a=1,b=2)=>a+b;
+        console.log(fn2);
+        //箭头函数中的this指向上级作用域，不能使用arguments对象，不能当做构造函数
+
+    </script>
+</body>
+</html>

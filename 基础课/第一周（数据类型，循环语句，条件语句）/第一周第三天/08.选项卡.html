@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .clear:after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        li{
+            float: left;
+            width:100px;
+            height: 50px;
+            line-height:50px;
+            font-size: 20px;
+            background: greenyellow;
+            text-align: center;
+            cursor: pointer;
+        }
+        li.cur{
+            color:#fff;
+            background:green;
+        }
+        div{
+            width:300px;
+            height:200px;
+            line-height: 200px;
+            font-size:40px;
+            background: green;
+            color:#fff;
+            text-align: center;
+            display: none;
+        }
+        div.cur{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<ul class="clear">
+    <li class="cur">第一项</li>
+    <li>第二项</li>
+    <li>第三项</li>
+</ul>
+<div class="cur">第一个div</div>
+<div>第二个div</div>
+<div>第三个div</div>
+<script>
+    //选项卡原理
+    /*
+     * 点击切换的时候，将特殊的类名给到当前操作的对象，其他对象应该清除掉这个特殊的类名
+     * 1、清除类名
+     * 2、给特定的对象添加类名
+     * */
+    var oLis=document.getElementsByTagName("li");
+    var oDivs=document.getElementsByTagName("div");
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onclick=function(){
+            for(var j=0;j<oLis.length;j++){
+                oLis[j].className="";
+                oDivs[j].className="";
+            }
+            //给点击的这个li加上类名
+            //给这个li对应的div也加上类名
+            //console.log(i);//3
+            /*oLis[i].className='cur';
+             oDivs[i].className='cur';*/
+            this.className="cur";
+            oDivs[this.index].className="cur";
+        }
+    }
+</script>
+</body>
+</html>

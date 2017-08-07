@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分组和分组引用</title>
+</head>
+<body>
+    <script>
+        //分组
+        var reg=/\d{17}(\d|x)/i
+        var reg=/(\d{2})(\d{2})(\d{2})(\d{4})(\d{2})(\d{2})(?:\d{3})(\d|x)/;
+        var str="622301199110043521";
+        var res=reg.exec(str);
+        console.log(res);//["622301199110043521", "62", "23", "01", "1991", "10", "04", "1", index: 0, input: "622301199110043521"]
+
+        //分组引用
+        var reg=/(\w)\1/;
+        console.log(reg.test("ab"));//false
+        console.log(reg.test("aa"));//true
+    </script>
+</body>
+</html>

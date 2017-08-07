@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用发布订阅模式完成放学例子</title>
+</head>
+<body>
+    <script>
+        /*on(obj,eventType,fn);*/
+        //制造对应自定义属性的数组，这个数组里存的都是对应自定义事件绑定的函数
+        function on(person,type,fn) {//on的时候，只是将函数塞进数组里
+            if(!person["self"+type]){
+                person["self"+type]=[];
+                //为什么这次不再使用attachEvent绑定一个run函数了？
+                //以前都是绑定click等原生系统事件，浏览器主动触发，afterschool这个事件浏览器不识别，所以只能自己触发。只能自己界定一个合适的时间点出动触发，比如在鼠标按下的时刻mousedown，执行down方法，我们界定认为这是拖拽开始dragstart，所以绑定dragstart事件的函数在这个时间点触发
+            }
+            var ary=person["self"+type];
+            ary.push(fn);
+        }
+        //zhangwen.selfafterschool
+        function run(person,type) {//run的时候负责找到对应事件的数组,并依次执行
+            var ary=person["self"+type];
+            for(var i=0;i<ary.length;i++){
+                ary[i]();
+            }
+        }
+        function Person(name) {
+            this.name=name;
+        }
+        var zhangwen=new Person("zhangwen");
+        var leichao=new Person("leichao");
+        function cooking() {
+            console.log("cook...");
+        }
+        function study() {
+            console.log("study...");
+        }
+        function eatting() {
+            console.log("eat...");
+        }
+        on(zhangwen,"afterschool",cooking);
+        on(zhangwen,"afterschool",study);
+        on(zhangwen,"afterschool",eatting);
+        on(leichao,"afterschool",study);
+        //on(div1,"click",fn1)
+        ;(function () {
+            window.setTimeout(function () {
+                console.log("田老师说放学了");
+                //主动触发的过程
+                run(zhangwen,"afterschool");//谁订阅过afterschool这个事件，就执行对应的方法
+                run(leichao,"afterschool");
+            },2000);
+        })();
+    </script>
+</body>
+</html>

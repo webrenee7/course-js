@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用发布订阅模式实现弹性势能动画</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            background:#020202;
+        }
+        #box1,#box2{
+            position: absolute;
+            width:100px;
+            height: 100px;
+            background: lightgreen;
+            cursor: move;
+            border-radius: 50%;
+        }
+        #box2{
+            left:150px;
+            top: 0;
+            background:lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <script src="event-1.0.js"></script>
+    <script src="index.js"></script>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <script>
+        var box1=document.getElementById("box1");
+        var box2=document.getElementById("box2");
+        var drag1=new Drag(box1);//drag1是实例，不是元素
+        var drag2=new Drag(box2);
+        //on方法只是负责把要执行的函数添加到对应事件类型的数组中，但是不执行，执行用selfrun手动执行
+        on(box1,"selfdragstart",increaseZIndex);
+        on(box1,"selfdraging",getSpeed);
+        on(box1,"selfdragend",fly);
+        on(box1,"selfdragend",drop);
+
+        on(box2,"selfdragstart",increaseZIndex);
+        on(box2,"selfdraging",getSpeed);
+        on(box2,"selfdragend",fly);
+//        on(box2,"selfdragend",drop);
+    </script>
+</body>
+</html>

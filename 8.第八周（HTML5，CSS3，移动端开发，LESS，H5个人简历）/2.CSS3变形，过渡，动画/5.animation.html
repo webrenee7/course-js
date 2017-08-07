@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation</title>
+    <style>
+        .box{
+            width:100px;
+            height: 100px;
+            background: -webkit-radial-gradient(circle,yellow,green);
+            background: radial-gradient(circle,yellow,green);
+            border-radius: 50%;
+            animation: move 4s alternate both infinite;
+            -webkit-animation: move 4s alternate both infinite;
+        }
+        @keyframes move {
+            0%{ transform: translate(100px,100px); -webkit-transform:translate(100px,100px); }
+            50%{ transform: translate(250px,250px); -webkit-transform: translate(250px,250px); }
+            100%{ transform: translate(400px,0); -webkit-transform: translate(400px,0); }
+        }
+        @-webkit-keyframes move {
+            0%{ transform: translate(100px,100px); -webkit-transform: translate(100px,100px); }
+            50%{ transform: translate(250px,250px); -webkit-transform: translate(250px,250px); }
+            100%{ transform: translate(400px,0); -webkit-transform: translate(400px,0); }
+        }
+        .box:hover{/*划过时停止*/
+            animation-play-state:paused;
+            -webkit-animation-play-state:paused;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>

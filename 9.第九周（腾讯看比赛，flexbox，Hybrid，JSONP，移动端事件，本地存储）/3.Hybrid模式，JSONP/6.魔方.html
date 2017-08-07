@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>魔方</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/reset.min.css">
+    <style>
+        html{
+            font-size: 100px;
+        }
+        html,body,.cube{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .cube{
+            position: relative;
+            background: url(img/zf_cubeBg.jpg) no-repeat center center;
+            background-size: cover;
+            -webkit-perspective: 2000px;/*给当前魔方所在的舞台设置视距：只有离远一点看才能看到最后变换的效果，这个是实现3D变形必须设定的条件*/
+            perspective: 2000px;
+        }
+        .cube .cubeBox{
+            position: absolute;
+            top:50%;
+            left: 50%;
+            width:5.1rem;
+            height: 5.1rem;
+            margin:-2.55rem 0 0 -2.55rem;
+            -webkit-transform-style: preserve-3d;/*设置当前元素按照3D变形效果处理*/
+            transform-style: preserve-3d;
+            -webkit-transform: scale(0.6) rotateY(45deg) rotateX(-35deg);
+        }
+        .cube .cubeBox li{
+            position: absolute;
+            width:100%;
+            height: 100%;
+        }
+        .cube .cubeBox li img{
+            width:100%;
+            height: 100%;
+        }
+        .cube .cubeBox li:nth-child(1){
+            -webkit-transform: translateZ(2.55rem);
+            transform: translateZ(2.55rem);
+        }
+        .cube .cubeBox li:nth-child(2){
+            -webkit-transform: translateZ(-2.55rem) rotateY(-180deg);
+            transform: translateZ(-2.55rem) rotateY(-180deg);
+        }
+        .cube .cubeBox li:nth-child(3){
+            -webkit-transform: translateX(-2.55rem) rotateY(-90deg);
+            transform: translateX(-2.55rem) rotateY(-90deg);
+        }
+        .cube .cubeBox li:nth-child(4){
+            -webkit-transform: translateX(2.55rem) rotateY(90deg);
+            transform: translateX(2.55rem) rotateY(90deg);
+        }
+        .cube .cubeBox li:nth-child(5){
+            -webkit-transform: translateY(-2.55rem) rotateX(90deg);
+            transform: translateY(-2.55rem) rotateX(90deg);
+        }
+        .cube .cubeBox li:nth-child(6){
+            -webkit-transform: translateY(2.55rem) rotateX(-90deg);
+            transform: translateY(2.55rem) rotateX(-90deg);
+        }
+    </style>
+    <script>
+        var desW=640,
+                winW=document.documentElement.clientWidth;
+        document.documentElement.style.fontSize=winW/desW*100+"px";
+    </script>
+</head>
+<body>
+    <div class="cube">
+        <ul class="cubeBox">
+            <li><img src="img/zf_cube1.png" alt=""></li>
+            <li><img src="img/zf_cube2.png" alt=""></li>
+            <li><img src="img/zf_cube3.png" alt=""></li>
+            <li><img src="img/zf_cube4.png" alt=""></li>
+            <li><img src="img/zf_cube5.png" alt=""></li>
+            <li><img src="img/zf_cube6.png" alt=""></li>
+        </ul>
+    </div>
+    <script src="js/zepto.min.js"></script>
+    <script>
+        //只要在移动端使用touchmove事件实现滑动，都需要把当前文档滑动的默认行为阻止掉:移动端的浏览器大部分都有自身的滑动操作，例如：滑动的时候是切换到下一个页卡区域...
+        $(document).on("touchmove",function (e) {/*swiper.js已经为我们加了*/
+            e.preventDefault();
+        });
+        var $cubeBox=$('.cubeBox');
+        //首先在盒子的自定义属性上记录一下盒子的起始值
+        $cubeBox.attr({
+            rotateX:-35,
+            rotateY:45
+        });
+        $cubeBox.on('touchstart',function(e){
+            /*
+             * 记录手指按下去的起始位置
+             *  - 使用ZP或者JQ的attr方法设置自定义属性，存储的属性值最后都会转为字符串
+             */
+            var point= e.changedTouches[0];
+            $(this).attr({
+                strX:point.pageX,
+                strY:point.pageY,
+                changeX:0,
+                changeY:0,
+                isMove:false
+            });
+        }).on('touchmove',function(e){
+            /*
+             * 获取最新的位置信息-起始的位置信息=盒子的偏移距离
+             */
+            var point= e.changedTouches[0],
+                    changeX=point.pageX-$(this).attr('strX'),
+                    changeY=point.pageY-$(this).attr('strY');
+            $(this).attr({
+                changeX:changeX,
+                changeY:changeY
+            });
+
+        }).on('touchend',function(e){
+            /*
+             * 判断当前操作是点击还是滑动，只有滑动操作才控制盒子旋转
+             * 让模仿沿Y轴旋转的角度和X轴的偏移(changeX)保持统一
+             * 让模仿沿X轴旋转的角度和Y轴的偏移(changeY)保持统一
+             *  - 我们最好不是偏移多少就旋转度就旋转多少度(这样会导致偏移距离不大，但是旋转的角度是很大的)，而是旋转的角度和偏移的距离有一个比例
+             *  - 沿着X轴旋转，往上旋转是正，往下旋转是负，但是Y轴的坐标是上为负数，下为正，这样就会出现：我们向上滑，changeY是负数，但是我们X轴旋转的角度应该是变大，加上负数变小，所以我们需要减去负数 rotateX=rotateX-changeY/3;
+             */
+            var changeX=parseFloat($(this).attr('changeX')),
+                    changeY=parseFloat($(this).attr('changeY'));
+            if(Math.abs(changeX)<10&&Math.abs(changeY)<10) return;
+            var rotateX=parseFloat($(this).attr('rotateX')),
+                    rotateY=parseFloat($(this).attr('rotateY'));
+            rotateX=rotateX-changeY/3;
+            rotateY=rotateY+changeX/3;
+            $(this).css({
+                transition:'1s',
+                transform:'scale(0.6) rotateY('+rotateY+'deg) rotateX('+rotateX+'deg)'
+            }).attr({
+                rotateX:rotateX,
+                rotateY:rotateY
+            });//每一次旋转完成，在自定义属性上记录最新的旋转角度值，这样下一次滑动才是基于本次最新的值继续旋转的
+        });
+        //    当整个盒子都旋转到正好相反的时候，所有的轴方向和之前是反向的，此时我们需要把之前的+全换成-，同理-全换成+即可
+    </script>
+</body>
+</html>

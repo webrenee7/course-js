@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正向预查，千分符</title>
+</head>
+<body>
+    <script>
+        /*var reg=/^\d(?=a|$)/;//\d 的后面必须是a，但是a不占位
+        var str="1";
+        console.log(reg.test(str));//true*/
+
+        //将数字转化为千分符格式（跟3有关系）
+        //方法一：使用正向预查?=  ?!  将字符串倒过来
+        var str="123456789";//====>12,345,678
+        //"12345678"==>[8,7,6,5,4,3,2,1]==>"87654321"
+        //把"876"用"876,"替换
+        var reg=/(\d{3})(?!$)/g;//在匹配的时候，右侧不能是$
+        var str2=str.split("").reverse().join("").replace(reg,function () {
+            //arguments:[regRes,$1,input,index]
+            return arguments[0]+",";
+        }).split("").reverse().join("");
+        console.log(str2);
+
+        //方法二：根据索引替换  将索引倒过来
+        var str="12345678";
+        //==>12,345,678
+        //当索引值为1和4的时候用自己+“,”代替
+        var reg=/\d(?!$)/g;
+        var res=str.replace(reg,function (item,index) {
+            //item: 1 2,3 4 5,6 7 8
+            //index:0 1 2 3 4 5 6 7  ==>将索引1和索引4挑出来
+            //如何将item的索引倒过来？
+            //str.length:8
+            //str.length-1-index
+            //====>7 6 5 4 3 2 1 0  ==》将6和3挑出来
+            if((str.length-1-index)%3==0){
+                return item+",";
+            }else{
+                return item;
+            }
+        })
+        console.log(res);
+
+        //方法三：
+        //连续出现3个数字1到多次，并且每次必须查到结尾
+        var str="12345678";
+        var reg=/(\d{1,2})(?=(\d{3})+$)/g;
+        var res=str.replace(reg,"$1,");
+        console.log(res);
+    </script>
+</body>
+</html>

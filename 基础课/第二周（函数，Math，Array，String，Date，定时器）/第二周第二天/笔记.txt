@@ -1,0 +1,218 @@
+第二周第二天知识点概要：
+    1、Math方法及应用
+    2、String方法及应用
+    3、数组方法及应用***********
+
+=================================================================================
+1、Math方法及应用（8个）
+    数学函数的作用是：执行常见的算数任务
+    1>.Math.abs()  --取绝对值
+    2>.Math.ceil()  --向上取整 （出现小数点就向上＋1）
+    3>.Math.floor()  --向下取整
+    4>.Math.round()  --四舍五入
+    5>.Math.max(val1,val2,val3...)  --取最大值
+    6>.Math.min(val1,val2,val3...)  --取最小值
+    7>.Math.random()  --获取[0-1)之间的随机小数（不包含1）
+    8>.Math.round(Math.random()*(m-n)+n)  --获取任意两个数之间的随机数
+    练习：
+        获取四位0-61之间不重复的随机整数
+2、String方法及应用(13个)
+    String--字符串类
+    字符串在js中，是存储字符串的变量
+    用引号将字符串存起来，可以是单引号，也可以是双引号
+    如果引号内需要嵌套引号，单双循环，或者是双单循环
+    String 对象用于处理已有的字符块（空格、换行也是字符）
+    字符串也有length，字符串的长度
+    字符串也有索引，每一个索引代表一个字符
+    访问方法：var str="1234";
+              str[0]获取第一项
+    字符串方法：
+        1>.获取指定索引位置的字符   charAt(索引)
+           获取指定索引位置字符对应的ASCII值（Unicode编码）-->charCodeAt(索引)
+        2>.字符串截取
+            substr(n,m) 从索引n开始，截取m个字符
+            substring(n,m) 从索引n开始找到索引m处，不包含m
+            slice(n,m) 从索引n开始找到索引m处，不包含m-->支持负数作为索引（str.length+负数索引）
+            只写n没有m：代表截取到末尾位置
+        3>.查找字符的索引
+            indexOf(字符)：获取指定字符在字符串中第一次出现的索引位置
+            lastIndexOf(字符)：获取指定字符在字符串中最后一次出现的索引位置
+            如果没有这个字符，返回-1
+        4>.字符串中字母的大小写转换
+            toLowerCase()转化为小写
+            toUpperCase()转化为大写
+        5>.替换与正则表达式匹配的子串
+            replace(regexp/substr,replacement)
+            在不使用正则的情况下，每一次调用方法只能替换一次
+            一般情况下，我们都是使用正则处理
+            search（）; 用来查找字符的，找到返回对应字符的索引； 找不到-1；
+            match（）；匹配字符的，找到，就把找到的内容以数组的形式返回；找不到null
+        6>.将字符串按照指定分隔符产分成数组
+            split(分隔符)
+            split('')--把字符串中的每一项单独分开
+            split(' ')--分隔符如果不存在的时候，会把把字符串整体当做一项
+    练习：
+        var time="2016-11-01 12:51:6";=======>2016年11月01日 12时51分06秒
+3、数组方法及应用（15个）
+    1>.向数组末尾添加一个或多个元素  --push
+        返回值：新数组的长度         原数组改变
+        push可以增加多项，每一项用逗号隔开
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.push(4,5,6);
+        其他：ary[ary.length]=value
+    2>.删除数组的最后一项  --pop
+        返回值：删除项               原数组改变
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.pop()
+        其他：ary.length--
+    3>.向数组开头添加一个或多个元素  --unshift
+        返回值：新数组的长度         原数组改变
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.unshift(999,888);
+    4>.删除数组的第一项  --shift
+        返回值：删除项               原数组改变
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.shift();
+    5>.删除、修改、增加  --splice****************
+        ============》返回的都是删除项组成的新数组
+        splice(n,howmany,item1,itme2,item3...)
+            index  索引index开始
+            howmany  删除几项
+            item1,itme2,item3...向数组添加的新项目
+        删除元素
+            splice(n,m) 从索引n开始，删除m项，将删除部分以新数组返回，原数组改变
+            splice(n)   从索引n开始，删除到最后，将删除部分以新数组返回，原数组改变
+            splice(0)   将原数组清空，将原数组内容以新数组形式返回
+        修改数组
+            splice(n,m,x) 从索引n开始，删除m个，x替换删除部分，返回删除项，原数组改变
+        增加元素
+            splice(n,0,x) 从索引n开始，一个都不删除，返回空数组，将x增加到索引n的前面，原数组改变
+            ===>ary.splice(ary.length,0,"增加项"); 向数组末尾添加元素
+                ary.splice(ary.length-1)/ary.splice(ary.length-1,1);删除数组最后一项
+    6>.数组的截取和拼接
+        数组的截取  --slice
+            slice(n,m) 从索引n开始找到索引m（不包括m）将找到部分以新数组返回，原数组不变
+            slice(n-1,m)  第n项开始，查找到第m项（包含n和m）**************
+            slice(n)   从索引n开始，找到末尾
+            slice(0)/slice() 克隆一份数组
+        数组的拼接  --concat
+            concat(参数是另一个数组) 将两个数组拼接到一起 原数组不变
+            concat() 将原数组克隆一份
+            可拼接多个数组，用逗号隔开
+    7>.将数组转化为字符串  --toString/join
+        toString()  不改变原数组
+        join("符号") 将这个符号替换掉原数组的逗号，将其转化为字符串 原数组不变
+        p.s：eval  将js中的字符串变成js表达式执行
+    8>.数组检索  --indexOf/lastIndexOf
+        indexOf()  当前值在数组中第一次出现的位置
+        lastIndexOf()  当前值在数组中最后一次出现的位置
+        如果数组中没有这一项，返值-1,；如果有这一项，返回当前索引值
+        可以进行这个值是否在此数组的判断 返值-1为不存在
+        只在标准浏览器中兼容 ie678不兼容
+    9>.数组排序与翻转  reverse/sort
+        reverse()  数组翻转
+        sort() 数组排序
+        var newAry=ary.sort(function(a,b){
+            return a-b;//a-b，从小到大排列    b-a，从大到小排列
+        })
+        console.log(newAry);
+    9>.遍历数组中的每一项  --forEach/map
+        forEach与map的区别：
+            这两个方法的参数都是回调函数，这个回调函数的参数为数组的元素，参数名称可以自定义。
+            furEach：仅仅为每个数组元素执行回调函数。
+                    ===>让数组中的每一项做一件事，没有返回值。
+            map:若这个回调函数有返回值，map()方法会产生一个新数组，原数组不变.
+                这个新数组由原数组元素对应的回调函数的返回值构成。若没有返回值，则新数组的所有元素为undefined。
+                ===>让数组通过某种计算产生一个新数组，有返回值。
+        实例：
+            var ary=[1,2,3,4];
+            forEach()用法:
+                ary.forEach(function(item,index,array){
+                    console.log(item);1,2,3,4
+                    //return item;//永远返回undefined
+                }
+            map用法:
+                var newAry=ary.forEach(function(item,index,array){
+                    return item*2;//[2,4,6,8]
+                }
+                console.log(newAry);//[]
+
+    练习：1.数组去重
+            利用对象的键值对方法，将数组中的每一项当做对象的属性名和属性值存起来
+            1>.方法一：
+                var ary=[1,1,2,3,5,3,2];
+                var obj={};
+                for(var i=0;i<ary.length;i++){
+                    var cur=ary[i];
+                    if(cur===obj[cur]){
+                        ary.splice(i,1);
+                        i--;
+                    }else{
+                        obj[cur]=cur;
+                    }
+                }
+                循环过程：
+                    i=0  0<7  cur=1  1==obj[1]-->false  obj[1]=1  0+1=1
+                    i=1  1<7  cur=1  1==obj[1]-->true   ary.splice(1,1)  ary-->[1,2,3,5,3,2]  1-1=0  0+1=1
+                    i=1  1<6  cur=2  2==obj[2]-->false  obj[2]=2  1+1=2
+                    i=2  2<6  cur=3  3==obj[3]-->false  obj[3]=3  2+1=3
+                    i=3  3<6  cur=5  5==obj[5]-->false  obj[5]=5  3+1=4
+                    i=4  4<6  cur=3  3==obj[3]-->true   ary.splice(4,1)  ary-->[1,2,3,5,2]  4-1=3  3+1=4
+                    i=4  4<5  cur=2  2==obj[2]-->true   ary.splice(4,1)  ary-->[1,2,3,5]  4-1=3  3+1=4
+                    i=4  4<4  循环结束
+            2>.方法二：
+                for(var i=0;i<ary.length;i++){
+                var cur=ary[i];
+                if(cur==obj[cur]){
+                ary[i]=ary[ary.length-1];
+                ary.length--;
+                i--;
+                }else{
+                obj[cur]=cur;
+                }
+                }
+                /*循环过程：
+                i=0  0<7  1==obj[1]-->false  obj[1]=1  0+1=1
+                i=1  1<7  1==obj[1]-->true  ary[1]=ary[6] ary.length=7-1=6  ary-->[1,2,2,3,5,3]  1-1=0  0+1=1
+                i=1  1<6  2==obj[2]-->false  obj[2]=2  1+1=2
+                i=2  2<6  2==obj[2]-->true  ary[2]=ary[5]  ary.length=6-1=5  ary-->[1,2,3,3,5]  2-1=1  1+1=2
+                i=2  2<5  3==obj[3]-->false  obj[3]=3  2+1=3
+                i=3  3<5  3==obj[3]-->true  ary[3]=ary[4]  ary.length=5-1=4  ary-->[1,2,3,5]  3-1=2  2+1=3
+                i=3  3<4  5==obj[5]-->false  obj[5]=5  3+1=4
+                i=4  4<4  循环结束
+                */
+
+          2.数组冒泡排序
+            小的数字上浮，大的数字下沉
+          3.数组的快速排序
+            找到一个参照项（一般选择数组中间的项），让数组中的每一项都和这个参照项比较，小于的放在一个新的数组中，大于的放在另一个新的数组中，
+            反复这样操作，直到数组的长度<=1，停止比较
+          4.数组插入排序
+            将数组中的第一项放置在新数组中，然后再将原数组的每一项和新数组每一项比较（从后向前比较），
+            如果原数组项小于就放在新数组的前面，如果原数组想大于就一直向前比较，最后返回新数组，完成排序
+
+总结：
+    1、向数组末尾添加元素：
+        ary.push(value1,value2...);
+        ary[ary.length]=value;
+        ****    ary.splice(ary.length,0,value);
+    2、删除数组最后一项
+        ary.pop();
+        ary.length--;
+        ****    ary.splice(ary.length-1);/ary.splice(ary.length-1,1);
+    3、向数组开头添加元素：
+        ary.unshift(value1,value2....);
+        ****    ary.splice(0,0,value);
+    4、删除数组第一项：
+        ary.shift();
+        ****    ary.splice(0,1);
+    5.清空数组的方法：
+        ary.splice(0);
+    6.克隆数组的方法
+        ary.slice();/ary.slice(0)
+        art.splice(0)
+        ary.concat();

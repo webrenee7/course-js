@@ -1,0 +1,219 @@
+@import "reset";
+@import (reference) "public";
+
+html, body {
+  .fullPage;
+  background: #F4F4F4;
+}
+
+/*--HEADER--*/
+.header {
+  @H: 63px;
+  height: @H;
+  background: @c-white;
+  border-bottom: 1px solid darken(@c-border, 10%);
+
+  .content {
+    margin: 0 auto;
+    padding: 0 10px;
+    width: unit(unit(@con-width)-20, px);
+    height: @H;
+
+    /*LOGO*/
+    .logo {
+      float: left;
+      width: 160px;
+      height: @H;
+      background: url("../img/kbs-logo.png") no-repeat center center;
+
+      font-size: 0;
+      text-indent: -2000px; //->让文字不显示(两者取一种)
+
+      a {
+        display: block;
+        height: @H;
+      }
+    }
+
+    /*LOGIN*/
+    .login {
+      float: right;
+      margin-top: unit((unit(@H)-28)/2, px); /*UNIT:LESS中的方法,用来给一个值加单位和去单位的*/
+      width: 46px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      font-size: 12px;
+      color: @c-white;
+      background: @c-blue;
+      border-radius: 2px;
+
+      &:hover { /*.login:hover*/
+        background: darken(@c-blue, 15%);
+      }
+    }
+
+    /*NAV*/
+    .nav {
+      float: left;
+      margin-left: 60px;
+
+      li {
+        float: left;
+        a {
+          @H-Link: unit(unit(@H)-8, px);
+          display: block;
+          width: 90px;
+          height: @H-Link;
+          line-height: @H-Link;
+          text-align: center;
+          color: @c-text;
+          font-size: 16px;
+          border-top: 4px solid transparent;
+          border-bottom: 4px solid transparent;
+
+          &:hover {
+            border-top-color: @c-blue;
+          }
+
+          &.bg {
+            color: @c-white;
+            background: @c-blue;
+          }
+
+          &.liveQQ {
+            width: @H;
+            height: @H;
+            border: none;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+
+      /*下载*/
+      .downLoad {
+        position: relative;
+
+        .weChat {
+          .transitionFn(@duration: .3s);
+          position: absolute;
+          left: -15px;
+          top: unit(unit(@H)-4, px);
+          z-index: 100;
+          padding: 0 15px; /*18PX 15PX*/
+          width: 90px;
+          height: 0; /*130PX*/
+          overflow: hidden;
+
+          img {
+            display: block;
+            width: 90px;
+            height: 90px;
+          }
+
+          p {
+            line-height: 20px;
+            font-size: 14px;
+            color: @c-text;
+          }
+        }
+
+        .weChatBg {
+          .weChat;
+          z-index: 50;
+          background: @c-white;
+          opacity: 0.5;
+          filter: alpha(opacity=50);
+        }
+
+        &:hover {
+          .weChat, .weChatBg {
+            padding: 18px 15px;
+            height: 130px;
+          }
+        }
+
+        /*
+         * 背景颜色透明
+         * ->RGBA:IE低版本不兼容
+         * ->BG:#FFF OPACITY:0 不仅背景透明了,而且里面内容也透明了
+         * ->两层策略:一层放入内容,一层控制背景即可
+        */
+      }
+    }
+  }
+}
+
+/*--MAIN--*/
+.main {
+  margin: 20px auto;
+  width: @con-width;
+  height: auto; /*页面需要保证有且只有一整屏,所有这个区域的高度需要在JS中动态计算:一屏幕的高度-HEADER的高度-MARGIN*/
+
+  .menu {
+    float: left;
+    width: 198px;
+    height: auto; /*MAIN高度-BORDER(2PX)*/
+    border: 1px solid @c-border;
+    background: @c-white;
+  }
+
+  .rightCon {
+    float: right;
+    width: 820px;
+    height: 100%;
+
+    .calendar {
+      height: 80px;
+      border: 1px solid @c-border;
+      background: @c-white;
+    }
+
+    .match {
+      margin-top: 20px;
+      height: auto; /*MAIN高度-CALENDAR高度-MARGIN(20PX)*/
+      border: 1px solid @c-border;
+      background: @c-white;
+    }
+  }
+}
+
+/*--MENU--*/
+.menu {
+  overflow: hidden;
+
+  a {
+    display: block;
+    padding-left: 24px;
+    height: 50px;
+    line-height: 50px;
+    border-left: 5px solid transparent;
+    color: @c-text;
+    font-size: 16px;
+
+    &:hover, &.bg {
+      color: @c-blue;
+      background: @c-blue-lighten; /*#EFF3FF*/
+      border-left-color: @c-blue;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

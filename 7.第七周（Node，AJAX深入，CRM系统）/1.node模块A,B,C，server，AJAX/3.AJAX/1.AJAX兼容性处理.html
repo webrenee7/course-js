@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX兼容性处理</title>
+</head>
+<body>
+    <script>
+        //面向对象的思想学习AJAX
+        //打印ajax的实例，就可以知道有哪些方法和属性
+        /*
+        私有属性....
+        所属类的原型链上的方法
+            abort  终止正在进行中的AJAX请求
+            getAllResponseHeaders  获取所有的响应头信息
+            getResponseHeaders  获取响应头信息
+            onreadystatechange
+            ........
+         * */
+        //1、创建AJAX对象
+    </script>
+    <script src="ajax.js"></script>
+    <script>
+        var xhr=createXHR();
+        xhr.open("post","data.txt",true);
+        xhr.send('{"name":"hjy"}');
+    </script>
+</body>
+</html>

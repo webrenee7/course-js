@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>从指定字符串中查找不重复的随机数</title>
+    <style>
+        div{
+            width:120px;
+            height:50px;
+            line-height: 50px;
+            margin:0 auto;
+            font-size:30px;
+            font-style: italic;
+            background:green;
+            color:#fff;
+            font-weight: bold;
+            cursor: pointer;
+            bordere:1px solid #000;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        //获取一个元素
+        var oBox=document.getElementById("box");
+        var str='0123456789abcedfghijklmnopqistuvwxyzABCDEFGHIJKLMNOPQISTUVWXYZ';
+        //字符串索引0-61，长度62
+
+        //getRound()  -->获取n-m范围内的一个随机数
+        function getRound(n,m){
+            //先转为数字
+            n=Number(n);
+            m=Number(m);
+            //如果有一个不是数字，返回一个随机数
+            if(isNaN(n)||isNaN(m)){
+                return Math.random();
+            }
+            //如果n>m，交换顺序
+            if(n>m){
+                var temp=n;
+                n=m;
+                m=temp;
+            }
+            return Math.round(Math.random()*m-n+n);
+        }
+
+        //onRound  -->获取0-61内的随机数，随机取出str中的元素，保证不重复，将验证码显示在oBox中
+        function onRound(){
+            var str2="";
+            for(var i=0;;i++){
+                //得到四个索引
+                var eg=getRound(0,71);
+                var val=str.charAt(eg);
+                if(str2.indexOf(val)===-1){
+                    str2+=val;
+                }/*else{
+                    i--;
+                 }*/
+                if(str2.length==4){
+                    break;
+                }
+            }
+            //console.log(str2);
+            oBox.innerHTML=str2;
+        }
+        onRound();
+        oBox.onclick=function () {
+            onRound();
+        }
+        var t=setInterval(function(){
+            onRound();
+        },1000);
+
+        //var t=setInterval(onRound,1000);
+        /*oBox.onclick=function(){
+            clearInterval(t);
+        }*/
+        //oBox.onclick=onRound;
+    </script>
+</body>
+</html>

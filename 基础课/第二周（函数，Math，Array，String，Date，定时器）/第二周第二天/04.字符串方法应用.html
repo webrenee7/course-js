@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串方法应用</title>
+</head>
+<body>
+    <script>
+        //var time="2016-11-01 12:51:6";
+        //2016年11月01日 12时51分06秒
+        var time="2016-11-1 12:51:6";
+        var ary=time.split(' ');
+        var ary1=ary[0].split('-');
+        var ary2=ary[1].split(':');
+        //console.log(str);
+        function zero(num){
+            num=Number(num);
+            if(num<10){
+                return '0'+num;
+            }else{
+                return num;
+            }
+            //return num=num<10?'0'+num:num;
+        }
+        //console.log(zero(9));
+        document.write(ary1[0]+'年'+zero(ary1[1])+'月'+zero(ary1[2])+'日 '+zero(ary2[0])+'时'+zero(ary2[1])+'分'+zero(ary2[2])+'秒');
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插入排序</title>
+</head>
+<body>
+    <script>
+        /*
+        * 插入排序思想：拿牌
+        *拿到一张牌，放到左手
+        * 将之后拿到的牌依次跟左手中的牌从后往前进行比较
+        * 如果小于当前牌，依次往前比...直到碰到比当前牌大的，放到当前牌之后
+        * */
+
+        var ary=[3,1,5,2,4,6,4,5,1,8,6,7];
+        function insertSort(arr){
+            var newAry=[];
+            newAry.push(arr[0]);//先抓第一张牌
+            //依次把桌面上第二张及以后的牌抓到
+            for(var i=1;i<arr.length;i++){
+                var cur=arr[i];
+                //抓到当前牌之后，分别从右往左跟左手中的牌进行比较
+                for(var j=newAry.length-1;j>=0;){
+                    if(cur<newAry[j]){//当前新抓的牌比左手中的牌小
+                        j--;//继续和newAry[j]前面的牌比较
+                        if(j===-1){//说明当前拿的牌比左手中的牌都小
+                            newAry.unshift(cur);//将这张牌放到开头位置
+                        }
+                    }else{//当前抓的牌比左手中newAry[j]牌大
+                        newAry.splice(j+1,0,cur);//将这张牌放在newAry[j]牌之后
+                        break;//不再进行比较，循环结束，此处也可以用j=-1,结束循环
+                    }
+                }
+            }
+            return newAry;
+        }
+        var res=insertSort(ary);
+        console.log(res);
+    </script>
+</body>
+</html>

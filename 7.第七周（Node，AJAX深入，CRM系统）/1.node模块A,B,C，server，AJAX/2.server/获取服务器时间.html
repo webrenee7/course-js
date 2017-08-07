@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取服务器时间</title>
+</head>
+<body>
+    <script>
+        //服务器时间，在响应头中
+        var xhr=new XMLHttpRequest();
+        //问题：
+        //1、使用get还是head,取决于我们的需求上需不需要获取响应主体的内容
+        //2、使用true还是false
+        xhr.open("head","temp.html?_="+Math.random());//由于HEAD请求也是GET系列的，所以要加随机数用来清除缓存
+        //HEAD：我们只想获取服务器时间，而服务器时间在响应头中就有，我们只需要获取响应头信息即可
+        xhr.onreadystatechange=function () {
+            if(xhr.status!=200) return;//状态码如果不为200，直接终止
+            //为什么是2的时候获取，而不是4的时候，我们服务器把时间放在响应头中返回，放入的时候是18:35，客户端接收到响应头的时候，真实时间是18:36，接收到响应主体内容的时候，真实时间可能已经是18:40了，不管在2还是4的时候我们获取的时间都是最开始服务器记录的时间18:35，这样越靠前获取，真实时间和获取时间的偏差越小
+            if(xhr.readyState==2){//状态为2的时候，获取到响应头信息
+                //设置请求头信息xhr.setRequestHeader([key],[value]);
+                //获取响应头xhr.getResponseHeader([key]);
+                //获取响应主体信息xhr.responseText  xhr.responseXML
+                var time=xhr.getResponseHeader("Date");
+                console.log(time);//获取的是格林尼治时间字符串
+//                time=new Date(time);//把一个时间格式的字符串转化为标准的北京事件
+                //ajax常用的有几个方法：7个
+            }
+            if(xhr.readyState==4){//状态为4的时候，获取到响应主体的内容
+                var val=xhr.responseText;
+            }
+        };
+        xhr.send(null);
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX的同步编程和异步编程</title>
+</head>
+<body>
+    <script src="ajax.js"></script>
+    <script>
+        //同步编程(sync)和异步编程(async)
+        //js是属于单线程的，我们最好使用异步编程
+        //定时器都是异步编程的
+        //事件绑定都是异步编程的
+        //回调函数函数也可以理解为异步编程
+        //在AJAX中可以使用异步编程
+        /*var xhr=new XMLHttpRequest();
+        xhr.open("get","data.txt",true);//异步
+        xhr.onreadystatechange=function () {
+            console.log(xhr.readyState);//2 3 4
+        };
+        xhr.send(null);*/
+        //AJAX中的同步：当AJAX任务开始的时候（xhr.send）一直需要到readystatechange=4的时候，任务才结束，此时才可以处理其他的事情
+        //AJAX中的异步：当AJAX任务开始的时候（xhr.send）不需要到readystatechange=4，依然可以处理其他的事情，只有当其他任务完成后，我们再看是否到4，到达4后，再做一些相关的操作
+        /*var xhr=new XMLHttpRequest();
+        xhr.open("get","data.txt",false);//同步
+        xhr.onreadystatechange=function () {
+            console.log(xhr.readyState);//4
+        };
+        xhr.send(null);*/
+
+        /*var xhr=new XMLHttpRequest();
+        xhr.open("get","data.txt",true);//异步
+        xhr.send(null);
+        xhr.onreadystatechange=function () {
+            console.log(xhr.readyState);//2 3 4
+        };*/
+
+        /*var xhr=new XMLHttpRequest();
+        xhr.open("get","data.txt",false);//同步
+        xhr.send(null);
+        xhr.onreadystatechange=function () {
+            console.log(xhr.readyState);//什么也不输出
+        };*/
+        //必须用异步，才能得到2的状态
+        //获取服务器的时间
+        var xhr=new XMLHttpRequest();
+        xhr.open("get","data.txt",true);//异步
+        xhr.setRequestHeader("zhufeng","2016");//设置请求头信息
+        xhr.setTimeout="1000";//设置AJAX的请求超时时间
+        xhr.onreadystatechange=function () {
+            if(xhr.readyState==2){
+                //请求主体内容耗费的时间太长，会造成时间差，所以在2的时候就获取响应头信息，拿到当前时间
+                var time=xhr.getResponseHeader("Date");
+                time=new Date(time);
+                console.log(time);
+            }
+        };
+        xhr.send(null);
+
+        //服务器的时间和本机时间还是有差异的
+        //因为本机时间可以随时改
+        //这样的话，程序员都不缺女朋友了，双十一，直接改电脑时间就可以提前抢购了
+
+
+    </script>
+</body>
+</html>

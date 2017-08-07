@@ -1,0 +1,55 @@
+/*定义变量*/
+@color:#fff;
+@percentage:100%;
+@url:"../images";
+/*定义函数*/
+.transition(@property:all,@duration:0s,@timing-function:ease,@delay:0s){
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments ;
+  -ms-transition: @arguments ;
+  -o-transition: @arguments ;
+  transition: @arguments ;
+  /*-webkit-transition: @property @duration @timing-function @delay;
+  -moz-transition: @property @duration @timing-function @delay;
+  -ms-transition: @property @duration @timing-function @delay;
+  -o-transition: @property @duration @timing-function @delay;
+  transition: @property @duration @timing-function @delay;*/
+}
+div{
+  .transition(@duration: 1s);
+}
+.div1{
+  width:100px;
+  height: 100px;
+}
+/*继承样式*/
+/*.div2{
+  &:extend(.div1);
+  color: red;
+}
+.div2:extend(.div1){
+  color:red;
+}*/
+.pos(@position:absolute,@left:0,@right:auto,@top:0,@bottom:auto,@zIndex:1){
+  position: @position;
+  left:@left;
+  right:@right;
+  top:@top;
+  bottom:@bottom;
+  z-index: @zIndex;
+}
+/*变量作为属性，选择器，字符串，写法：@{val}}
+变量作为值存在：@val
+*/
+.css3(@k,@v){
+  -webkit-@{k}:@v;
+  -moz-@{k}:@v;
+  -ms-@{k}:@v;
+  -o-@{k}:@v;
+    @{k}:@v;
+}
+/*.div1{
+  .css3(transform,rotate(45deg))
+}*/
+
+/*less变量查找的顺序和js是一模一样的*/

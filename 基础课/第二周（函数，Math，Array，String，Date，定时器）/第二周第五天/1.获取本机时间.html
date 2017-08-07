@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取本机时间</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        /*var time=new Date();
+        //console.log(time);//标准时间
+        //Sun Nov 13 2016 15:13:18 GMT+0800 (中国标准时间)
+        //年
+        var year=time.getFullYear();
+        console.log(year);//2016
+
+        //月(0-11)
+        var month=time.getMonth();
+        console.log(month);//10
+
+        //日(1-31)
+        var day=time.getDate();
+        console.log(day);//13
+
+        //星期(0-6)
+        var week=time.getDay();
+        //console.log(week);//0
+        //输出星期几
+        var weekStr="日一二三四五六";
+        console.log(weekStr.charAt(week));
+
+
+        //时(0-59)
+        var hours=time.getHours();
+        console.log(hours);//15
+        //var hours=hours<10?'0'+hours:hours;
+
+        //分(0-59)
+        var minutes=time.getMinutes();
+        console.log(minutes);//19
+
+        //秒(0-59)
+        var seconds=time.getSeconds();
+        console.log(seconds);//15*/
+
+
+        //2016年11月31日 15时24分 要求补零
+        /*var time=new Date();
+        var year=time.getFullYear();
+        var month=time.getMonth();
+        var day=time.getDate();
+        var hours=time.getHours();
+        var minutes=time.getMinutes();
+        var seconds=time.getSeconds();
+        function zero(n){
+            return n=n<10?'0'+n:n;
+        }
+        document.write(year+'年'+(month+1)+'月'+day+'日 '+zero(hours)+'时'+zero(minutes)+'分'+zero(seconds)+'秒');*/
+
+
+        var oBox=document.getElementById("box");
+        function getTime() {
+            var time=new Date();
+            var year=time.getFullYear();
+            var month=time.getMonth();
+            var day=time.getDate();
+            var weekStr="日一二三四五六";
+            var week=weekStr[time.getDay()];
+            var hours=time.getHours();
+            var minutes=time.getMinutes();
+            var seconds=time.getSeconds();
+            oBox.innerHTML=year+'年'+(month+1)+'月'+day+'日'+'星期'+week+' '+zero(hours)+'时'+zero(minutes)+'分'+zero(seconds)+'秒';
+        }
+        function zero(n){
+            return n=n<10?'0'+n:n;
+        }
+        getTime();
+        var t=setInterval(getTime,1000);
+
+
+    </script>
+</body>
+</html>

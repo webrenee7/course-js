@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math方法</title>
+</head>
+<body>
+    <script>
+        /*
+         1>.Math.abs()  --取绝对值
+         2>.Math.ceil()  --向上取整 （出现小数点就向上＋1）
+         3>.Math.floor()  --向下取整
+         4>.Math.round()  --四舍五入
+         5>.Math.max(val1,val2,val3...)  --取最大值
+         6>.Math.min(val1,val2,val3...)  --取最小值
+         7>.Math.random()  --获取[0-1)之间的随机小数（不包含1）
+         8>.Math.round(Math.random()*(m-n)+n)  --获取任意两个数之间的随机数**************
+        * */
+
+        //Math.abs()
+        console.log(Math.abs(-0.5));//0.5
+        console.log(Math.abs("0.5"));//0.5
+        console.log(Math.abs([-1.4]));//1.4
+        //Math.ceil()
+        console.log(Math.ceil(1.2));//2
+        //Math.floor()
+        console.log(Math.floor(1.9));//1
+        //Math.round()
+        console.log(Math.round(3.5));//4
+        //Math.max()
+        console.log(Math.max(1,23,4,2));//23
+        //Math.min()
+        console.log(Math.min(1,2,3,5,2));//1
+        //Math.random()
+        console.log(Math.random());
+        //Math.round(Math.random()*(m-n)+n)
+        console.log(Math.round(Math.random()*40));//0-40随机整数
+    </script>
+</body>
+</html>

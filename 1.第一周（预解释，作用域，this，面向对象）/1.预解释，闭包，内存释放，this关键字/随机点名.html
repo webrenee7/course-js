@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机点名</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            background: black;
+        }
+        div{
+            width:600px;
+            height:300px;
+            margin:0 auto;
+            background:orangered;
+            font:bold 60px/300px '微软雅黑';
+            text-align: center;
+            border:10px solid yellow;
+            -webkit-user-select:none;
+            cursor: pointer;
+            box-shadow: yellow 1px 2px 1px;
+            border-radius:10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">随机点名</div>
+    <script>
+        var oBox=document.getElementById("box");
+        var studentNameAry=[
+            ['张思奇','匡志鹏','孔祥蕾','谢洪军','余太伟','张倩','胥雪静'],
+            ['赵华冰','郑亚杰','王烽全','胡珍珍'],
+            ['雷超','吴鹏丽','宋瑞霞','林敏','周潇','张温','徐娅'],
+            ['公维懿','张茜','郭学广','廖珍珍','李莹','王盼龙','王涛'],
+            ['李来源','张文吉','欧阳奕','牛剑波','郎福红','黄洪涛','王宏全'],
+            ['陈艳利','张金赛','邢秀敏','叱干晓娣','刘志博','张婷','薛雷'],
+            ['朱梦安','刘崇','田杰','赵亚楠','张金宇','谢浩然','师桂林']
+        ]
+        function getRandomName(){
+            var row=Math.round(Math.random()*(studentNameAry.length-1));
+            var ran=Math.round(Math.random()*(studentNameAry[row].length-1));
+            var item=studentNameAry[row][ran];
+            oBox.innerHTML=item;
+        }
+        var timer=null;
+        oBox.onclick=function(){
+            clearInterval(timer);
+            if(!timer){
+                timer=setInterval(getRandomName,50);
+            }else{
+                clearInterval(timer);
+                timer=null;
+            }
+        }
+    </script>
+</body>
+</html>

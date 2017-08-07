@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        .box{
+            width:500px;
+            margin:0 auto;
+        }
+        .box ul{
+            position: relative;
+            top:1px;
+            overflow: hidden;
+        }
+        .box ul li{
+            float: left;
+            width:100px;
+            height:40px;
+            line-height: 40px;
+            margin-right:10px;
+            background: lightcyan;
+            font-size: 18px;
+            text-align: center;
+            border:1px solid #000;
+            cursor: pointer;
+        }
+        .box ul li.cur{
+            background:lightgoldenrodyellow;
+            border-bottom-color: lightgoldenrodyellow;
+        }
+        .box .con div{
+            height:250px;
+            line-height: 250px;
+            background:lightgoldenrodyellow;
+            text-align: center;
+            font-size:30px;
+            display: none;
+            border:1px solid #000;
+        }
+        .box .con div.cur{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="tab">
+            <li class="cur">页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div class="con">
+            <div class="cur">内容一</div>
+            <div>内容二</div>
+            <div>内容三</div>
+        </div>
+    </div>
+    <script>
+//        //let操作符是ES6中新增的一种声明变量的方式，它不存在变量提声
+//        console.log(name);
+//        //var name="hwb";
+//        let name="hwb";//name is not defined
+
+
+
+//        var box=document.getElementsByClassName("box")[0];
+//        var oLis=box.getElementsByTagName("li");
+//        var con=box.getElementsByClassName("con")[0];
+//        var oDivs=con.getElementsByTagName("div");
+//        for(var i=0;i<oLis.length;i++){
+//            oLis[i].index=i;
+//            oLis[i].onclick=function () {
+//                for(var i=0;i<oLis.length;i++){
+//                    oLis[i].className="";
+//                    oDivs[i].className="";
+//                }
+//                oLis[this.index].className="cur";
+//                oDivs[this.index].className="cur";
+//            }
+//        }
+        let box=document.getElementsByClassName("box")[0];
+        let oLis=box.getElementsByTagName("li");
+        let con=box.getElementsByClassName("con")[0];
+        let oDivs=con.getElementsByTagName("div");
+        for(let i=0;i<oLis.length;i++){
+            oLis[i].onclick=()=> {
+                for(var j=0;j<oLis.length;j++){
+                    oLis[j].className="";
+                    oDivs[j].className="";
+                }
+                oLis[i].className="cur";
+                oDivs[i].className="cur";
+            }
+        }
+    </script>
+</body>
+</html>

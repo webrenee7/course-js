@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串的扩展</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var profile={
+            nameLabel:"姓名",
+            pwdLabel:"密码",
+            name:"xy",
+            pwd:25,
+            error:"用户名不符合规范"
+        }
+          var box=document.getElementById("box");
+//        var html='';
+//        html+='<div>';
+//        html+='<label for="name">姓名：</label>';
+//        html+='<input type="text" id="name" placeholder="请输入用户名" value="'+profile.name+'"/>';
+//        html+='</div>';
+//        html+='<div>';
+//        html+='<label for="pwd">密码：</label>';
+//        html+='<input type="password" placeholder="请输入密码" id="pwd" value="'+profile.pwd+'/">';
+//        html+='</div>';
+//        box.innerHTML=html;
+        var html=`
+            <div>
+                <label for="name">${profile.nameLabel}：</label>
+                <input type="text" id="name" placeholder="请输入用户名" value="${profile.name}">
+            </div>
+            <div>
+                <label for="pwd">${profile.pwdLabel}：</label>
+                <input type="password" placeholder="请输入密码" id="pwd" value="${profile.age}/">
+            </div>`;
+        box.innerHTML=html;
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+onscroll这个事件，在页面存在滚动条的时候才能触发
+onmousewheel只要在body中滚动鼠标就可以触发
+
+鼠标滚轮事件对象：WheelEvent
+IE和谷歌 onmousewheel
+火狐下 DOMMouseScroll
+IE和谷歌   e.wheelDelta   120上滚  -120下滚
+火狐下   e.detail    -3上滚  3下滚

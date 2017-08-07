@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM节点</title>
+</head>
+<body>
+    <div id="div1">
+        <ul id="list">
+            <li>11</li>
+            <!----><li id="list2">11</li>
+            //fdsa<li>11</li>
+            <li>11</li>
+        </ul>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+    </div>
+    <script>
+        var oDiv=document.getElementById("div1");
+        var nodes=oDiv.childNodes;
+        console.log(nodes);
+        //[text, ul#list, text, p, text, p, text, p, text, p, text, p, text]
+        var eNodes=oDiv.children;
+        console.log(eNodes);
+        //[ul#list, p, p, p, p, p, list: ul#list]
+        var oList2=document.getElementById("list2");
+        var parNode=oList2.parentNode;
+        console.log(parNode);
+        var pre=oList2.previousSibling;
+        var next=oList2.nextSibling;
+        var epre=st2.previousElementSibling;
+        var enext=oList2.nextElementSibling;
+        console.log(pre,next);
+        console.log(epre,enext);
+        var fNode=oDiv.firstChild;
+        var lNode=oDiv.lastChild;
+        var efNode=oDiv.firstElementChild;
+        var elNode=oDiv.lastElementChild;
+        console.log(fNode,lNode);
+        console.log(efNode,elNode);
+    </script>
+</body>
+</html>

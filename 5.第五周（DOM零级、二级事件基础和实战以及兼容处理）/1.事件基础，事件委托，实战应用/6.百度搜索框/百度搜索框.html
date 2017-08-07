@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索框</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            font:14px/24px "微软雅黑";
+        }
+        ul,li{
+            list-style: none;
+        }
+        a,a:hover{
+            text-decoration: none;
+            color:#000;
+        }
+        input{
+            -webkit-appearance: none;
+            border:none;
+            outline: none;
+        }
+        .search_box{
+            width:640px;
+            margin:30px auto;
+        }
+        .search_box .logo{
+            width:270px;
+            margin:0 auto 22px;
+        }
+        .search_box .logo img{
+            width:270px;
+        }
+        .search_box .search_body{
+            position: relative;
+        }
+        .search_body .search_input{
+            width:523px;
+            height: 30px;
+            line-height: 30px;
+            padding:0 8px;
+            border:1px solid #ccc;
+            font-size:14px;
+        }
+        .search_body .camera{
+            position: absolute;
+            top:8px;
+            right:110px;
+            display: block;
+            width:18px;
+            height:16px;
+            background:url(camera.png) no-repeat;
+        }
+        .search_body .search_btn{
+            position: absolute;
+            top:0;
+            right:0;
+            width:100px;
+            height:32px;
+            color: #fff;
+            background:#3385ff;
+            font-size: 15px;
+            border:1px solid #2d78f4;
+            cursor: pointer;
+        }
+        .search_list{
+            position: relative;
+            top:-1px;
+            width:539px;
+            border:1px solid #ccc;
+            display: none;
+        }
+        .search_list ul li{
+            height:26px;
+            line-height: 26px;
+        }
+        .search_list ul li a{
+            display: block;
+            padding-left:9px;
+        }
+        .search_list ul li a:hover{
+            background:#ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="search_box">
+        <div class="logo">
+            <img src="logo.png"/>
+        </div>
+        <div class="search_body">
+            <input type="text" class="search_input" id="search_input"/>
+            <a class="camera" href="javascript:;"></a>
+            <input type="button" class="search_btn" value="百度一下"/>
+        </div>
+        <div class="search_list" id="search_list">
+            <ul>
+                <li><a href="javascript:void 0">足球</a></li>
+                <li><a href="javascript:void 0">篮球</a></li>
+                <li><a href="javascript:void 0">排球</a></li>
+                <li><a href="javascript:void 0">乒乓球</a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var search_input=document.getElementById("search_input");
+        var search_list=document.getElementById("search_list");
+        //按键抬起或者search_input得到焦点，判断search_input里面的值，如果不为空，search_list显示，否则消失
+        search_input.onkeyup=search_input.onfocus=function () {
+            var reg=/^\s*$/;//非空验证正则
+            if(!reg.test(search_input.value)){//内容不为空
+                search_list.style.display="block";
+            }else{//内容为空
+                search_list.style.display="none";
+            }
+        }
+        //利用事件委托，给结果列表绑定点击事件
+        document.documentElement.onclick=function (e) {
+            e=e||window.event;
+            e.target=e.target||e.srcElement;
+            if(e.target.nodeName=="A"||e.target.nodeName=="LI"){
+                search_input.value=e.target.innerText;
+            }
+            if(!(e.target.nodeName=="INPUT"&&e.target.className=="search_input"&&e.target.parentNode.className=="search_body")){
+                search_list.style.display="none";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+            1、==比较  一定要分清==两边的数据类型再转化
+            2、in   只要在全局声明过(不管有没有赋值)，就是属于window的属性
+            3、获取上一个元素节点（兼容）
+            4、引用数据类型传值，实参和形参共用一个地址
+            5、原型修改，原型上的constructor会丢失，需手动添加
+            Fn.prototype={
+            }
+        */
+        /*var ary=[12,23];//[12]
+        //引用数据类型传值：实参和形参共用一个地址
+        ~function(ary){
+            ary.length-=1;
+            ary=[34];//给了一个新地址[34]
+            ary.length-=1;[]
+            alert(ary);//空字符串
+        }(ary);
+        alert(ary);//12*/
+        /*[]==false   ===>true
+        ![]==false  ===>true*/
+    </script>
+</body>
+</html>

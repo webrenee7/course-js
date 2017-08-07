@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图（渐隐渐现版）</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/utils-2.0.js"></script>
+    <script src="js/animate.js"></script>
+    <script src="js/jquery-1.11.3.js"></script>
+</head>
+<body>
+    <div id="banner" class="banner">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <!--<script src="js/banner.js"></script>-->
+    <script src="js/bannerExtend.js"></script>
+    <script>
+//        $.bannerFadeIn($("#banner"),"data/data.txt",false);//调用类上的方法
+        $("#banner").bannerFadeIn("data/data.txt",3000);//调用原型上的方法
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            width:400px;
+            margin:30px auto;
+        }
+        ul li{
+            float: left;
+            width:60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            margin:5px;
+            display: inline-block;
+            font-size: 20px;
+            background: orange;
+        }
+        ul :nth-child(2){
+            /*background: green;*/
+        }
+        ul :first-child{
+            /*background: green;*/
+        }
+        ul :nth-child(even){/*偶数*/
+            /*background: pink;*/
+        }
+        ul :nth-child(odd){/*奇数*/
+            /*background: green;*/
+        }
+        ul li:nth-of-type(1){/*某个元素下的同种类型的子元素的第几个*/
+            /*background: green;*/
+        }
+        ul li[name$="zf"]{
+            /*background: green;*/
+        }
+        ul li[name*="zf"]{
+            /*background: pink;*/
+        }
+        ul li[name~="zf"]{
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <!--<span>1</span>-->
+        <li name="zf">1</li>
+        <li name="zf-abc">2</li>
+        <li name="a zf">3</li>
+        <li name="zf c">4</li>
+        <li name="zf">5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+</body>
+</html>

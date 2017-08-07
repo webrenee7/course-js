@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>将on,run封装成类</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position: absolute;
+            width:100px;
+            height: 100px;
+            background: lightgreen;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script src="event-1.0.js"></script>
+    <script>
+        var box=document.getElementById("box");
+        function fn1() {
+            console.log(1);
+        }
+        function fn2() {
+            console.log(2);
+            box.off("click",fn1);
+        }
+        /*on(box,"click",fn1);
+        on(box,"click",fn2);*/
+        box.on("click",fn1);
+        box.on("click",fn2);
+    </script>
+</body>
+</html>

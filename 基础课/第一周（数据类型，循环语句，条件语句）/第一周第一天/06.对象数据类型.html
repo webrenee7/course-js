@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象数据类型</title>
+</head>
+<body>
+    <script>
+        var message="Hello World";
+        console.log(message.toUpperCase());//将字符串中的字母全部转化为大写
+        console.log(message.toLowerCase());//将字符串中的字母全部转化为小写
+
+        var obj={
+            name:'xy',
+            age:25,
+            2:123,
+            fn:function(){
+
+            },
+            ary:[]
+        }
+        var age;
+        var ary=[1,2,'123',[1,2,3],function(){}]
+        //访问对象的两种方式：.访问法和[]访问法
+        console.log(obj.age);//25
+        console.log(obj[age]);//undefined  age是一个变量而不是一个对象的属性名
+        console.log(obj['age']);//25
+        console.log(obj[2]);//123
+        console.log(obj['2']);//123  属性名为数字的时候，可以省略引号
+
+        var obj2=new Object();
+        obj2.name='珠峰培训';
+        obj2['age']=7;
+        obj2[2]=456;
+        obj2['A']=8;
+        console.log(obj2);//首先是数字，其次按照添加顺序排列
+        console.dir(obj2);//首先是数字，其次按照字符编码排列
+
+    </script>
+</body>
+</html>

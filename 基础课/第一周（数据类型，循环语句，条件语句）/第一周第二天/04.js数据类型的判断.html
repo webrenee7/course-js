@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js数据类型的判断</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+    </style>
+</head>
+<body id="box">
+    <script>
+        /*if(条件){
+            条件成立时执行的语句
+         }*/
+        /*(条件)--》true/false
+         在判断的时候，条件和执行语句没有关系*/
+        /*if(0){
+            console.log(0)
+         }else{
+            console.log(1)
+         }*/
+
+        /*if(!0){
+            console.log('成立');
+         }else{
+            console.log('不成立');
+         }
+         var a=0;
+         if(a=='0'){
+            console.log('成立');
+         }else{
+            console.log('不成立');
+         }*/
+        /*0=='0'
+         0!='0'*/
+        /*if(a!='0'){
+            console.log('成立');
+         }else{
+            console.log('不成立');
+         }
+         if(a='0'){//赋值 将‘0’赋值给a这个变量，那么括号中是判断‘0’是真是假
+            console.log('成立');
+         }else{
+            console.log('不成立');
+         }*/
+
+
+        /*var a=1;
+         switch (a){
+         case 2:
+             //a===2
+             console.log('a=1');
+             break;
+         case '1':
+             //a==='1'
+             console.log("a='1'");
+             break;
+         default:
+            console.log('以上都不成立');
+         }*/
+
+        /*var a=(0)?1:2;
+         声明 变量a=(条件)?条件为true时执行的代码:条件为false时执行的代码;
+         console.log(a);*/
+
+        /*if(0==''){
+             console.log('成立');
+             console.log('万岁');
+         }else{
+            console.log('不成立')
+         }
+
+         0==''?(console.log('成立'),console.log('万岁')):console.log('不成立');
+         */
+
+        if(0==''){
+            console.log('成立');
+            console.log('万岁');
+        }
+        0==''?(console.log('成立'),console.log('万岁')):void (0);
+    </script>
+</body>
+</html>

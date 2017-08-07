@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则的捕获</title>
+</head>
+<body>
+    <script>
+        var reg=/\d+/;
+        var str="zhufeng2015zhufeng2016";
+        //第一次捕获
+        var res=reg.exec(str);
+        console.log(res);//["2015", index: 7, input: "zhufeng2015zhufeng2016"]
+
+        //第二次捕获(重头开始捕获)
+        var res=reg.exec(str);
+        console.log(res);//["2015", index: 7, input: "zhufeng2015zhufeng2016"]
+
+        //加了全局匹配g后
+        var reg=/\d+/g;
+        //第一次捕获
+        var res=reg.exec(str);
+        console.log(res);//["2015", index: 7, input: "zhufeng2015zhufeng2016"]
+        console.log(reg.lastIndex);//11
+        //第二次捕获
+        var res=reg.exec(str);
+        console.log(res);//["2016", index: 18, input: "zhufeng2015zhufeng2016"]
+        console.log(reg.lastIndex);//22
+        //第三次捕获
+        var res=reg.exec(str);
+        console.log(res);//null
+        console.log(reg.lastIndex);//0
+        //第四次捕获
+        var res=reg.exec(str);
+        console.log(res);//["2015", index: 7, input: "zhufeng2015zhufeng2016"]
+        console.log(reg.lastIndex);//11
+    </script>
+</body>
+</html>

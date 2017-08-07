@@ -1,0 +1,189 @@
+1、js数据类型
+2、一个值判断真假
+3、两个值比较
+4、数组方法
+    splice(0)克隆
+    splice()原数组不变，返回空数组
+    n项与索引n不一样*********************************项、个、索引看清楚
+    slice(n)  从索引n开始，查找到索引m(不包含m)
+    第n项，到第m项（包含n和m）      slice(n-1,m)
+5、函数
+    1>.任意数求和
+    2>.自定义属性
+6、DOM
+    获取元素的方法
+    DOM节点和关系属性
+    获取关系的属性
+    实例；模拟获取所有元素节点
+        点击登录弹出登录框，点击关闭按钮，关闭登录框
+
+'3px'*3  -->NaN
+'3px'+3 -->'3px3'
+
+只有伪类支持content:'内容'
+7、数学方法
+取随机数while方法  封装  get(n,m,个数)
+
+
+
+
+
+
+
+
+
+
+
+
+Math:
+    Math.abs()
+    Math.ceil()
+    Math.floor()
+    Math.max()
+    Math.min()
+    Math.random()
+    Math.round()
+    Math.round(Math.random()*m-n+n)
+
+String:
+    charAt()
+    charCodeAt()
+
+====================
+    indexOf()
+====================
+    lastIndexOf()
+====================
+
+    toUpperCase()
+    toLowerCase()
+
+    substr()
+    substring()
+    slice()
+====================
+
+    replace()
+    search()
+    march()
+
+    split()
+
+
+数组：
+    push()
+    pop()
+    unshift()
+    shift()
+
+    indexOf()
+====================
+    lastIndexOf()
+====================
+
+    reverse()
+    sort()
+
+    slice
+====================
+    concat
+
+    splice()
+
+    forEach()
+    map()
+
+    toString()
+    join()
+
+
+
+
+数组方法：
+push()
+pop()
+unshift()
+shift()
+
+splice()
+
+indexOf()
+lastIndexOf()
+
+reverse()
+sort()
+
+slice()
+concat()
+
+forEach()
+map()
+
+toString()
+join()
+
+字符串方法
+charAt()
+charCodeAt()
+indexOf()
+lastIndex()
+
+toUpperCase()
+toLowerCase()
+
+substr()
+substring()
+slice()
+
+split()
+
+replace()
+search()
+match()
+
+function sum(){
+    var total=0;
+    for(var i=0;i<arguments.length;i++){
+        var val=Number(arguments[i]);
+        if(!isNaN(val)){
+            total+=val;
+        }
+    }
+    return total;
+}
+var total=sum(1,2,4,5);
+console.log(total);
+
+
+
+
+删除数组第一项
+splice(0,1)
+
+删除数组最后一项
+splice(ary.length-1,1)
+
+在数组开头添加元素
+splice(0,0,value)
+
+在数组末尾添加元素
+splice(ary.length,0,value)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

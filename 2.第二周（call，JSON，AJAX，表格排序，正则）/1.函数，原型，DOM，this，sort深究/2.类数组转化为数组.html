@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类数组转化为数组</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        function listToAry(likeAry){
+            var val=[];
+            try{
+                ary=Array.prototype.slice.call(likeAry);
+                //在ie6-8浏览器中，不支持借用数组的slice实现，将“元素集合”的类数组转化为数组
+                //但是对于arguments借用数组的方法，是不存在任何兼容性问题的
+            }catch(e){
+                for(var i=0;i<likeAry.length;i++){
+                    ary.push(likeAry[i]);
+                }
+            }
+            return ary;
+        }
+        var oLis=document.getElementsByTagName("li");
+        console.log(oLis);//HTMLCollection[4]
+        var res=listToAry(oLis);
+        console.log(res);//Array[4]
+    </script>
+</body>
+</html>

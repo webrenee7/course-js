@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击弹出当前索引</title>
+</head>
+<body>
+    <input type="button" value="第一个按钮"/>
+    <input type="button" value="第二个按钮"/>
+    <input type="button" value="第三个按钮"/>
+    <input type="button" value="第四个按钮"/>
+    <input type="button" value="第五个按钮"/>
+    <script>
+        var oBtn=document.getElementsByTagName('input');
+        for(var i=0;i<oBtn.length;i++){
+            //console.log(i);//0 1 2 3 4
+            //我们需要将每一次循环的结果存到一个地方，可以存到一个对象的一个属性中
+            //oBtn[input,input.....]
+            //oBtn.index=i;这是一个对象，只能存一个值
+            //oBtn[0].index=0;自定义属性=0
+            //oBtn[1].index=1;自定义属性=1
+            //oBtn[2].index=2;自定义属性=2
+            oBtn[i].index=i;//index是我们自己给这个对象增加的一个属性，不是原来自带的属性
+            oBtn[i].onclick=function(){
+                //alert('我是第'+i+'个按钮');
+                //函数内的i并不是每一次循环得到的i，而是得到了循环结束后最终的i值
+                alert('我是第'+(this.index+1)+'个按钮');
+                //this 这个 只有当事件发生的时候，我们才会知道this是谁，this是指当前执行这个方法的对象
+                //this代替当前操作对象
+            }
+            console.log(i);//5
+        }
+
+        //在函数中获取到的变量值，是for循环的最终值
+        //this代替当前操作对象
+    </script>
+</body>
+</html>

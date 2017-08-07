@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM获取</title>
+</head>
+<body>
+    <ul id="list">
+        <li id="list1">我是列表项1</li>
+        <li>我是列表项2</li>
+        <li class="list">我是列表项3</li>
+        <li class="list">我是列表项4</li>
+        <li>我是列表项5</li>
+        <li>我是列表项6</li>
+        <li>我是列表项7</li>
+        <li>我是列表项8</li>
+        <li>我是列表项9</li>
+        <li>我是列表项10</li>
+    </ul>
+    <input type="text" name="btn">
+    <input type="text" name="btn">
+    <input type="text" name="btn">
+    <input type="text" name="btn">
+    <input type="text" name="btn">
+    <input type="text" name="btn">
+    <p name="btn"></p>
+    <p name="btn"></p>
+    <p name="btn"></p>
+    <p name="btn"></p>
+    <p name="btn"></p>
+    <script>
+        var oList=document.getElementById('list');//一个
+        var oUl=document.getElementsByTagName('ul');//一组
+        //console.log(oUl);//获取到一个元素集合[ul,ul]
+        //var oUl1=oUl[0];
+        //var oUl1=oUl.item(0);
+        //oUl1.style.backgroundColor='red';
+        //var oLis=document.getElementsByTagName('li');
+        var oLis=oList.getElementsByTagName('li');
+        console.log(oLis);
+        var oBtns=document.getElementsByName('btn');
+        console.log(oBtns);
+        var cList=document.getElementsByClassName('list');
+        console.log(cList);
+        var oHtml=document.documentElement;
+        var oBody=document.body;
+        console.log(oHtml,oBody);
+        var width=document.documentElement.clientWidth||document.body.clientWidth;
+        var height=document.documentElement.clientHeight||document.body.clientHeight;
+        console.log(width,height);
+    </script>
+</body>
+</html>

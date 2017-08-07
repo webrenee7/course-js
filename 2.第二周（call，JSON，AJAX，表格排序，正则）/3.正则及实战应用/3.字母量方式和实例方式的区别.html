@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字面量方式和实例方式的区别</title>
+</head>
+<body>
+    <script>
+        var name="zhangwen";
+        var reg=/name/;
+        console.log(reg.test("zhangwen"));//false
+        var reg=new RegExp("n"+name);
+        console.log(reg);//nzhangwen
+        var ary=[1,2,3,4];
+        for(var i=0;i<ary.length;i++){
+            console.log(new RegExp(ary[i]+i));
+        }
+        //只要正则中需要引入变量，那么只能使用实例的创建方式
+        //如果在实例方式创建正则使用\d等特殊元字符，还需要转义一次。也要在前面添加一个"\"
+        var reg=new RegExp('\\d');
+        console.log(reg);//   /\d/
+    </script>
+</body>
+</html>

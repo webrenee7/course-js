@@ -1,0 +1,302 @@
+        console.log(num);
+        console.log(obj);
+        console.log(sum);
+        var num=5;
+        var obj={
+            name:'xy'
+        }
+        function sum() {
+
+        }
+--------------------------------------------------
+        function fun() {
+            console.log(fz);
+            var num=5;
+            return function fy() {
+                console.log('fy');
+            }
+            function fz(){}
+        }
+        var res=fun();
+        res();
+--------------------------------------------------
+        console.log(total);
+        function sum(num1,num2) {
+            console.log(total);
+            var total=num1+num2;
+            console.log(total);
+        }
+        var total=0;
+        sum(100,200);
+        console.log(total);
+--------------------------------------------------
+        console.log(total);
+        function sum() {
+            console.log(total);
+            total+=total;
+        }
+        sum();
+        console.log(total);
+        var total=0;
+        console.log(total);
+---------------------------------------------------
+        var num=1200;
+        function fn() {
+            var num=200;
+            return function(){
+                console.log(num);
+            }
+        }
+        var f=fn();
+        f();
+---------------------------------------------------
+********************************************
+        var ary=[100,200];
+        function fn(ary) {
+            ary[ary.length]=300;
+            ary=ary.splice();
+            ary[ary.length]=400;
+            console.log(ary);
+        }
+        fn(ary);
+        console.log(ary);
+---------------------------------------------------
+        function fn(){
+            console.log(fn);
+            return function (){
+                console.log(fn);
+            }
+            var fn = 5;
+        }
+        var fn = fn();
+        fn();
+---------------------------------------------------
+        var m = 2;
+        console.log(2 + m++ + ++m + ++m + m++ );
+        console.log(m);
+---------------------------------------------------
+        function fn(m){
+            return function(n){
+                console.log(n+m++);
+            }
+        }
+        var f1=fn(10);
+        f1(12);
+        f1(13);
+        var f2=fn(13);
+        f2(12);
+        f2(13);
+        fn(12)(13);
+        fn(12)(13);
+-----------------------------------------------------
+        var num=20;
+        var obj={
+            num:30,
+            fn:(function (num) {
+                this.num*=3;
+                num+=15;
+                var num=45;
+                return function () {
+                    this.num*=4;
+                    num+=20;
+                    console.log(num);
+                }
+            })(num)
+        }
+        var fn=obj.fn;
+        fn();
+        obj.fn();
+        console.log(window.num,obj.num);
+--------------------------------------------------
+        console.log(x);
+        console.log(y);
+        var x=100;
+        y=200;
+        console.log(x);
+        console.log(y);
+--------------------------------------------------
+        (function(){
+            var z=300;
+        })();
+        console.log(z);
+--------------------------------------------------
+        (function(){
+            z=300;
+        })();
+        console.log(z);
+--------------------------------------------------
+        function fn(){
+            var num=2;
+            return function(){
+                num+=1;
+                console.log(num);
+            }
+        }
+        var f=fn();
+        f();
+        f();
+        f();
+        var f1=fn();
+        f1();
+        var f1=f;
+        f1();
+        var f2=f1;
+        f2();
+--------------------------------------------------
+        function fn(num){
+            return function(i){
+                num+=1;
+                console.log(i+num);
+            }
+        }
+        var f=fn(2);
+        f(3);
+        f(5);
+        fn(2)(3);
+        var f1=fn(2);
+        f1(6);
+        f1(7);
+--------------------------------------------------
+        function foo(){
+            var num=0;
+            return function(){
+                console.log(2 + ++num);
+            }
+        }
+        var f=foo();
+        f();
+        f();
+--------------------------------------------------
+        var m = 2;
+        console.log(2 + m++ + ++m + ++m + m++ );
+        console.log(m);
+--------------------------------------------------
+        var num=10;
+        var name="zhangwen";
+        name=(function(name){
+            name="zhufeng";
+            num+=10;
+            var num;
+            console.log(num,name);
+        }
+        )(name);
+        console.log(num,name);
+--------------------------------------------------
+        var s="str";
+        function fn(){
+            console.log(n);
+            console.log(s);
+            n=7;
+            var n=6;
+            console.log(n);
+        }
+        fn();
+        console.log(window.n);
+--------------------------------------------------
+        console.log(n);
+        function fn(m){
+            m=10;
+            total=m+10;
+        }
+        console.log(total);
+        var total=[1,2];
+        var n=total;
+        fn();
+        console.log(n);
+        console.log(total);
+--------------------------------------------------
+        var num=2;
+        var obj={
+            num:3,
+            fn:(function (num) {
+                this.num++;
+                num++;
+                var num=4;
+                return function () {
+                    this.num--;
+                    num--;
+                    console.log(num);
+                }
+            })(num)
+        }
+        var fn=obj.fn;
+        fn();
+        obj.fn();
+        console.log(window.num,obj.num);
+--------------------------------------------------
+        var num=10;
+        var obj={
+            num:3
+        };
+        obj.fn=(function(){
+                this.num+=2;
+                num+=2;
+                var num;
+                return function () {
+                    this.num+=2;
+                    num+=2;
+                    console.log(num);
+                }
+        })(obj.num);
+        var fn=obj.fn;
+        fn();
+        obj.fn();
+        console.log(this.num,obj.num);
+--------------------------------------------------
+        var num = 5;
+        var obj = {
+            num : 6,
+            fn : (function (num){
+                this.num = num + 5;
+                num += 2;
+                return function (){
+                    this.num += 3;
+                    num += 3;
+                    console.log(num);
+                }
+            })(num)
+        };
+        var fn = obj.fn;
+        fn();
+        obj.fn();
+        console.log(window.num,obj.num);
+--------------------------------------------------
+        function Foo(){
+            this.x = 100;
+        }
+        Foo.prototype.x = 200;
+        Object.prototype.y = 300;
+        Foo.prototype.getX = function (){
+            console.log(this.x + this.y);
+        }
+        var f1 = new Foo();
+        var f2 = new Foo();
+        f1.getX();
+        Foo.prototype.getX();
+        console.log(f1.constructor === f2.__proto__.constructor);
+        console.log(f1.getX === Foo.prototype.getX);
+        console.log(f1.constructor);
+        console.log(f2.__proto__.constructor);
+        console.log(f2.__proto__.__proto__.constructor);
+--------------------------------------------------------------
+        console.log(num);
+        if('num' in window){
+            var num=12;
+        }
+        console.log(num);
+---------------------------------------------------------------
+    function Foo(){
+        getName = function(){console.log(1);};
+        return this;
+    }
+    Foo.getName = function(){console.log(2);};
+    Foo.prototype.getName = function(){console.log(3);};
+    var getName = function(){console.log(4);};
+    function getName(){console.log(5);};
+    Foo.getName();
+    getName();
+    new Foo.getName();
+    new Foo().getName();
+    new new Foo().getName();
+    getName();
+---------------------------------------------------------------

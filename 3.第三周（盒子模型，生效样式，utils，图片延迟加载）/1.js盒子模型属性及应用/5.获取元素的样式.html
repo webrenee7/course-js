@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素的样式</title>
+    <style>
+        html,body{
+            margin:0;
+            padding:0;
+        }
+        div{
+            position: absolute;
+            left: 50px;
+            top:40px;
+            width:200px;
+            height: 200px;
+            background:lightgreen;
+            opacity:0.5;/*没写至少返回1*/
+            filter: alpha(opacity=50);/*没写返回""*/
+        }
+    </style>
+</head>
+<body>
+    <div style="xxx:1px solid #000"></div>
+    <script>
+        var oDiv=document.getElementsByTagName("div")[0];
+        /*console.log(oDiv.style.background);//""
+        oDiv.style.background="lightblue";
+        console.log(oDiv.style.background);//"red"
+        //通过style设置的样式，设置在行内样式上
+        //通过style获取的样式，只能获取行内的
+        //如何获取已经生效（经过浏览器计算并且渲染过后的样式）???
+        //====>window.getComputedStyle
+        console.log(getComputedStyle(oDiv));//CSSStyleDeclaration
+        console.log(getComputedStyle(oDiv).opacity);//1*/
+
+
+        /*window.getComputedStyle(ele,'before');
+        ele.currentStyle;在标准浏览器中是一个方法，而在ie678中在ele的currentStyle属性上保存着生效的样式*/
+
+        //try catch
+        //'JSON' in window
+        //window.JSON
+        //MSIE/7/8
+
+        //getCss:获取已经生效的样式
+        function getCss(ele,attr) {
+            var val=null;
+            //if(window.getComputedStyle){
+            if("getComputedStyle" in window){
+                val=window.getComputedStyle(ele)[attr];
+            }else{
+                //处理filter:alpha(opacity=50)的情况
+                if(attr=="opacity"){
+                    val=ele.currentStyle.filter;
+                    //alpha(opacity=50);
+                    reg=/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/;
+                    val=reg.test(val)?reg.exec(val)[1]/100:1;
+                }
+                val=ele.currentStyle[attr];
+            }
+            //去掉样式的单位
+            //对于特殊的样式值，例如disply:block/background:red ，没法去掉单位，所以要根据情况去单位
+            //-200.45px   +号可以排除，因为获取的值是浏览器处理完的，不可能有+号
+            var reg=/^-?(?:\d+)(?:\.\d+)?(?:px|pt|em|rem|deg)$/;
+            if(reg.test(val)){
+                val=parseFloat(val);
+            }
+            return val;
+        }
+        console.log(getCss(oDiv,"display"));//block
+        console.log(getCss(oDiv,"opacity"));//1
+        console.log(getCss(oDiv,"background"));//rgb(144, 238, 144) none repeat scroll 0% 0% / auto padding-box border-box
+        console.log(getCss(oDiv,"xxx"));//undefined
+    </script>
+</body>
+</html>

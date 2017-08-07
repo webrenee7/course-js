@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation-demo2</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+        .wrap{
+            position: relative;
+            width:100%;
+            height: 100%;
+        }
+        .wrap>img{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .wrap ul{
+            position: absolute;
+            bottom:5%;
+            width:100%;
+            z-index: 10;
+            text-align: center;
+        }
+        .wrap ul li{
+            display: inline-block;
+            width:130px;
+            height: 130px;
+            margin:0 10px;
+            border-radius: 50%;
+            border:10px solid rgba(255,255,255,0.5);
+            overflow: hidden;
+        }
+        .wrap ul li img{
+            width:100%;
+            height: 100%;
+        }
+        :target{
+            z-index: 10;
+        }
+        #bg1:target{
+            -webkit-animation: slideLeft 1s 1 both;;
+            animation: slideLeft 1s 1 both;;
+        }
+        #bg2:target{
+            -webkit-animation: slideUp 1s 1 both;;
+            animation: slideUp 1s 1 both;;
+        }
+        #bg3:target{
+            -webkit-animation: zoomIn 1s 1 both;;
+            animation: zoomIn 1s 1 both;;
+        }
+        #bg4:target{
+            -webkit-animation: zoomOut 1s 1 both;;
+            animation: zoomOut 1s 1 both;;
+        }
+        #bg5:target{
+            -webkit-animation: rotate 1s 1 both;;
+            animation: rotate 1s 1 both;;
+        }
+
+        @-webkit-keyframes slideLeft {
+            0%{ -webkit-transform: translate(-500px); transform: translate(-500px);}
+            100%{  -webkit-transform: translate(0px); transform: translate(0px);}
+        }
+        @keyframes slideLeft {
+            0%{ -webkit-transform: translate(-500px); transform: translate(-500px);}
+            100%{  -webkit-transform: translate(0px); transform: translate(0px);}
+        }
+
+
+        @-webkit-keyframes slideUp {
+            0%{ -webkit-transform: translate(0,-500px); transform: translate(0,-500px);}
+            100%{ -webkit-transform: translate(0,0px); transform: translate(0,0px);}
+        }
+        @keyframes slideUp {
+            0%{ -webkit-transform: translate(0,-500px); transform: translate(0,-500px);}
+            100%{ -webkit-transform: translate(0,0px); transform: translate(0,0px);}
+        }
+
+
+        @-webkit-keyframes zoomIn {
+            from{-webkit-transform:scale(0);transform:scale(0);}
+            to{-webkit-transform:scale(1);transform:scale(1);}
+        }
+        @keyframes zoomIn {
+            from{-webkit-transform:scale(0);transform:scale(0);}
+            to{-webkit-transform:scale(1);transform:scale(1);}
+        }
+
+
+        @-webkit-keyframes zoomOut {
+            from{-webkit-transform:scale(2);transform:scale(2);}
+            to{-webkit-transform:scale(1);transform:scale(1);}
+        }
+        @keyframes zoomOut {
+            from{-webkit-transform:scale(2);transform:scale(2);}
+            to{-webkit-transform:scale(1);transform:scale(1);}
+        }
+
+
+        @-webkit-keyframes rotate {
+            from{-webkit-transform:rotate(0deg) scale(0);transform:rotate(0deg) scale(0);}
+            to{-webkit-transform:rotate(360deg) scale(1);transform:rotate(360deg) scale(1);}
+        }
+        @keyframes rotate {
+            from{-webkit-transform:rotate(0deg) scale(0);transform:rotate(0deg) scale(0);}
+            to{-webkit-transform:rotate(360deg) scale(1);transform:rotate(360deg) scale(1);}
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!--img[src="img/$.jpg"]*5-->
+        <img src="img/1.jpg" alt="" id="bg1"/>
+        <img src="img/2.jpg" alt="" id="bg2"/>
+        <img src="img/3.jpg" alt="" id="bg3"/>
+        <img src="img/4.jpg" alt="" id="bg4"/>
+        <img src="img/5.jpg" alt="" id="bg5"/>
+        <!--ul>li*5>>a[href="#bg$"]>img[src="img/$.jpg"]-->
+        <ul>
+            <li><a href="#bg1"><img src="img/1.jpg" alt=""/></a></li>
+            <li><a href="#bg2"><img src="img/2.jpg" alt=""/></a></li>
+            <li><a href="#bg3"><img src="img/3.jpg" alt=""/></a></li>
+            <li><a href="#bg4"><img src="img/4.jpg" alt=""/></a></li>
+            <li><a href="#bg5"><img src="img/5.jpg" alt=""/></a></li>
+        </ul>
+    </div>
+</body>
+</html>

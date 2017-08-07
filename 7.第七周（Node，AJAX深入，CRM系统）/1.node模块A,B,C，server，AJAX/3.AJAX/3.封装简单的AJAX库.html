@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+</head>
+<body>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        /*$.ajax({
+         url:"data.txt",//请求地址
+         type:"get",//请求方式
+         dataType:"text",//预设获取数据的内容格式
+         data:null,//传递给服务器的内容放在DATA中
+         async:true,//设置同步还是异步
+         cache:false,//清除GET系列请求的缓存
+         timeout:10000,//设置超时时间
+         success:function (result) {
+         //请求成功执行这个回调函数，REQUEST是获取的响应主体内容
+         },
+         error:function (msg) {
+         //请求失败，MSG中存储的就是失败的原因
+         },
+         complete:function () {
+         //不管成功还是失败都会执行这里，它代表完成
+         }
+         });*/
+        $.ajax({
+            url:"data.txt",
+            type:"post",
+            dataType:"text",//预设客户端从服务器获取的数据类型 text:获取的是文本，也就是字符串  json:获取的是JSON格式的对象  xml:获取的是xml的数据  一般我们获取的是JSON格式的
+            async:true,
+            cache:true,//默认是TRUE:不清除缓存  FALSE：清除缓存，只有在GET系列的请求下，我们才会清除缓存，清缓存的方式也是再URL的末尾加随机数
+            data:{
+                name:"珠峰培训",
+                age:8
+            },//传递给服务器的内容都存储在这里，如果是GET请求，会把对象中的每一项都分别拼接到URL的末尾通过问号传参的方式传递给服务器，如果是POST请求，会把内容放在请求主体中传递给服务器。如果传递的是中文汉字，JQ会帮我们把中文汉字进行了编码，使用的是encodeURIComponent
+            //get方法：==>Request URL:http://localhost:63342/JavaScript/JavaScript%E6%AD%A3%E5%BC%8F%E8%AF%BE/7.%E7%AC%AC%E4%B8%83%E5%91%A8/1.node%E6%A8%A1%E5%9D%97A,B,C%EF%BC%8Cserver%EF%BC%8CAJAX/3.AJAX/data.txt?name=%E7%8F%A0%E5%B3%B0%E5%9F%B9%E8%AE%AD&age=8
+            //post方法：==>Form Data:name=%E7%8F%A0%E5%B3%B0%E5%9F%B9%E8%AE%AD&age=8
+            success:function (result) {
+                console.log(result);
+            },
+            error:function (msg) {
+
+            }
+        });
+    </script>
+</body>
+</html>

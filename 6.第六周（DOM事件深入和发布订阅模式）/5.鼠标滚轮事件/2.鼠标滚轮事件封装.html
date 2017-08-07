@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标滚轮事件封装</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            width:100%;
+            height: 300%;
+        }
+    </style>
+</head>
+<body>
+    <script src="wheel.js"></script>
+    <script>
+        var body=document.body;
+        addWheelEventListener(body,function (isDown,e) {
+            if(isDown){
+                this.style.background="red";
+            }else{
+                this.style.background="green";
+            }
+        });
+        /*body.onscroll=function () {
+            console.log(123);
+        }*/
+    </script>
+</body>
+</html>

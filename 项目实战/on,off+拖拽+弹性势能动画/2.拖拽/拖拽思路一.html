@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position: absolute;
+            /*position: absolute;
+            top:50%;
+            left: 50%;
+            margin:-50px 0 0 -50px;*/
+            /*
+            ie7不支持，主要用于移动端
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            margin:auto;*/
+            width:100px;
+            height: 100px;
+            background:lightsalmon;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        /*思路一（加法）：当前盒子的位置=鼠标移动的距离+盒子开始的位置*/
+
+        var box=document.getElementById("box");
+        //js实现盒子居中
+        box.style.top=((document.documentElement.clientHeight||document.body.clientHeight)-box.offsetHeight)/2+"px";
+        box.style.left=((document.documentElement.clientWidth||document.body.clientWidth)-box.offsetWidth)/2+"px";
+
+        //当鼠标按下的时候，给box绑定move,up事件，当鼠标抬起的时候，解除掉box的move和up事件
+        box.onmousedown=function (e) {
+            e=e||window.event;
+            //记录开始位置的信息
+            //鼠标的位置
+            this["strX"]=e.clientX;
+            this["strY"]=e.clientY;
+            //盒子的位置
+            this["strL"]=parseFloat(this.style.left);
+            this["strT"]=parseFloat(this.style.top);
+            if(this.setCapture){//ie和火狐下
+                //问题：当鼠标移动过快的时候，盒子会跟不上鼠标，导致鼠标抬起后盒子还会跟着移动
+                //原因：鼠标移动，重新计算盒子的位置，需要时间，鼠标移动过快，盒子跟不上鼠标，鼠标移动到了外面，外边抬起的时候触发的不是盒子的up事件，up事件没有触发，所以盒子的move事件也没有被移除掉
+                //这个问题是：”鼠标焦点丢失“
+                //解决：在IE和火狐浏览器提供了一种方法，让鼠标和盒子绑定在一起
+                this.setCapture();//让鼠标和当前的盒子绑定在一起
+                //但是setCapture这个方法在谷歌下不兼容
+                //===>只要鼠标移动（不管在哪移动），盒子就跟着移动，只要鼠标抬起，盒子就停止移动，鼠标再快，也永远离不开当前文档，如果把move和up绑定给当前文档，就永远不会存在鼠标丢失现象了
+                //给元素绑定移动和抬起的事件
+                this.onmousemove=move;
+                this.onmouseup=up;
+            }else{//谷歌下
+                var _this=this;
+                /*document.onmousemove=move;
+                document.onmouseup=up;
+                //这样写不行，因为this变成了document*/
+                document.onmousemove=function(e){
+                    //move();//move方法中的this是window
+                    move.call(_this,e);
+                };
+                document.onmouseup=function(e){
+                    up.call(_this,e);
+                };
+            }
+        }
+        function move(e) {
+            e=e||window.event;
+            //当前盒子的位置=鼠标移动的距离+盒子开始的位置
+            var curL=e.clientX-this["strX"]+this["strL"];
+            var curT=e.clientY-this["strY"]+this["strT"];
+            //边界判断
+            var minL=0,minT=0,maxL=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth,maxT=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight;
+            curL=curL<minL?minL:(curL>maxL?maxL:curL);
+            curT=curT<minT?minT:(curT>maxT?maxT:curT);
+            this.style.left=curL+"px";
+            this.style.top=curT+"px";
+        }
+        function up() {
+            if(this.releaseCapture){
+                this.releaseCapture();//把鼠标和当前盒子解绑
+                this.onmousemove=null;
+                this.onmouseup=null;
+            }else{
+                document.onmousemove=null;
+                document.onmouseup=null;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transition-demo</title>
+    <style>
+        body{
+            background: #99ddaa;
+        }
+        .box{
+            width:150px;
+            margin:100px auto;
+            height: 150px;
+            background: lightsalmon;
+            border-radius: 50%;
+            box-shadow: 0 0 0 40px transparent;
+            transition: 1s;
+            -webkit-transition: 0.5s;
+            -ms-transition: 0.5s;
+            -o-transition: 0.5s;
+            -moz-transition: 0.5s;
+        }
+        .box:hover{
+            box-shadow: 0 0 0 0 #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        /*
+        * 动画效果三部曲：
+         1>.确定过渡属性
+         2>.找到过渡属性的起始值和结束值
+         3>.添加transition属性
+        * */
+        //过渡属性：box-shadow扩展半径  颜色
+        //过渡属性的起始值和结束值：
+            //起始值  box-shadow扩展半径:40   颜色：无
+            //结束值 box-shadow扩展半径:0   颜色：白色
+    </script>
+</body>
+</html>

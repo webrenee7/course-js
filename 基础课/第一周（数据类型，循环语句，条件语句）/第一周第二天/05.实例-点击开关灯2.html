@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击开关灯</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            text-align: center;
+        }
+        #btn{
+            width:100px;
+            height:50px;
+            font-size: 20px;
+        }
+        #box{
+            width:500px;
+            height:500px;
+            margin:0 auto;
+            border:1px solid grey;
+        }
+        .bg1{
+            background-color: red;
+        }
+        .bg2{
+            background-color: green;
+        }
+        .bg3{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" id="btn" value="点击"/>
+    <div id="box"></div>
+    <script>
+        var oBtn=document.getElementById('btn');
+        var oBox=document.getElementById('box');
+        oBtn.onclick=function(){
+            var bg=oBox.className;//用一个变量存储原来的class值
+            //console.log(bg);
+            if(bg==='bg1'){
+                oBox.className='bg2';
+            }else if(bg==="bg2"){
+                oBox.className='bg3';
+            }else{
+                oBox.className='bg1';
+            }
+            /*switch(bg){
+                case 'bg1':
+                    oBox.className='bg2';
+                    break;
+                case 'bg2':
+                    oBox.className='bg3';
+                    break;
+                default:
+                    oBox.className='bg1';
+            }*/
+        }
+        //伪代码
+        /*
+         * 1、获取要操作的对象（元素）
+         * 2、给点击的对象绑定点击事件
+         * 3、将这个操作的整体过程定义成一个方法，并将这个方法赋值给点击的对象
+         * 4、在方法里
+         * 4.1、获取元素的class值
+         * 4.2、获取到的值分别进行匹配，匹配成功后执行相应的代码
+         */
+    </script>
+</body>
+</html>

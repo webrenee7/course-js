@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟数组原型上的slice方法</title>
+</head>
+<body>
+    <script>
+        var ary=[1,2,3,5,2,4,5,5,0,8];
+        Array.prototype.mySlice=function (n,m) {
+            var n=Number(n);
+            var m=Number(m);
+            var ary=[];
+            n=n||0;//n没传值
+            if(isNaN(m)){//只要m不是数字，返回的肯定是空数组
+                return ary;
+            }
+            m=m||this.length;//m没传值
+            n=n<0?this.length+n:n;//n为负数
+            m=m<0?this.length+m:m;//m为负数
+            m=m>this.length?this.length:m;//m超过数组长度
+            n=isNaN(n)?0:n;//n不是有效数字
+
+            if(n<m){
+                for(var i=n;i<m;i++){
+                    ary[ary.length]=this[i];
+                }
+            }
+            return ary;
+        }
+        console.log(ary.mySlice(1,"4"));
+        console.log(ary.slice(1,"4"));
+    </script>
+</body>
+</html>

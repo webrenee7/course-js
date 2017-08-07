@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击开关灯</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+    </style>
+</head>
+<body id="box">
+    <script>
+//需求：点击可视窗口切换可视窗口的背景颜色，颜色依次为：红，黄，绿，蓝
+    //行内样式
+    //选择器（外链式，内嵌式）
+
+
+
+    //获取可视窗口
+        var oBox=document.getElementById('box');
+        //声明一个变量oBox存储和代表一个元素
+        //在整个文档下，通过元素id名称获取一个id叫做box的元素
+            //document 文档  获取范围
+            //get 获取
+            //element 元素
+            //by 通过
+            //id id名称
+
+
+        oBox.onclick=function(){
+            var bg=oBox.style.backgroundColor;
+            if(bg==""){
+                oBox.style.backgroundColor='red';//此处，颜色值不能写16进制形式
+            }else if(bg=='red'){
+                oBox.style.backgroundColor='yellow';
+            }else if(bg=='yellow'){
+                oBox.style.backgroundColor='green';
+            }else if(bg=='green'){
+                oBox.style.backgroundColor='blue';
+            }else if(bg=='blue'){
+                oBox.style.backgroundColor='red';
+            }
+        }
+
+    </script>
+</body>
+</html>

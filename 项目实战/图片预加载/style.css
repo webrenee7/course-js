@@ -1,0 +1,45 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font:12px/24px "微软雅黑";
+}
+ul,li{
+    list-style: none;
+}
+.newsList{
+    padding:3%;
+}
+.newsList li{
+    display: -webkit-box;
+    padding:2% 0;
+}
+.newsList li div:nth-child(1){
+    width:70px;
+    height:60px;
+    margin-right:2%;
+}
+.newsList img{
+    width:70px;
+    height:60px;
+    opacity: 0;
+}
+.newsList li div:nth-child(2){
+    -webkit-box-flex: 1;
+}
+.newsList li div:nth-child(2) h3{
+    font-size:15px;
+    margin-bottom:3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.newsList li div:nth-child(2) p{
+    line-height:18px;
+    height:36px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2;
+}

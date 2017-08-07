@@ -1,0 +1,255 @@
+移动端开发关键词：
+    ☛ 响应式开发（由来，规则）
+    ☛ 移动端适配（rem如何适配）
+    ☛ swiper插件如何使用，了解API常用参数
+    ☛ animate.css动画库使用
+    ☛ 实战：H5页面制作-娱乐圈画传
+    ☛ 实战：个人简历制作
+    ☛ LESS（概念，安装/卸载，解析方式，语法规则）
+============================================================
+1、响应式开发的由来和种类
+    由来：
+       思维模式：自动识别屏幕的宽度，并做出相应调整的网页设计
+       说白了，只制作一套页面，利用设备特性（屏幕的宽度，设备像素比）自动调整页面的布局，从而在各个设备上都有显示成最佳的视觉效果
+    种类：
+       1、PC端和移动端做成一套，适合专题页或者小型的站点
+       2、PC端和移动端各做一套，单独的在移动端页面做的响应式，称之为移动适配
+       并且加前缀在前，不加前缀在后
+2、实现响应式开发的四条规则
+   1>、设置viewport（视口）
+        早期处理响应式开发的解决方案：
+            一开始移动设备都是按照980（设置了布局适口的宽度layout viewport(document.documentElement.clientWidth)）的宽度渲染，这样还是不行，还得左右移动才能看完整整个页面，所以又做了一个处理，页面一开始时根据设备的宽度缩放相应的倍数
+            缩放值：设备的宽度/980   <meta name="viewport" content="width=980px,initial-scale=0.38"/>
+        导致的问题：
+            页面内容变小，整个页面看不清
+        所以我们要自己去设置viewport，根据设备宽度渲染页面，把layout viewport=设备宽度===》这样就达到了理想的状态，称之为理想视口(ideal viewport)
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes,maximum-scale=2.0,minimum-scale=1.0">
+        每个属性的含义：
+             width=device-width  布局视口的宽度等于设备的宽度
+             initial-scale  起始缩放值
+             user-scalable:no/ye  是否允许用户去缩放
+             maximum-scale  最大缩放倍数
+             minimum-scale  最小缩放倍数
+        viewport快捷键设置：meta:vp+tab键
+    2>、页面布局不使用绝对宽度
+        其实就是对度量单位的选择
+        固定单位：px
+        相对单位：%
+                  em(相对于父标签字体大小的倍数)
+                  rem（相对于根元素的字体大小的倍数）
+    3>、引入媒体查询
+        概念：根据不同的条件设置不同的样式，从而使页面呈现不同的效果
+        语法：@media  [逻辑关键词用来筛选设备：not|only] [设备类型：screen|print|all] and (媒体条件)  {
+            css样式
+        }
+        ps:关于媒体条件（举例）：
+             (min-device-width:320px)  ==》设备宽度大于等于320
+            (min-device-width:414px) and (max-device-width:640px) ==》设备宽度大于等于414，小于等于640
+        常见的设备属性：
+            width：视口宽度     height视口高度
+            device-width：设备屏幕宽度   device-height：设备屏幕高度
+            device-pixel-ratio：设备像素比
+                在css中，通过-webkit-device-pixel-ratio,进行媒体查询,对不同dpr的设备，做一些样式适配
+                 @media screen and(-webkit-device-pixel-ratio: 3) {
+                     .box{
+                         background: url(@3x.jpg);/*1125设计稿上切出来的*/
+                     }
+                 }
+                 在js中通过window.devicePixelRatio获取到当前设备的dpr
+            orientation：窗口的方向纵向还是横向
+                当窗口的高度值大于等于宽度时该特性值为portrait(竖向)，否则为landscape(横向)
+                @media screen and (orientation:portrait) {/*竖向*/
+                    .box{
+                        background: orange;
+                    }
+                }
+        width和device-width的区别
+            手机竖向时，width和device-width没有区别
+            手机横向时，device-width是不发生改变的，但是显示区域的宽度（width）变成手机的高度了
+        物理像素，设备独立像素，dpr，dpi，retain屏幕等相关概念：
+            物理像素：各个设备显示器最小的物理显示单元（自身的单位）dpi
+            设备独立像素：虚拟像素（CSS像素）,可以通过相关系统转化成物理像素，所以物理像素和设备独立像素存在一定的关系，这个关系就是设备像素比（dpr）
+            dpr=物理像素/设备独立像素（在一个方向，在x轴或y轴）
+            iphone6  dpr=2
+            设备宽高：375*667
+            dpr<2  普通屏幕
+            dpr>2  高清屏幕
+            dpr>2  超高清屏幕
+            retina屏幕（苹果提出）==》高清屏幕（安卓）
+            可以根据dpr选择不同倍数的图片
+            dpr1=1  1倍图片  320宽度  375宽度
+            dpr1=2  2倍图片  640宽度  750宽度
+            dpr1=3  3倍图片  960宽度  1125宽度
+            同样大小的图片，如果要完全高清显示，所需要的像素点数和物理像素点数是一样的
+            设计稿主要有两种
+            1、按照iphone5设备设计的，宽度是640  dpr=2
+            2、按照iphone6设备设计的，宽度是750  dpr=2
+            像素点不够会拉伸==》模糊
+            像素点太多会挤压==》模糊
+            公司一般给dpr为2的设计稿（750）
+            @media screen and(-webkit-device-pixel-ratio: 2) {
+                .box{
+                    background: url(@2x.jpg);/*750设计稿切出来的*/
+                }
+            }
+    4>、图片的自适应
+        max-width:50% 如果图片的宽度大于50%，则显示成50%的宽度，如果小于50%，则显示成自身的宽度
+    断点：320(手机)  768(pad)  1000(PC)
+    断点是根据内容来设定，是设计师定好的，现在主要分为主断点和次断点
+3、移动端适配：
+    概念：说白了，就是制作一套页面，在各个设备上，图片大小，文字大小，间隙等发生改变，但是在比例上是保持一致的
+    rem是相对于根元素字体大小
+    解决如下问题：
+    a.由于设计稿上量出各个元素的大小都是多少px，如何把px转换成rem（页面上的元素具体设置多少rem合适）
+        假设设备宽度=设计稿的宽度
+        这样就可以按照设计稿量的大小来写页面
+        这时根元素字体大小统一约定设置成100px，这样是为了方便好算
+        -->页面上所有的元素就转化成了rem单位
+    b.各个设备的根元素字体大小设置成多少合适
+        回归现实，各个设备大小不一样
+        有一个是设备大小根元素字体大小是确定的（设备宽度=设计稿宽度）
+        各个设备宽度比例=各个设备根元素字体大小的比例
+        desW/winW=100/fs;
+        ==》fs=winW/desW*100;
+    面试题：你如何做移动端适配？************
+        通过rem适配
+        设计稿量的是px，如何将px转化为rem
+        假设法：假设设计稿宽度=设备宽度，按照pc端写
+         设备宽度        根元素字体大小      rem       设计稿元素大小
+             640            100px            0.86         86px
+             320            50px             0.86         43px
+         ====>各个设备宽度比例 = 各个设备根元素字体大小的比例
+        desW/winW=100/fs;
+        ==》fs=winW/desW*100;
+    js代码：
+        <script>
+            var desW=640;//设计稿宽度
+            var winW=document.documentElement.clientWidth;
+            document.documentElement.style.fontSize=winW/desW*100+"px"
+        </script>
+4、swiper插件使用方法
+    官方参考文档：http://www.swiper.com.cn/usage/index.html
+    1>.首先加载插件
+        需要用到的文件有swiper.min.js和swiper.min.css文件
+        动画库：http://www.jq22.com/yanshi819（根据自身需求看是否引入动画库）
+    2>.页面布局结构
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+
+            <!-- 如果需要导航按钮 -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- 如果需要滚动条 -->
+            <div class="swiper-scrollbar"></div>
+        </div>
+        导航等组件可以放在container之外
+     3>.初始化swiper
+        var mySwiper=new Swiper(".swiper-container",{
+            direction:"horizontal" ,//horizontal横向 vertical纵向
+            pagination:".swiper-pagination",//分页效果
+            paginationType:"progress",//分页类型--》进度条
+            speed:2000,//轮播速度
+            autoplay:1000,//自动轮播时间间隔
+            autoplayDisableOnInteration:false,//用户操作swiper之后，是否禁止autoplay。默认为true：停止。
+            effect:"coverflow",//轮播效果
+            prevButton:".swiper-button-prev",//前切换按钮
+            nextButton:".swiper-button-next",//后切换按钮
+            loop:true,//循环模式
+            lazyLoading:true,//图片延迟加载
+            lazyLoadingInPrevNext : true,//提前对前一张或后一张做延迟加载
+            onInit:function (swiper) {
+                 //swiper初始化后出发这个函数
+            },
+            onTransitionEnd:function (swiper) {
+                 //滑块滑动结束时出发这个函数
+            }
+        });
+5、LESS
+    1>.LESS概念：
+        CSS预处理器，解决了css的一系列问题，能够像js代码一样定义变量，函数，作用域等，能够像它的名字一样，用最少的代码做更多的事情，提高工作效率
+        LESS有自己的语法规范和解析器
+    2>.LESS解析方式有两种：
+        a.客户端解析（适合于本地开发环境，浏览器没法直接解析less代码，需要依赖于less解析器）
+        <script>
+            var less={
+                "env":"development",//开发环境
+                "poll":1000//在监视模式下，监视代码的间隔时间
+            }
+        </script>
+        <script src="less-2.5.3.min.js"></script>
+        <script>
+            less.watch();//在监视环境下
+        </script>
+        b.服务器端解析
+    安装less
+        安装到当前项目：npm install less
+        安装到全局：npm install less -g
+    卸载less：npm uninstall less
+    将less文件转化为css文件
+        lessc style.less style.css
+    引入less文件：
+        @import (reference) "public";
+        reference  只是引入public.less文件，不会再编译后的css文件输出
+6.LESS语法(变量，函数，继承.....)
+    1>.定义变量
+       @变量名
+       例如：
+           定义 @color:blue
+           调用 background:@color
+    2>.定义函数
+        .函数名(参数1，参数2，参数3....){
+            属性名：属性值
+             .....
+        }
+        .transition(@property:all,@duration:0s,@timing-function:ease,@delay:0s){
+            -webkit-transition: @arguments;
+            -moz-transition: @arguments ;
+            -ms-transition: @arguments ;
+            -o-transition: @arguments ;
+            transition: @arguments ;
+        }
+        调用:
+            div{
+                .transition(@duration: 1s);
+            }
+       变量作为属性，选择器，字符串，写法：@{val}
+       变量作为值存在：@val
+       .css3(@k,@v){
+             -webkit-@{k}:@v;
+             -moz-@{k}:@v;
+             -ms-@{k}:@v;
+             -o-@{k}:@v;
+             @{k}:@v;
+       }
+       .div1{
+         .css3(transform,rotate(45deg))
+       }
+    3>.继承样式
+        方法一：
+            .div2{
+                &:extend(.div1);
+                color: red;
+            }
+        方法二：
+             .div2:extend(.div1){
+                color:red;
+             }
+=================================================
+             http://caniuse.com/
+             http://cubic-bezier.com
+             https://www.npmjs.com/
+             https://bjango.com/articles/min-device-pixel-ratio/
+             https://daneden.github.io/animate.css/
+
+
+==================================================
+流式布局是用于解决类似的设备不同分辨率之间的兼容(一般分辨率差异较少)
+响应式是用于解决不用设备之间不用分辨率之间的兼容问题(一般是指PC，平板，手机等设备之间较大的分辨率差异)
+弹性布局：这类布局的特点是，包裹文字的各元素的尺寸采用em/rem做单位，而页面的主要划分区域的尺寸仍使用百分数或px做单位（同「流式布局」或「固定布局」）。

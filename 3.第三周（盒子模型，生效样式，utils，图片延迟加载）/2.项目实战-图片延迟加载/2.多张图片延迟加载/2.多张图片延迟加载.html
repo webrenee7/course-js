@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多张图片延迟加载</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        html,body,div,ul,li,h3,p{
+            margin:0;
+            padding:0;
+        }
+        img{
+            border:none;
+        }
+        .news{
+            padding:3%;
+        }
+        .news li{
+            display: -webkit-box;
+            padding:4% 0;
+            border-bottom: 1px dashed #ccc;
+        }
+        .news li div:nth-child(1){
+            width:80px;
+            height: 60px;
+            margin-right:3%;
+            background:url(images/default.jpg) no-repeat;
+            background-size: 100% 100%;
+        }
+        .news li div:nth-child(2){
+            -webkit-box-flex: 1 ;
+        }
+        .news li img{
+            width:80px;
+            height: 60px;
+            opacity:0;
+        }
+        .news li h3{
+            font-size: 16px;
+            margin-bottom: 5px;
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .news li p{
+            line-height: 18px;
+            font-size: 14px;
+            height: 36px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
+        }
+    </style>
+</head>
+<body>
+    <ul class="news"></ul>
+    <script src="myUtils.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

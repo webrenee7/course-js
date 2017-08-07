@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var ary=[1,2,2,5,2,3,6,8,4,5];
+        Array.prototype.mySlice = function mySlice(n, m) {
+            var ary = [];
+            n = n || 0;//n不传值的话
+            m = m || this.length;//m不传值的话
+            n < 0 ? n = this.length + Math.ceil(n) :n= Math.floor(n);//n为负数或者n为正数
+            m < 0 ? m = this.length + m : null;//m为负数
+            m > this.length ? m = this.length : null;//m超过数组长度
+            n < 0 ||isNaN(n)? n = 0 : null;//n为负数且超过数组长度或者n不是有效数字
+            if (m < n) {
+                return ary;
+            }
+            else {
+                for (var i = n; i < m; i++) {
+                    ary[ary.length] = this[i];
+                }
+                return ary;
+            }
+        }
+        console.log(ary.mySlice(-19,2));
+    </script>
+</body>
+</html>

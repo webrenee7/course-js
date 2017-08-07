@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件基础</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:100px;
+            height:100px;
+            background:#99ddaa;
+            position: absolute;
+            top:1000px;
+            left:1000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var box=document.getElementById("box");
+        box.onclick=function (e) {
+//            console.log(arguments);//[MouseEvent]
+//            console.log(e);//MouseEvent   ie低版本是undefined
+//            console.log(e.clientX,e.clientY);//587 600
+//            console.log(e.pageX,e.pageY);//1056 1055  ie低版本不兼容
+//            console.log(e.type);//click   注意没有on
+//            console.log(e.target);//<div id="box"></div>
+            //兼容性写法：
+            e=e||window.event;
+            e.pageX=e.pageX||(e.clientX+document.documentElement.scrollLeft||document.body.scrollLeft);
+            e.pageY=e.pageX||(e.clientY+document.documentElement.scrollTop||document.body.scrollTop);
+            console.log(e);
+            console.log(e.pageX,e.pageY);
+        }
+//        function fn(e) {
+//            console.log(e);
+//        }
+//        fn();//undefined
+//        box.onclick=function (e) {
+//            //这个事件对象e是在这个匿名函数中产生的，然后可以当做参数传递给其他的函数比如fn
+//            fn(e);//MouseEvent
+//        }
+
+    </script>
+</body>
+</html>

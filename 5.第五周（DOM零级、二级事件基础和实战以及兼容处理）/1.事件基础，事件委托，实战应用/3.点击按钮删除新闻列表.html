@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击按钮删除新闻列表</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .ul{
+            list-style: none;
+        }
+        .list{
+            padding:0 10px;
+        }
+        .list li{
+            position: relative;
+            height:150px;
+            line-height:150px;
+            font-size: 30px;
+            background: lightcyan;
+            border:2px solid lightsalmon;
+            margin-bottom:5px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .list li .close{
+            position: absolute;
+            right:0;
+            width:30px;
+            height:30px;
+            line-height:24px;
+            color: lightsalmon;
+            border:2px solid lightsalmon;
+            border-width:0 0 2px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list" id="list">
+        <li>1<span class="close">x</span></li>
+        <li>2<span class="close">x</span></li>
+        <li>3<span class="close">x</span></li>
+        <li>4<span class="close">x</span></li>
+    </ul>
+    <script>
+        /*var spanList=document.getElementsByTagName("span");
+        for(var i=0;i<spanList.length;i++){
+            spanList[i].onclick=function () {
+                this.parentNode.parentNode.removeChild(this.parentNode);
+            }
+        }*/
+        //利用事件委托处理   判断事件源
+        var list=document.getElementById("list");
+        list.onclick=function (e) {
+            e=e||window.event;
+            e.target=e.target||e.srcElement;
+            if(e.target.nodeName=="SPAN"&&e.target.className=="close"){
+                this.removeChild(e.target.parentNode);
+            }
+        }
+    </script>
+</body>
+</html>

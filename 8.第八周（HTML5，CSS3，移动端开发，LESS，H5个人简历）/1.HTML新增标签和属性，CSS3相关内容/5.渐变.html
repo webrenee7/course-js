@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变</title>
+    <style>
+        div{
+            float: left;
+            width:300px;
+            height: 300px;
+        }
+        /*线性渐变*/
+        .box1{
+            /*background: -webkit-linear-gradient(left,red 30%,green 40%);*/
+            background: -webkit-linear-gradient(45deg,#00b38a 10%,#f8f800 20%,#ed0000 30%,#3385ff 40%);
+            background: linear-gradient(45deg,#00b38a 10%,#f8f800 20%,#ed0000 30%,#3385ff 40%);
+        }
+        /*重复的线性渐变*/
+        .box2{
+            background: -webkit-repeating-linear-gradient(45deg,#00b38a 10%,#f8f800 20%,#ed0000 20%,#3385ff 30%);
+            background: repeating-linear-gradient(45deg,#00b38a 10%,#f8f800 20%,#ed0000 20%,#3385ff 30%);
+        }
+        /*径向渐变*/
+        .box3{
+            background: -webkit-radial-gradient(100px 200px at center,#f8f800 10%,#00ffff 50%,#f600f6 40%);
+            background: radial-gradient(100px 200px at center,#f8f800 10%,#00ffff 50%,#f600f6 40%);
+        }
+        /*重复的径向渐变*/
+        .box4{
+            background: -webkit-repeating-radial-gradient(100px 200px at center,#f8f800 10%,#00ffff 30%,#f600f6 40%);
+            background: repeating-radial-gradient(100px 200px at center,#f8f800 10%,#00ffff 30%,#f600f6 40%);
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+</body>
+</html>

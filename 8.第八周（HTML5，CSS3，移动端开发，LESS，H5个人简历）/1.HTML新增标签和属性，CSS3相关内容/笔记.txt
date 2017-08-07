@@ -1,0 +1,237 @@
+第八周移动端内容关键词：
+    ☛ HTML5
+        HTML5新增标签（语义化标签，功能标签）
+        HTML5新增表单种类
+        HTML5新增表单属性
+    ☛ CSS3
+        CSS3选择器
+        border-radius
+        背景
+        遮罩
+        渐变（线性渐变，径向渐变）
+        滤镜
+        阴影（盒子阴影，文本阴影）
+        CSS3核心：transition  过渡动画
+                  transform  变型属性
+                  animation  帧动画
+==============================HTML5================================
+1、HTML5语法变化：
+    DOCTYPE及字符编码
+    大小写都可以
+    具有布尔值属性
+    部分标签可以省略
+2、HTML5基础特性（新增标签(语义化标签和功能标签)，新增表单种类和属性
+    1>.新增语义化标签
+        header  网页的头部或这个区块的头部
+        nav  网页的导航
+        main  网页的主体内容
+        footer 网页的尾部或这个区块的尾部
+        section 一个区域或区块
+        article  独立的区块  强调的是独立性，比如文章
+        aside  通常表示侧边栏，表示与主体内容无关的内容
+        hgroup 对整个页面/页面中的一个内容区块的标题进行组合
+        figure 表示一段独立的流内容 元素经常用于图片
+        figcaption 代表一个图例的说明
+     2>.新增功能标签
+        mark 高亮显示
+        progress 进度条
+        time  用来表现时间或日期
+        datalist  选项列表与 input 元素配合使用，可以设置提示信息
+            <input  type="text" id="" list="shopCars"/>
+            <datalist id="shopCars"> <!--为表单设置可选值-->
+                <option value="aa"></option>
+                <option value="ab"></option>
+                <option value="c"></option>
+            </datalist>
+        details 用于描述文档或文档某个部分的细节
+                summary标签和details一起使用,表示标题,用户点击标题时会得到细节信息
+                <details>
+                    <summary>111</summary>
+                     <ul>
+                        <li>111</li><li>222</li><li>333</li>
+                     </ul>
+                </details>
+        output 不同类型的输出,比如脚本的输出
+            <form oninput="x.value= parseInt(a.value)+parseInt(b.value)">
+                <input type="range" id="a" max="100" min="0" value="50"/>+
+                <input type="number" id="b" value="50"/>
+                <output name="x" for="a b">150</output>
+            </form>
+    ps:处理H5新增标签的兼容问题：
+        HTML5语义化标签在IE6-8下，对于不支持的标签不会有任何的样式,也默认的当成行内元素来出来,所以在样式表里要对这些标签定义一下 它默认的display
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="html5.min.js"></script>
+        <![endif]-->
+        【条件注释法】
+            gt--->当前版本以上的版本，不包含当前版本
+            gte-->当前版本上的版本，包含当前版本
+            lt-->当前版本以下的版本，不包含当前版本
+            lte-->当前版本以下的版本，包含当前版本以
+    3>.新增表单种类
+        1>、新增input元素的种类
+            search 搜索框  出现的软键盘中右下角按钮由前往改成搜索
+            tel  电话号码输入框  数字键盘（手机上才能显示）
+            url  URL地址
+            email  : 邮件输入框
+            number  : 数字输入框
+            rang :特定范围内的数值选择器(通过拖动滚动条改变一定范围内的数字)
+            --------------------------------------------------------------------
+            color  : 颜色选取器 只在 Opera 和 Blackberry 浏览器
+            datetime  : 显示完整日期和时间 UTC标准时间（目前不支持）
+            datetime-local  : 显示完整日期和时间
+            time  :  显示时间
+            month :  显示月
+            week  : 显示周
+        2>、表单新特性
+            placeholder：输入框占位符，常用作输入提示，在光标聚焦时，占位符自动消失
+            autocomplete：是否保存用户输入值(规定输入字段是否应该启用自动完成功能。)   默认为on,关闭提示选择off
+            autofocus：自动聚焦
+            required：此项必填，不能为空
+            Pattern：正则验证  pattern="\d{1,5}“
+            form 属性 只要加上 form 属性，表单元素可以放到页面的任意位置。
+            formnovalidate 和 novalidate
+                它俩都表示不需要验证表单,直接提交
+                novalidate 用于 form 标签
+                formnovalidate 用于 submit类型的提交按钮。
+            表单验证
+                验证不通过会触发invalid事件
+                表单元素上自带validity对象，该对象有如下属性：
+                当验证不通过时，这些属性的返回值如下：
+                    vaild 验证不通过时返回false
+                    patternMismatch  正则不匹配时返回true
+                    typeMismatch 输入类型不匹配时候返回true
+                    valueMissing  输入为空时返回true
+                通过设置setCustomValidity属性，可以改变默认的提示信息
+            hidden  元素隐藏
+            spellcheck  对可编辑的内容纠错
+            tabindex  按照顺序跳转  -针对表单元素
+            contenteditable  true 可编辑
+            window.document.designMode="on"  全局设置，页面上所有的内容都可以编辑
+
+==================================CSS3===============================================
+1、CSS3选择器
+    【结构选择器】
+        :nth-child(n) 获取第几个元素（从1开始设置）
+        :nth-child(2n) 获取偶数元素（从0开始设置）
+        :nth-child(2n+1) 获取奇数元素
+        :nth-of-type(n)  某个元素下的同种类型的子元素的第几个
+        :first-child  ->nth-child(1)  获取第一个子元素
+        :first-of-type ->nth-of-type(1)  获取同种类型的第一个子元素
+        :last-child  获取最后一个子元素
+        :last-of-type  获取同种类型的最后一个子元素
+        :only-child 仅有一个子元素
+        :only-of-type 同种类型的子元素只有一个
+        :empty  不包含任何的元素节点，文本节点
+    【否定选择器】
+        :not()  括号里写的是任意的选择器
+    【属性选择器】
+        E[attr=val]
+        E[attr|=val]  只能等于val  或只能以val-开头
+        E[attr*=val]  包含val字符串
+        E[attr~=val]  属性值有多个,其中有一个是val
+        E[attr^=val]  以val开头
+        E[attr$=val]  以val结尾
+    【伪类目标选择器】
+        :target 用来匹配url指向的目标元素  当前活动的目标元素起作用
+        存在url指向该匹配元素时,样式效果才会生效
+    【伪元素】:利用content特性，能够将css中的内容在页面中显示出来，但是不会生成DOM节点
+        有两个冒号，但是一个也可以
+        : first-line  匹配第一行文本
+        : first-letter 匹配首字符
+        : before 和 : after  DOM元素前后插入额外的内容
+2、border-radius
+    border-radius: 1-4个数字 / 1-4个数字
+    前面是水平半径，后面是垂直半径
+    四个数字方向分别是左上  右上  右下  左下
+    不给“/”则水平半径和垂直半径一样
+    border-radius: 10px/5px;
+    border-radius:60px 40px 30px 20px /30px 20px 10px 5px
+    例子 : 圆  椭圆  半圆  扇形
+3、渐变
+    【线性渐变 linear-gradient】
+        linear-gradient([<起点> || <角度>,]? <点>, <点>…)
+        只能用在背景上，颜色是沿着一条直线轴变化
+        参数：
+            起点：从什么方向开始渐变
+                left、top、center、right、bottom
+            角度：从什么角度开始渐变
+                xxx deg的形式
+            点：渐变点的颜色和位置
+                red 50%，位置可选
+        举例：background: linear-gradient(45deg,#00b38a 10%,#f8f800 20%,#ed0000 30%);
+        重复的线性渐变：background: repeating-linear-gradient(45deg,#00b38a 10%,#f8f800 20%,#ed0000 30%);
+    【径向渐变  radial-gradient】
+        radial-gradient([[<shape> || <size>] [at <position>]?,| at <position>,]?<color-stop>[,<color-stop>]+);
+        从“一个点”向多方向颜色渐变
+        shape形状 ： ellipse、circle  或设置水平半径,垂直半径
+        size:渐变的大小，即渐变到哪里停止，有如下关键词:
+             closest-side：最近边； farthest-side：最远边；
+             closest-corner：最近角； farthest-corner：最远角 (默认值)
+        position ：关键词|数值|百分比
+        举例：background: radial-gradient(100px 200px at center,#f8f800 10%,#00ffff 50%,#f600f6 40%);
+        重复的径向渐变：background: repeating-radial-gradient(100px 200px at center,#f8f800 10%,#00ffff 50%,#f600f6 40%);
+4、背景
+    background-origin
+        border-box 从border区域显示
+        padding-box 从padding区域显示（默认值）
+        content-box 从content区域显示
+    background-clip
+        border-box  从border区域往外裁剪（默认值）
+        padding-box  从padding区域向外裁剪
+        content-box  从content区域往外裁剪
+        text   文本裁剪
+    background-size
+        100% 100%  百分比
+        10px 10px 数值
+        contain   按原始比例收缩,背景图显示完整,但不一定铺满整个容器
+        cover   按原始比例收缩,背景图可能显示不完整,但铺满整个容器
+    background-attachment
+        背景图片是滚动的还是固定的 fixed(固定的) 默认是滚动的
+5、滤镜
+    -webkit-filter: normal; 正常
+    -webkit-filter: grayscale(1); 灰度，取值范围0-1
+    -webkit-filter: brightness(0. 亮度，取值范围0-1
+    -webkit-filter: invert(1); 反色5); ，取值范围0-1, 0为原图，1为彻底反色之后
+    -webkit-filter: sepia(0.5); 叠加褐色，取值范围0-1
+    -webkit-filter: hue-rotate(30deg); 色相（按照色相环进行旋转，顺时针方向，红-橙-
+    黄-黄绿-绿-蓝绿-蓝-蓝紫-紫-紫红-红）此处为叠加黄色滤镜
+    -webkit-filter: saturate(4); 饱和度，取值范围0 ~ *, 0为无饱和度，1为原图，值越高饱
+    和度越大
+    -webkit-filter: contrast(2); 对比度，取值范围0 ~ *, 0为无对比度（灰色），1为原图，
+    值越高对比度越大
+    -webkit-filter: opacity(0.8); 透明度，取值范围0 ~ 1, 0为全透明，1为原图
+    -webkit-filter: drop-shadow(0 0 20px red); 阴影
+6、盒子阴影
+    box-shadow: h  v  blur spread color inset;
+    X偏移(正->右，负->左)  Y偏移(正->下，负->上)  模糊半径  扩展半径  阴影颜色  外/内阴影（默认外阴影）
+    	ps:设置单阴影：通过扩展半径
+    	举例：box-shadow:10px 0 10px -5px green;
+    	box-shadow:0 0 0 10px green;//只设置扩展半径，相当于设置边框，不会算在盒子模型里面
+7、文本阴影
+    text-shadow : x y blur  color
+    X偏移(正->右，负->左)  Y偏移(正->下，负->上)  模糊半径  阴影颜色
+        多层阴影制作文字立体效果 ,设置多种颜色,中间以逗号隔开(后面偏移值>前面偏移值)
+        举例：text-shadow:1px 1px 3px red,2px 2px 4px orange
+        文字添加边框(镂空字体)
+             text-stroke: 2px blue;
+             color:transparent;
+8、遮罩
+    mask-image
+    mask-position
+    mask-repeat
+    演示 : 图片遮罩效果
+=====================================================================================
+1.怪异模式和标准模式的区别
+2.strong与b区别，em与i的区别
+    strong和em：语义化标签，b和i：表现形式的标签
+3.html4语义化标签：
+  h1-h6,p,ul li,ol,dl,dt,dd,img,a,strong,em,q(引用标签)
+4.什么是渐进增强与优雅降级？
+  渐进增强：先保证低版本浏览器功能没问题，再针对高版本浏览器设置CSS3样式
+  优雅降级：先保证高版本浏览器，然后再去低版本浏览器检测是否支持
+            ==》不管/用JS实现CSS3/功能砍掉
+5.测试CSS3属性兼容性：http://caniuse.com/
+推荐书籍：
+    图解CSS3
+    HTML5秘籍
+    高程3

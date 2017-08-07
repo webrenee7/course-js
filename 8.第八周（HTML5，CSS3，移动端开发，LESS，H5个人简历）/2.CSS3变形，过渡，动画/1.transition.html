@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transitioin</title>
+    <style>
+        div{
+            width:100px;
+            height: 100px;
+            background: red;
+        }
+        .box1:hover{
+            height: 400px;
+            width: 400px;
+            /*transition: 1s;*/
+            /*transition分开写法*/
+            /*transition-property: height,width;!*中间用逗号隔开*!*/
+            /*transition-duration: 1s,2s;*/
+            /*transition-delay: 1.5s;*/
+            /*transition-timing-function: ease-in-out;*/
+            /*transition-timing-function: cubic-bezier(.14,1.19,.8,.17);*/
+            /*transition复合写法*/
+            /*transition: width 1s 1s ease;*/
+            transition: width 1s 1s ease,height 2s 2s linear;
+            /*如果只是transition-property不一样，其他的过渡时间，延迟时间，动画类型都一样*/
+            /*transition: all 1s 1s ease;*/
+        }
+        .box2{
+            background: green;
+            transition: width 1s 1s ease,height 2s 2s linear;/*写在这里，离开的时候，还会回到初始状态*/
+        }
+        .box2:hover{
+            width:400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2" id="box2"></div>
+    <script>
+        var oDiv2=document.getElementById("box2");
+        oDiv2.addEventListener("transitionend",function () {
+            //动画结束以后触发的事件  transitionend|webkitTransitionEnd|mozTransitionEnd|msTransitionEnd
+            console.log(1);
+        },false);
+    </script>
+</body>
+</html>

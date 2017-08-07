@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width:62px;
+            height:62px;
+            background: url("img/yl.png") no-repeat -90px -3px;
+        }
+        .box:hover{
+            -webkit-animation: shake 0.3s infinite both linear;
+            animation: shake 0.3s infinite both linear;
+        }
+        @-webkit-keyframes shake {
+             0%{ -webkit-transform: rotate(0deg);transform: rotate(0deg);}
+             25%{ -webkit-transform: rotate(-30deg); transform: rotate(-30deg);}
+             50%{ -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+             75%{ -webkit-transform: rotate(30deg); transform: rotate(30deg);}
+             100%{ -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+         }
+        @keyframes shake {
+            0%{ -webkit-transform: rotate(0deg);transform: rotate(0deg);}
+            25%{ -webkit-transform: rotate(-30deg); transform: rotate(-30deg);}
+            50%{ -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+            75%{ -webkit-transform: rotate(30deg); transform: rotate(30deg);}
+            100%{ -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        //0 25%  50%  75%  100%
+    </script>
+</body>
+</html>

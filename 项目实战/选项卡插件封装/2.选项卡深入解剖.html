@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一堆选项卡</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="box" id="tab">
+        <ul class="clear">
+            <li class="selected">页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div class="selected">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+        <div>内容二</div>
+        <div>内容三</div>
+    </div>
+    <script src="js/utils-2.0.js"></script>
+    <script>
+        //不使用闭包，不使用自定义属性，不管结构多复杂
+        var tabFir=document.getElementById("tab");
+        var tabFirst=utils.firstChild(tabFir);
+        var oLis=utils.children(tabFirst);
+        for(var i=0;i<oLis.length;i++){
+            oLis[i].onclick=function () {
+                //把兄弟元素的选中样式都移除
+                var curSiblings=utils.siblings(this);
+                for(var i=0;i<curSiblings.length;i++){
+                    utils.removeClass(curSiblings[i],"selected");
+                }
+                //给当前点击的元素添加样式
+                utils.addClass(this,"selected");
+                //再让当前点击这个li父亲元素的所有的弟弟元素（三个div）中和当前点击的这个li索引相同的有选中样式，其余移除选中样式
+                var index=utils.index(this);
+                var divList=utils.nextAll(this.parentNode);
+                for(var i=0;i<divList.length;i++){
+                    i===index?utils.addClass(divList[i],"selected"):utils.removeClass(divList[i],"selected");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

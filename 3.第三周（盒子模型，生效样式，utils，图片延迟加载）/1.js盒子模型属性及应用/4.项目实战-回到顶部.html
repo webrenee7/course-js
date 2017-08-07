@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回到顶部</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            width:100%;
+            height:300%;
+            background:red;
+            background:-webkit-linear-gradient(top,yellowgreen,lightcyan,lightsalmon);
+        }
+        a,a:hover{
+            text-decoration: none;
+        }
+        .backTop{
+            position: fixed;
+            bottom:30px;
+            right:30px;
+            display: block;
+            width:60px;
+            height: 60px;
+            line-height: 60px;
+            background:#000;
+            border:5px solid darkcyan;
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 50%;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:void 0;" class="backTop" id="backTop">顶</a>
+    <script src="myUtils.js"></script>
+    <script>
+       var backTop=document.getElementById("backTop");
+
+         var speed=20;
+        /*var timer=null;//如果每次点击之前不清除定时器，timer依次等于 1 2 3
+        backTop.onclick=function () {
+            //如果每次点击，之前不清除定时器，每点一次会启动一个定时器，会有好几个定时器驱动让事件执行
+            clearInterval(timer);//只要点击，就把上一次点击留存的定时器清除，防止定时器的累加
+            timer=window.setInterval(function () {//不能定义var timer，因为timer会变成私有变量，导致上面的timer不能清除
+                var curTop=utils.win("scrollTop");//先获取到当前的scrollTop值
+                //过界判断
+                if(curTop<=0){
+                    clearInterval(timer);
+                    return;//清除定时器后，后面的代码没必要执行了
+                }
+                curTop-=speed;
+                utils.win("scrollTop",curTop);
+               // console.log("ok");//==》如果不清除定时器，会一直执行定时器，所以当curTop为0时，需要清楚定时器，并终止后面代码的执行。
+            },10);
+        }*/
+
+
+        //自定义属性方法：
+        /*backTop.onclick=function () {
+            backTop.timer&&clearInterval(backTop.timer);
+            var _this=this;
+            backTop.timer=window.setInterval(function () {//backTop身上存timer值
+                var curTop=utils.win("scrollTop");
+                if(curTop<=0){
+                    //clearInterval(backTop.timer);//不能用this.timer，因为定时器的this为window
+                    window.clearInterval(_this.timer);
+                    return;
+                }
+                curTop-=speed;
+                utils.win("scrollTop",curTop);
+            },10);
+        }*/
+
+        //加速/减速运动
+        /*backTop.onclick=function () {
+            backTop.timer&&clearInterval(backTop.timer);
+            var _this=this;
+            backTop.timer=window.setInterval(function () {//backTop身上存timer值
+                var curTop=utils.win("scrollTop");
+                if(curTop<=0){
+                    //clearInterval(backTop.timer);//不能用this.timer，因为定时器的this为window
+                    window.clearInterval(_this.timer);
+                    return;
+                }
+                //让速度越来越小
+                //根据curTop越来越小，让减速
+                speed*=0.98;
+                curTop-=speed;
+                utils.win("scrollTop",curTop);
+            },10);
+        }*/
+
+        //回到顶部按钮刚开始不出现，滚动条滚出去超过一屏幕时再出现
+        backTop.onclick=function () {
+            backTop.timer&&clearInterval(backTop.timer);
+            var _this=this;
+            backTop.timer=window.setInterval(function () {//backTop身上存timer值
+                var curTop=utils.win("scrollTop");
+                if(curTop<=0){
+                    //clearInterval(backTop.timer);//不能用this.timer，因为定时器的this为window
+                    window.clearInterval(_this.timer);
+                    window.onscroll=fn;
+                    return;
+                }
+                curTop-=speed;
+                utils.win("scrollTop",curTop);
+            },10);
+            this.style.display="none";//点击完消失不了，是因为点击完后，启动了一个定时器，这个定时器驱动滚动条滚动，onscroll事件又被触发了，回到顶部按钮又显示了
+            window.onscroll=null;//点击完后，移除onscroll事件
+        }
+        //==》浏览器滚动条只要滚动就判断scrollTop值
+        //给浏览器窗口绑定一个滚动条滚动事件
+        //事件触发时，判断已经滚出去的高度，是否超过了一个屏的高度
+        function fn() {
+            var curTop=utils.win("scrollTop");//已经滚出去的高度
+            var screenHeight=utils.win("clientHeight");//当前屏幕的高度
+            if(curTop>screenHeight){
+                backTop.style.display="block";
+            }/*else{
+             backTop.style.display="none";
+             }*///点击完后滚动条回到顶部，按钮才消失，我想让它点击完后立马消失
+        }
+        window.onscroll=fn;
+
+
+
+    </script>
+</body>
+</html>

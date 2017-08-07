@@ -1,0 +1,134 @@
+周六周日关键词:
+    1、hybrid模式（微信开发）
+    2、移动端事件(完成3D魔方旋转)
+    3、JSONP(完成百度搜索框)
+    4、本地存储cookie,localStorage
+    5、完成腾讯看比赛webApp开发
+
+    看视频：移动端表单元素的新解,placeholder 在IE下的处理
+=============================================================================
+1、进入公司开发哪些移动端产品？
+    ->产品活动宣传页（场景滑屏应用页面） 运行在手机的浏览器或者微信中
+    ->PC端和移动端公用一套项目（经常是因为需要把PC端在移动手机上也能自适应） Bootstrap
+    ->webApp：使用H5技术，搭建一个HTML页面和项目，一般来说webApp产品只在移动端设备运行
+    ->微信小程序
+
+2、APP与webApp
+    1>.APP(Native App)
+    APP运行环境：安装在手机上的应用（Native App）
+    优势：
+        ->直接安装到手机内部操作系统中的应用（和我们在电脑上安装一个wb一样），这样的话就可以对手机内部的软件和硬件进行操作了（当然，有些东西需要用户授权）
+    弊端：
+        ->IOS系统采用object-c,安卓系统采用java-native进行开发，不同操作系统需要开发多套产品，开发团队也需要多个，成本高
+        ->IOS的APP上线到苹果商店需要有七天审核期
+        ->应用需要更新的时候，需要用户自主性选择更新
+    2>.webApp(H5页面)
+    webApp运行环境：移动端浏览器：内置浏览器\UC\QQ....我们在开发的时候也需要注意每一个浏览器单独的特性，可以应用一些特性完成更好的交互体验
+    优势：
+        ->可以跨平台,开发一套产品，多平台适用
+        ->更新不需要用户和自主选择，项目在我们自己的服务器上，只要我们服务器上更新了，用户重新访问看到的就是最新的
+    弊端：
+        ->H5页面是运行在其他的宿主环境中的（不是手机操作系统），所以想要操作手机内部的软件或者硬件，需要看一下宿主环境是否支持
+        ->虽然说现在有一些浏览器都支持，但是操作性能非常不好（native.js）
+
+3、hybrid模式
+    把我们的H5页面嵌入到native app中，H5是运行在APP中的webView中的(我们可以把webView理解为webkit内核的一款浏览器)
+    目前公司中，都是由APP开发一个壳子，把需要调取系统方法的功能实现（例如：拍照），然后里面的主体内容都是由H5开发
+    ==》React native/phoneGap..都是提供一套框架，前端开发人员只需要按照对应的API使用JS去把原来APP人员干的活实现，最后框架会帮我们生成两套APP代码(IOS/安卓)
+    ==》微信小程序诞生
+    比APP成本低，比H5运行快
+    H5和APP之间通信
+    ->jsBridge：微信二次开发  http://mp.weixin.qq.com/wiki
+        微信js引入，直接调取它的方法（调取摄像头）
+    微信把需要提供给H5调取的方法注入到webView中
+    wx={
+    //微信把这些方法注入到webView中，所以webView中就有一个全局对象wx，H5引入APP中提供的一个JS(jsBridge.js)，如果想要调取微信中的功能，我们只需要执行wx.phone(function(result){})
+        phone:function(callback){//摄像头
+            callback([value]);
+        }
+        ready:function(){
+        },
+        share:function(){//分享
+        }
+    }
+    ->伪装URL（IOS）
+    sports://temp.qq.com?phone=fn  这个URL是假的，和APP开发人员共同来制定的
+    我们在H5中通过window.location.href发送这个请求，APP就可以把这个请求拦截掉，发现是这个地址，就认为我们想调取的是摄像头的功能（fn是我们在自己的JS中定义的方法，APP开始调取摄像头拍照，然后把拍摄的照片和获取的方法名(fn)一起拼接成字符串(fn(照片))返回给H5页面
+    H5把返回的结果执行，其实相当于把fn执行，传递的参数值就是我们需要的照片--》仿照JSONP模式
+
+4、JSONP
+    很简单，就是利用<script>标签没有跨域限制的“漏洞”（历史遗迹啊）来达到与第三方通讯的目的。当需要通讯时，本站脚本创建一个<script>元素，地址指向第三方的API网址，形如：
+    <script src="http://www.example.net/api?wd=z&callback=fn"></script>
+     并提供一个回调函数来接收数据（函数名可约定，或通过地址参数传递）。
+     第三方产生的响应为json数据的包装（故称之为jsonp，即json padding），形如：
+     fn({"name":"hax","gender":"Male"})
+     这样浏览器会调用callback函数，并传递解析后json对象作为参数。本站脚本可在callback函数里处理所传入的数据。
+    JSONP原理：
+    使用原生js进行jsonp跨域请求:
+    客户端：
+       1>.创建一个函数
+       2>.增加一个script标签，在src中引入请求数据的接口地址，通过问号传参形式，传递一个回调函数来接收数据，让浏览器帮我们发送请求 &wb=z&cb=fn  cb是一个标识，一般服务器中定义的标识是callback，但是也可以按照约定来命名，百度中是"cb"
+       3>.客户端的浏览器接收到返回的结果  ==>函数名(数据内容)
+    服务器端：
+       1>.接收客户端的请求，解析传递的URL参数
+       2>.根据传递的参数到数据库中获取与用户输入的关键词相匹配的数据
+       3>.把获取的结果返回给浏览器  fn({q:"z",p:false,s:["知乎","直播吧","支付宝","在线翻译","中国银行","智联招聘","战旗tv","中国知网","招商银行","真正男子汉第二季"]})
+    使用jQuery进行jsonp跨域请求(项目中通常这样用)
+    $.ajax({
+        url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=z",
+        type:"get",//jsonp都是get请求，jquery默认就把缓存清掉了
+        dataType:"jsonp",
+        jsonp:"cb",//把callback变为cb,jQ中默认是callback
+        jsonpCallback:"fn"//把随机函数名变为fn
+    });
+
+5、盒子模型
+    分为css盒子模型和css3盒子模型
+    css盒子模型  box-sizing:content-box
+        在css中设置的宽高不是盒子的宽高，而是"盒子内容"的宽高
+        盒子的宽度=border+padding+width
+    css3盒子模型  box-sizing:border-box
+        在css中设置的宽高就是盒子的宽高  不会受到padding和border的影响
+    html5中新增的一些input表单元素默认是border-box***********例如：search
+
+6、移动端事件
+    1>.PC端事件:
+        click,dblclick,keyup,keydown,mouseover,mouseout,mouseenter,mouseleave,mousemove,mousedown,mouseup,mousewheel,resize,load,change,readystatechange,DOMContentLoaded,error,selected,focus,blur,checked
+    DOMContentLoaded 与onload的区别：
+        ->当 onload 事件触发时，页面上所有的DOM，样式表，脚本，图片，flash都已经加载完成了。
+        ->当 DOMContentLoaded 事件触发时，仅当DOM加载完成，不包括样式表，图片，flash。
+    2>.移动端事件:
+        移动端是虚拟键盘，很多手机或者浏览器不能识别keyup和keydown事件，我们统一使用input事件来代替这两个事件
+        mouse系列的事件在移动端基本都不去使用
+        其余的在移动端都有，也经常被使用
+        在pc端click属于“点击”事件，只要触发点击操作事件就会被触发
+        在移动端click属于”单击“事件，一般浏览器设定一个时间段（300ms），在这个时间内触发多次点击属于双击而不是click，在这段时间内只触发一次点击才是单击
+        所以在移动端使用click事件会存在300ms的延迟问题：当用户第一次触发后，需要等待300ms，验证是否有第二次触发，没有第二次触发才是单击事件
+
+    3>.移动端的事件分类
+        手指为操作媒介的事件：
+        单手指事件
+            touchstart   触摸开始
+            touchmove  手指移动
+            touchend  手指离开
+            touchcancel  当手机出现意外情况，导致事件取消
+            移动端点击没有现成点击事件，需要模拟
+            TouchEvent 手指事件对象'
+            touches和changedTouches都记录了当前操作手指的信息，但是在手指离开的时候，changedTouches信息依然存在（存的是最后离开屏幕时候的位置），而touches没有了，其他时候获取的结果是一样的
+        多手指事件
+            gesturestart gesturechange gestureend gesturecancel
+        手机内部硬件为操作媒介的事件
+            重力感应
+            GPS地理定位
+
+7、两个类库：fastclick与zepto
+    1>.FastClick
+        专门用来解决移动端click事件300ms延迟的问题
+        原理：采用事件委托，在下面的案例中是委托给body的，以后只要是body中出现的click事件都替换为touch(xxx)事件来处理
+        FastClick.attach(document.body);
+    2>.Zepto
+        被誉为移动端的小型jQuery，jQuery怎么用，它就怎么用
+        Zepto更适合移动端开发
+            ->体积比jQuery小,Zepto没有考虑IE兼容，而且只实现了jquery中常用的方法
+            ->Zepto提供了移动端经常操作的事件方法：
+            tap,singleTap,doubleTap,longTap,swipe,swipeLeft,swipeRight,swipeUp,swipeDown,pinchIn,pinchOut

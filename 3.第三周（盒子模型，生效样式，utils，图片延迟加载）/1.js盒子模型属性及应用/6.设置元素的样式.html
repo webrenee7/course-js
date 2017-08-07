@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置元素的样式</title>
+    <style>
+        html,body{
+            margin:0;
+            padding:0;
+        }
+        div{
+            position: absolute;
+            left: 50px;
+            top:40px;
+            width:200px;
+            height: 200px;
+            background:lightgreen;
+            opacity:0.5;/*没写至少返回1*/
+            filter: alpha(opacity=50);/*没写返回""*/
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        //getAttribute(),setAttribute(),removeAttribute()对元素属性的操作
+        //设置元素样式
+        function setCss(ele,attr,val) {
+            if(attr=="opacity"){
+                ele.style.opacity=val;
+                ele.style.filter='alpha(opacity='+val*100+')';
+            }
+            if(attr=="float"){
+                ele.style.cssFloat=val;//标准浏览器
+                ele.style.styleFloat=val;//ie6-8浏览器
+            }
+            var reg=/^(width|height|left|right|top|bottom|((margin|padding)(Left|Right|Top|Bottom)?))$/;
+            if(reg.test(attr)){
+                if(!isNaN(val)){
+                    val+="px";
+                }
+            }
+            ele.style[attr]=val;
+        }
+        var oDiv=document.getElementsByTagName("div")[0];
+        setCss(oDiv,"opacity",0.5);
+        setCss(oDiv,"background","red");
+        setCss(oDiv,"height",400);
+        setCss(oDiv,"marginLeft",100);
+        setCss(oDiv,"borderBottom","10px solid #000");
+    </script>
+</body>
+</html>

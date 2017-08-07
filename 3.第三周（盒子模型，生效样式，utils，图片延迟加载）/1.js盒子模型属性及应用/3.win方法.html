@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:1440px;
+            height:200px;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">的说法大幅地方撒范德萨范德萨暗示法第三范德萨范德萨范德萨</div>
+    <script>
+        //如果有一个参数，就获取浏览器窗口的这个属性，如果有两个参数，那么就是设置这个属性的
+        /**
+         * win方法
+         * @param attr  要获取/设置的属性名
+         * @param value  要设置的值
+         */
+        var box=document.getElementById("box");
+        function win(attr,value) {
+            if(typeof value==="undefined"){
+                return document.documentElement[attr]||document.body[attr];
+            }else{
+                document.documentElement[attr]=value;
+                document.body[attr]=value;
+            }
+        }
+        console.log(win("clientWidth"));
+        console.log(win("clientHeight"));
+        win("scrollLeft",200);
+        console.log(win("scrollLeft"));
+    </script>
+</body>
+</html>

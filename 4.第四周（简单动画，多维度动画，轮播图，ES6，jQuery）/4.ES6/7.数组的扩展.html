@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组的扩展</title>
+</head>
+<body>
+    <div id="box"></div>
+    <button id="btn">翻转</button>
+    <script>
+        //dom库，动画库，事件库
+        /*function listToArray(likeAry) {
+            var ary=[];
+            try{
+                ary=Array.prototype.slice.call(likeAry);
+            }catch(e){
+                for(var i=0;i<likeAry.length;i++){
+                    ary.push(likeAry[i]);
+                }
+            }
+            return ary;
+        }
+        var oLisAry=listToArray(oLis);*/
+        var box=document.getElementById("box");
+        var btn=document.getElementById("btn");
+        var ul=document.createElement("ul");
+        box.appendChild(ul);
+        var oUl=document.getElementsByTagName("ul")[0];
+        for(var i=0;i<4;i++){
+            var li=document.createElement("li");
+            li.innerHTML=i+1;
+            oUl.appendChild(li);
+        }
+        var oLis=document.getElementsByTagName("li");
+        var oLisAry=Array.from(oLis);
+        btn.onclick=function () {
+            oLisAry.sort(function (a,b) {
+                return b.innerHTML-a.innerHTML;
+            });
+            /*for(var i=0;i<oLisAry.length;i++){
+             oUl.appendChild(oLisAry[i]);
+             }*/
+            oLisAry.forEach(function (item,index) {
+                oUl.appendChild(item);
+            })
+        }
+
+        var val2=[1,2,3,4,5,5].find(function(val){
+            return val>3;
+        });
+        console.log(val2);//4
+
+        var val2=[1,2,3,4,5,5].findIndex(function(val){
+            return val>3;
+        });
+        console.log(val2);//3
+    </script>
+</body>
+</html>

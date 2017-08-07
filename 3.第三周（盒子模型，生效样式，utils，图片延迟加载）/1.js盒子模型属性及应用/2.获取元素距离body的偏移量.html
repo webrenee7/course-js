@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素距离body的偏移量</title>
+    <style>
+        html,body,div{
+            margin:0;
+            padding:0;
+        }
+        #outer{
+            margin:0 auto;
+            width:200px;
+            height:200px;
+            padding:100px;
+            background: lightgreen;
+            border:10px solid #000;
+            position: relative;
+        }
+        #middle{
+            width:80px;
+            height: 80px;
+            background: lightsalmon;
+            color:#f8f8f8;
+            font-size: 14px;
+            padding:50px;
+            border:10px solid #000;
+            overflow: auto;
+        }
+        #inner{
+            width:60px;
+            height:60px;
+            background:lightcyan;
+            border:10px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="middle" class="c1 c2">
+            飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是
+        </div>
+    </div>
+    <script>
+        /**
+         * 获取元素距离body的偏移量，不管元素的offsetParent是什么
+         * @param curEle   需要一个dom对象
+         */
+        function offset(curEle) {
+            var totalLeft=null;
+            var totalTop=null;
+            var par=curEle.offsetParent;//这个值有可能是body，有可能是已经定位的祖先元素
+            //先累加curEle本身的偏移
+            totalLeft+=curEle.offsetLeft;
+            totalTop+=curEle.offsetTop;
+            while(par){//parent:outer==>body
+                //if(!(/MSIE 8/.test(window.navigator.userAgent))){
+                if(window.navigator.userAgent.indexOf("MSIE 8")===-1){//不是IE8
+                    //IE8会自己加元素的边框，所以不是IE8的情况才累加父元素的边框
+                    totalLeft+=par.clientLeft;
+                    totalTop+=par.clientTop;
+                }
+                //累加父元素的偏移量
+                totalLeft+=par.offsetLeft;
+                totalTop+=par.offsetTop;
+                par=par.offsetParent;//重要代码，保证能一直获取到body的
+            }
+            return{left:totalLeft,top:totalTop};
+        }
+        var middle=document.getElementById("middle");
+        console.log(offset(middle));
+    </script>
+</body>
+</html>

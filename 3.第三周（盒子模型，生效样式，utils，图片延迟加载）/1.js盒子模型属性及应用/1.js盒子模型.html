@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js盒子模型</title>
+    <style>
+        html,body,div{
+            margin:0;
+            padding:0;
+        }
+        #outer{
+            margin:0 auto;
+            width:200px;
+            height:200px;
+            padding:100px;
+            background: lightgreen;
+            border:10px solid #000;
+            position: relative;
+        }
+        #middle{
+            width:80px;
+            height: 80px;
+            background: lightsalmon;
+            color:#f8f8f8;
+            font-size: 14px;
+            padding:50px;
+            border:10px solid #000;
+            overflow: auto;
+        }
+        #inner{
+            width:60px;
+            height:60px;
+            background:lightcyan;
+            border:10px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="middle" class="c1 c2">
+            <!--<div id="inner"></div>-->
+            飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是飞机飞机的快乐撒娇发到了卡萨减肥是的啦案件法律的是
+        </div>
+    </div>
+    <script>
+        var outer=document.getElementById("outer");
+        var middle=document.getElementById("middle");
+        var inner=document.getElementById("inner");
+        var div=document.getElementById("div");
+        console.log("clientWidth："+middle.clientWidth);
+        console.log("clientHeight："+middle.clientHeight);
+        console.log("clientLeft："+middle.clientLeft);
+        console.log("clientTop："+middle.clientTop);
+        console.log("offsetWidth："+middle.offsetWidth);
+        console.log("offsetHeight，"+middle.offsetHeight);
+        console.log("offsetParent，"+middle.offsetParent);
+        console.log("offsetLeft，"+middle.offsetLeft);
+        console.log("offsetTop，"+middle.offsetTop);
+        console.log("scrollWidth，"+middle.scrollWidth);
+        console.log("scrollHeight，"+middle.scrollHeight);
+        console.log("scrollLeft，"+middle.scrollLeft);
+        console.log("scrollTop，"+middle.scrollTop);
+    </script>
+</body>
+</html>

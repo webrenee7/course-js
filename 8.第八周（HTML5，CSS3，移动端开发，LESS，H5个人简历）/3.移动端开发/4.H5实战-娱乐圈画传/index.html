@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        /*!*animate动画库测试(两种调用方法：内嵌式和行内式)*!
+        .div1{
+            width:100px;
+            height: 100px;
+            background: red;
+            font-size:50px;
+            !*-webkit-animation: hinge 1s;
+            animation: hinge 1s;*!
+        }*/
+    </style>
+</head>
+<body>
+    <!--<div class="div1 animated hinge">珠峰培训</div>-->
+    <article class="main">
+        <div class="music">
+            <audio src="audio/beyond.mp3" loop id="beyond" preload="none"></audio>
+            <!--
+            controls自带属性：
+                control自带浏览器提供的用户操作界面
+                autoplay 自动播放
+                loop 循环播放
+                preload  auto预加载音频文件  默认值
+                         none 不加载音频文件
+                         metadata 加载音频文件的元数据（例如，音频文件的总时间）
+            -->
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide slide1">
+                    <img src="img/page1-text1.png" alt="">
+                    <img src="img/page1-text2.png" alt="">
+                    <img src="img/page1-text3.png" alt="">
+                    <img src="img/page1-text4.png" alt="">
+                </div>
+                <div class="swiper-slide slide2">
+                    <img src="img/page2-text1.png" alt="">
+                    <img src="img/page2-text2.png" alt="">
+                    <img src="img/page2-text3.png" alt="">
+                    <img src="img/page2-text4.png" alt="">
+                </div>
+            </div>
+        </div>
+    </article>
+    <script src="js/swiper.min.js"></script>
+    <script>
+        var desW=640;
+        var winW=document.documentElement.clientWidth;
+        document.documentElement.style.fontSize=winW/desW*100+"px";
+        var mySwiper=new Swiper(".swiper-container",{
+            direction:"vertical",
+            onTransitionEnd:function (swiper) {//过渡结束时触发
+                var curIndex=swiper.activeIndex;//当前显示滑块的索引
+                var slides=swiper.slides;//获得所有的滑块
+                [].forEach.call(slides,function (item,index) {
+                    item.id="";
+                    if(index==curIndex){
+                        if(index==0){
+                            slides[index].id="page"+slides.length-2;
+                        }else if(index==(slides.length-1)){
+                            slides[index].id="page1";
+                        }else{
+                            slides[index].id="page"+index;
+                        }
+                    }
+                });
+            },
+            /*onInit:function (swiper) {
+                var slides=swiper.slides;
+                slides[0].id="page1";
+            },*/
+            loop:true//在循环模式下swiper会自动帮我们初始化
+        });
+        var music=document.querySelector(".music");
+        var beyond=document.querySelector("#beyond");
+        //隔1秒后让音乐播放，并增加转动效果
+        window.setInterval(function () {
+            beyond.play();//让音乐播放
+            music.style.opacity=1;
+            music.className="music musicCur"
+        },1000);
+        //绑定点击事件，如果播放则停止，如果停止则播放
+        //通过beyond.paused判断音频文件是否播放，如果是播放，则值是false，如果是停止的，则值是true
+        music.addEventListener("click",function () {
+            if(beyond.paused){//如果是停止
+                beyond.play();//就播放
+                music.className="music musicCur";
+            }else{//如果是播放
+                beyond.paused();//停止
+                music.className="music";
+            }
+        },false);
+    </script>
+</body>
+</html>

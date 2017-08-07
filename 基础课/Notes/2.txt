@@ -1,0 +1,368 @@
+﻿    1、函数
+    2、递归
+    3、DOM
+    --------------------------
+    1、Math方法及应用
+    2、String方法及应用
+    3、Array方法及应用
+    4、Date方法及应用
+    5、定时器原理及应用
+    --------------------------
+    典型案例：
+        1、隔行变色
+        2、99乘法表
+        3、选项卡
+        4、数组去重
+        5、任意数求和
+        6、随机验证码
+        7、排序方法：
+            快速排序
+            插入排序
+            冒泡排序
+        8、倒计时
+        9、全选，反选，非全选
+▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+1、函数
+    函数就是一个方法，将重复使用的功能代码，封装成一个函数，那么其他地方都可以调用这个函数，并且每次调用都是独立执行
+    语法：
+        定义部分：
+            function 函数名(形参){//定义形参，接收实参
+                函数体
+            }
+        执行部分：
+            函数名(实参);//向函数内传递实参
+        p.s:设置形参而实参没有传递，形参获取到的值为undefined
+    闭包：
+        外界无法获取函数内的变量或者其他值，我们将这种机制叫做闭包
+        需要函数向外界传递值的时候，就要用到return
+    return:
+            return--带有返回值的函数
+            return--只能返回值
+            return出现在函数里，函数停止运行
+            return可以单独出现，不进行返值，那么外面获取到函数的执行结果为undefined，没有return返回的也是undefined
+            return返回变量代表的值，而不是变量本身**********
+            函数本身的执行结果，就是我们的返回值***********
+    arguments：
+        函数接收参数的集合，是一个类数组，有索引有长度
+        如何获得这个集合的长度--arguments.length
+        如何获得这个集合的第一项--arguments[0]
+        arguments本身是一个对象，有属性值和属性名
+        函数接收参数的方法：形参/arguments*********************
+        实例：任意数求和（必考）***************
+    匿名函数：
+        匿名函数分为自执行函数和函数表达式
+        自执行函数：函数定义和执行一起完成
+        函数表达式：将函数定义部分当做值赋值给一个变量或者是某一个对象的一个行为
+        oDiv.onclick=sum()与oDiv.onclick=sum的区别：
+            oDiv.onclick=sum()  右侧是函数的执行结果
+            oDiv.onclick=sum    右侧是函数本身，当发生点击事件的时候，执行sum这个函数
+2、DOM
+    DOM：描述html的关系图谱
+    js可以通过操作html的DOM来获取、修改、删除、增加DOM对象
+    2.1 DOM获取元素的方法
+        1>.通过元素的id获取一个元素
+            document.getElementById('id名称');
+            id在文件中独一无二，所以获取范围只能是整个文档（document）
+            如果id名在同一页面出现两次或两次以上，获取到的元素为第一个元素
+            在ie6,7中，表单元素的name属性也会被当做id名，所以在ie6,7下，需要单独处理
+            在ie6,7中，id名获取时不区分大小写，所以不能通过大小写来区分元素
+            如果没有获取到，返回结果为null
+            可以直接通过元素id名访问（不推荐）
+            项目使用中注意：不要让表单元素的name和其他元素的id重复
+                            不要用id大小写来区分不同元素
+        2>.通过元素的标签名(tagName)获取一组元素
+            document/context.getElementsByTagName('标签名');
+            标签名不是唯一的，所以可以人为指定获取范围
+            获取的是一个对象数据类型，并且是一个类数组
+            获取其中某一项：obj[0]/obj.item[0]
+        3>.通过元素的name名获取一组元素
+            document.getElementsByName('name名');//上下文只能为document，可通过原型链思想推出
+            获取其中某一项：obj[0]/obj.item[0]
+            ie6-9，只对表单元素起作用
+        4>.通过元素的class名获取一组元素
+            document/context.getElementsClassName('class名');
+            获取其中某一项：obj[0]/obj.item[0]
+            ie6,7,8不支持
+        5>.获取根元素
+            document.documentElement;//获取html元素
+            document.body;//获取body元素
+        6>.获取当前页面的宽度和高度
+            var width=document.documentElement.clientWidth||document.body.clientWidth;
+            var height=document.documentElement.clientHeight||document.body.clientHeight;
+        7>.移动端获取元素常用的方法：
+            document.querySelector("#id");//返回指定匹配选择器的第一个元素
+            document.querySelectorAll("input[type='radio']");//返回指定匹配选择器的所有元素
+            p.s:jquery中的选择器参考css选择器的规则
+    2.2 DOM的节点和关系属性
+        获取关系的属性：
+            childNodes：获取所有子节点（一组）
+            children：获取所有元素子节点（一组）
+            parentNode：获取父亲节点
+            previousSibling：获取上一个节点  previousElementSibling：获取上一个元素节点（不兼容）
+            nextSibling：获取弟弟节点  nextElementSibling：获取下一个元素节点（不兼容）
+            firstChild：获取子节点中的第一个
+            lastChild：获取子节点中的最后一个
+        常见节点类型有哪些？
+            节点类型           nodeType              nodeName            nodeValue
+        元素节点（元素标签）      1                大写的标签名            null
+        文本节点（文字）          3                    #text             文字内容
+        注释节点（注释）          8                   #comment           注释内容
+        document(整个文档)        9                   #document            null
+        p.s:在标准浏览器中，会将空格（space）和回车（Enter）当做文本节点处理
+        标准浏览器：除了（ie6,7,8）
+    2.3 DOM的增删改查及应用
+        1>.createElement()  --创建元素节点
+            var oDiv=document.createElement('div');
+        2>.createTextNode  --创建文本节点
+            var textnode=document.createTextNode("文本节点");
+        3>.appendChild  --把新的子节点添加到指定节点
+            parent.appendChild(newTag)
+            //oDiv.appendChild(textnode);
+        4>.insertBefore  --将新的节点添加到已有节点之前
+            父级元素.insertBefore(要放置的元素，放在谁之前)
+            oldTag.parentNode.insertBefore(newTag,odlTag)
+        5>.createAttribute  --创建一个属性节点
+            创建的键值对，可以直接显示在html标签中
+            setAttribute（'属性名'，'属性值'）--直接向对象添加一对键值对
+        6>.getAttribute  --获取属性的值
+            obj.getAttribute('属性名')
+            关于"."和Attribute
+                1.如果标签上定义了自定义属性，通过"."获取不到，但是通过getAttribute能获取到；
+                2.通过"."设置自定义属性，在标签上看不到；但是通过setAttribute设置自定义属性，标签上可以看到；
+                注意事项：. 和 attribute 一定不能混搭；即 通过点设置属性，就通过点来获取属性；
+                通过setAttribute来设置属性，就getAttribute来获取属性；
+        7>.removeAttribute  --删除指定的属性
+            obj.removeAttribute('属性名')
+        8>.removeChild  --删除元素
+            父级元素.removeChild(删除的对象)
+            oDiv.parentNode.removeChild(oDiv)
+            任何的元素节点都可以移除
+        9>.cloneNode  --克隆元素
+            oDiv.cloneNode(true)
+            如果参数为true：是将当前元素下所有的元素克隆一份
+            默认参数为false：只克隆当前元素
+        10>.replaceChild  --替换元素
+            父级元素.replaceChild(替换的对象，被替换的对象)
+            oDiv.parentNode.replaceChild(替换的对象，被替换的对象)
+----------------------------------------------------------------------
+1、Math方法及应用（8个）
+    数学函数的作用是：执行常见的算数任务
+    1>.Math.abs()  --取绝对值
+    2>.Math.ceil()  --向上取整 （出现小数点就向上＋1）
+    3>.Math.floor()  --向下取整
+    4>.Math.round()  --四舍五入
+    5>.Math.max(val1,val2,val3...)  --取最大值
+    6>.Math.min(val1,val2,val3...)  --取最小值
+    7>.Math.random()  --获取[0-1)之间的随机小数（不包含1）
+    8>.Math.round(Math.random()*(m-n)+n)  --获取任意两个数之间的随机数
+    练习：
+        获取四位0-61之间不重复的随机整数
+2、String方法及应用(13个)
+    String--字符串类
+    字符串在js中，是存储字符串的变量
+    用引号将字符串存起来，可以是单引号，也可以是双引号
+    如果引号内需要嵌套引号，单双循环，或者是双单循环
+    String 对象用于处理已有的字符块（空格、换行也是字符）
+    字符串也有length，字符串的长度
+    字符串也有索引，每一个索引代表一个字符
+    访问方法：var str="1234";
+              str[0]获取第一项
+    字符串方法：(原字符串都不变*****)
+        1>.获取指定索引位置的字符   charAt(索引)
+           获取指定索引位置字符对应的ASCII值（Unicode编码）-->charCodeAt(索引)
+        2>.字符串截取
+            substr(n,m) 从索引n开始，截取m个字符
+            substring(n,m) 从索引n开始找到索引m处，不包含m
+            slice(n,m) 从索引n开始找到索引m处，不包含m-->支持负数作为索引（str.length+负数索引）
+            只写n没有m：代表截取到末尾位置
+        3>.查找字符的索引
+            indexOf(字符)：获取指定字符在字符串中第一次出现的索引位置
+            lastIndexOf(字符)：获取指定字符在字符串中最后一次出现的索引位置
+            如果没有这个字符，返回-1
+        4>.字符串中字母的大小写转换
+            toLowerCase()转化为小写
+            toUpperCase()转化为大写
+        5>.替换与正则表达式匹配的子串
+            replace(regexp/substr,replacement)
+            在不使用正则的情况下，每一次调用方法只能替换一次
+            一般情况下，我们都是使用正则处理
+            search（）; 用来查找字符的，找到返回对应字符的索引； 找不到-1；
+            match（）；匹配字符的，找到，就把找到的内容以数组的形式返回；找不到null
+        6>.将字符串按照指定分隔符产分成数组
+            split(分隔符)
+            split('')--把字符串中的每一项单独分开
+            split(' ')--分隔符如果不存在的时候，会把把字符串整体当做一项
+
+    练习：
+        var time="2016-11-01 12:51:6";=======>2016年11月01日 12时51分06秒
+3、数组方法及应用（15个）
+    1>.向数组末尾添加一个或多个元素  --push
+        返回值：数组的新长度         原数组改变
+        push可以增加多项，每一项用逗号隔开
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.push(4,5,6);
+        其他：ary[ary.length]=value
+    2>.删除数组的最后一项  --pop
+        返回值：删除项               原数组改变
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.pop()
+        其他：ary.length--
+    3>.向数组开头添加一个或多个元素  --unshift
+        返回值：数组的新长度         原数组改变
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.unshift(999,888);
+    4>.删除数组的第一项  --shift
+        返回值：删除项               原数组改变
+        例如：
+            var ary = ["a", "b", "c", 1, 2, 3, "你好"];
+            var aryC=ary.shift();
+    5>.删除、修改、增加  --splice****************
+        ============》返回的都是删除项组成的新数组
+        splice(n,howmany,item1,itme2,item3...)
+            index  索引index开始
+            howmany  删除几项
+            item1,itme2,item3...向数组添加的新项目
+        删除元素
+            splice(n,m) 从索引n开始，删除m项，将删除部分以新数组返回，原数组改变
+            splice(n)   从索引n开始，删除到最后，将删除部分以新数组返回，原数组改变
+            splice(0)   将原数组清空，将原数组内容以新数组形式返回
+        修改数组
+            splice(n,m,x) 从索引n开始，删除m个，x替换删除部分，返回删除项，原数组改变
+        增加元素
+            splice(n,0,x) 从索引n开始，一个都不删除，返回空数组，将x增加到索引n的前面，原数组改变
+            ===>ary.splice(ary.length,0,"增加项"); 向数组末尾添加元素
+                ary.splice(ary.length-1)/ary.splice(ary.length-1,1);删除数组最后一项
+    6>.数组的截取和拼接
+        数组的截取  --slice
+            slice(n,m) 从索引n开始找到索引m（不包括m）将找到部分以新数组返回，原数组不变
+            slice(n-1,m)  第n项开始，查找到第m项（包含n和m）**************
+            slice(n)   从索引n开始，找到末尾
+            slice(0)/slice() 克隆一份数组
+        数组的拼接  --concat
+            concat(参数是另一个数组) 将两个数组拼接到一起 原数组不变
+            concat() 将原数组克隆一份
+            可拼接多个数组，用逗号隔开
+    7>.将数组转化为字符串  --toString/join
+        toString()  不改变原数组
+        join("符号") 将这个符号替换掉原数组的逗号，将其转化为字符串 原数组不变
+        p.s：eval  将js中的字符串变成js表达式执行
+    8>.数组检索  --indexOf/lastIndexOf
+        indexOf()  当前值在数组中第一次出现的位置
+        lastIndexOf()  当前值在数组中最后一次出现的位置
+        如果数组中没有这一项，返值-1,；如果有这一项，返回当前索引值
+        可以进行这个值是否在此数组的判断 返值-1为不存在
+        只在标准浏览器中兼容 ie678不兼容
+    9>.数组排序与翻转  reverse/sort
+        reverse()  数组翻转
+        sort() 数组排序
+        var newAry=ary.sort(function(a,b){
+            return a-b;//a-b，从小到大排列    b-a，从大到小排列
+        })
+        console.log(newAry);
+    9>.遍历数组中的每一项  --forEach/map
+        forEach与map的区别：
+            这两个方法的参数都是回调函数，这个回调函数的参数为数组的元素，参数名称可以自定义。
+            forEach：仅仅为每个数组元素执行回调函数。
+                    ===>让数组中的每一项做一件事，没有返回值。
+            map:若这个回调函数有返回值，map()方法会产生一个新数组，原数组不变.
+                这个新数组由原数组元素对应的回调函数的返回值构成。若没有返回值，则新数组的所有元素为undefined。
+                ===>让数组通过某种计算产生一个新数组，有返回值。
+        实例：
+            var ary=[1,2,3,4];
+            forEach()用法:
+                ary.forEach(function(item,index,array){
+                    console.log(item);1,2,3,4
+                    //return item;//永远返回undefined
+                }
+            map用法:
+                var newAry=ary.forEach(function(item,index,array){
+                    return item*2;//[2,4,6,8]
+                }
+                console.log(newAry);//[]
+
+    练习：1.数组去重
+            利用对象的键值对方法，将数组中的每一项当做对象的属性名和属性值存起来
+            1>.方法一：
+                var ary=[1,1,2,3,5,3,2];
+                var obj={};
+                for(var i=0;i<ary.length;i++){
+                    var cur=ary[i];
+                    if(cur===obj[cur]){
+                        ary.splice(i,1);
+                        i--;
+                    }else{
+                        obj[cur]=cur;
+                    }
+                }
+                循环过程：
+                    i=0  0<7  cur=1  1==obj[1]-->false  obj[1]=1  0+1=1
+                    i=1  1<7  cur=1  1==obj[1]-->true   ary.splice(1,1)  ary-->[1,2,3,5,3,2]  1-1=0  0+1=1
+                    i=1  1<6  cur=2  2==obj[2]-->false  obj[2]=2  1+1=2
+                    i=2  2<6  cur=3  3==obj[3]-->false  obj[3]=3  2+1=3
+                    i=3  3<6  cur=5  5==obj[5]-->false  obj[5]=5  3+1=4
+                    i=4  4<6  cur=3  3==obj[3]-->true   ary.splice(4,1)  ary-->[1,2,3,5,2]  4-1=3  3+1=4
+                    i=4  4<5  cur=2  2==obj[2]-->true   ary.splice(4,1)  ary-->[1,2,3,5]  4-1=3  3+1=4
+                    i=4  4<4  循环结束
+            2>.方法二：
+                for(var i=0;i<ary.length;i++){
+                var cur=ary[i];
+                if(cur==obj[cur]){
+                ary[i]=ary[ary.length-1];
+                ary.length--;
+                i--;
+                }else{
+                obj[cur]=cur;
+                }
+                }
+                /*循环过程：
+                i=0  0<7  1==obj[1]-->false  obj[1]=1  0+1=1
+                i=1  1<7  1==obj[1]-->true  ary[1]=ary[6] ary.length=7-1=6  ary-->[1,2,2,3,5,3]  1-1=0  0+1=1
+                i=1  1<6  2==obj[2]-->false  obj[2]=2  1+1=2
+                i=2  2<6  2==obj[2]-->true  ary[2]=ary[5]  ary.length=6-1=5  ary-->[1,2,3,3,5]  2-1=1  1+1=2
+                i=2  2<5  3==obj[3]-->false  obj[3]=3  2+1=3
+                i=3  3<5  3==obj[3]-->true  ary[3]=ary[4]  ary.length=5-1=4  ary-->[1,2,3,5]  3-1=2  2+1=3
+                i=3  3<4  5==obj[5]-->false  obj[5]=5  3+1=4
+                i=4  4<4  循环结束
+                */
+
+          2.数组冒泡排序
+            小的数字上浮，大的数字下沉
+          3.数组的快速排序
+            找到一个参照项（一般选择数组中间的项），让数组中的每一项都和这个参照项比较，小于的放在一个新的数组中，大于的放在另一个新的数组中，
+            反复这样操作，直到数组的长度<=1，停止比较
+          4.数组插入排序
+            将数组中的第一项放置在新数组中，然后再将原数组的每一项和新数组每一项比较（从后向前比较），
+            如果原数组项小于就放在新数组的前面，如果原数组想大于就一直向前比较，最后返回新数组，完成排序
+4、时间函数
+
+5、定时器原理及应用
+    setInterval()
+    setTimeout()
+    返回值：定时器的编号
+
+----------------------------------------------
+    数组总结：
+    1、向数组末尾添加元素：
+    ary.push(value1,value2...);
+    ary[ary.length]=value;
+    ****    ary.splice(ary.length,0,value);
+    2、删除数组最后一项
+    ary.pop();
+    ary.length--;
+    ****    ary.splice(ary.length-1);/ary.splice(ary.length-1,1);
+    3、向数组开头添加元素：
+    ary.unshift(value1,value2....);
+    ****    ary.splice(0,0,value);
+    4、删除数组第一项：
+    ary.shift();
+    ****    ary.splice(0,1);
+    5.清空数组的方法：
+    ary.splice(0);
+    6.克隆数组的方法
+    ary.slice();/ary.slice(0)
+    art.splice(0)
+    ary.concat();
+

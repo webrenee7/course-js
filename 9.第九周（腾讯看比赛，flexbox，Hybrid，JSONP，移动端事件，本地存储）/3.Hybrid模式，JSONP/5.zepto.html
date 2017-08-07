@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zepto</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="js/zepto.min.js"></script>
+</head>
+<body>
+<div style="width:100px; height: 100px; background: red; cursor: pointer;" id="box"></div>
+<script>
+    //百度云touch手势事件库
+    //Zepto  pk jQuery
+    /*
+    Zepto被誉为移动端的小型jQuery，jQuery怎么用，它就怎么用
+    Zepto更适合移动端开发
+        ->体积比jQuery小,Zepto没有考虑IE兼容，而且只实现了jquery中常用的方法
+        ->Zepto提供了移动端经常操作的事件方法:
+            tap,singleTap,doubleTap,longTap,swipe,swipeLeft,swipeRight,swipeUp,swipeDown
+            pinchIn,pinchOut
+    */
+    $("#box").tap(function (e) {
+        $(this).css({
+            background:"green"
+        });
+    }).swipe(function (e) {
+        $(this).animate({
+            rotateY:"360deg"
+        },500,function () {
+            $(this).css({
+                background:"black"
+            });
+        });
+    })
+
+</script>
+</body>
+</html>

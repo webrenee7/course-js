@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js数据类型的检测</title>
+</head>
+<body>
+    <script>
+        var num=1;
+        console.log(typeof (typeof (typeof num)));//
+        //                  typeof 'number'
+        //          typeof 'string'
+        //          'string'
+        //'string'
+        var str='zfpx';
+
+        var obj={};
+        var ary=[];
+        var n=null;
+        var un=undefined;
+        var fn=function () {
+
+        };
+        console.log(typeof num);//'number'
+        console.log(typeof str);//'string'
+        console.log(typeof obj);//'object'
+        console.log(typeof ary);//'object'
+        console.log(typeof n);//'object'
+        console.log(typeof un);//'undefined'
+        console.log(typeof fn);//'function'
+
+    </script>
+</body>
+</html>

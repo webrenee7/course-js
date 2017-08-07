@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>replace的用法</title>
+</head>
+<body>
+    <script>
+        //split：参数可以是一个正则
+        /*var str="a b c";
+        console.log(str.split(/ /));//["a", "b", "c"]
+        var str="a@b&c";
+        console.log(str.split(/[@&]/));//["a", "b", "c"]*/
+        /*var str="fds12";
+        console.log(str==str.replace('fd','abc'));//==>false  返回的是一个替换好的新的字符串，不是把原来的替换了*/
+
+
+        /*//replace
+        //普通用法
+        var str="zhufeng2015zhufeng2016";
+        /!*var res=str.replace("zhufeng",function(){//如果第一个参数不用正则，只能找到第一个匹配的替换
+        return "珠峰";
+        });
+        console.log(res);//珠峰2015zhufeng2016*!/
+
+        //正则用法
+        var reg=/\d+/g;
+        var res=str.replace(reg,function(item,index,str){
+            //console.log(item,index,str);//2015 7 zhufeng2015zhufeng2016
+            //console.log(arguments);//["2015", 7, "zhufeng2015zhufeng2016"]  ["2016", 18, "zhufeng2015zhufeng2016"]
+            //return "珠峰";//zhufeng珠峰zhufeng珠峰
+            return index;//zhufeng7zhufeng18
+        });
+        console.log(res);
+        //replace用法总结(正则用法)
+        //第一个参数是正则，第二个参数是函数
+        //匿名函数执行多少次取决于正则成功匹配到的次数
+        //正则成功匹配到的内容用函数的返回值来替换
+        //函数的arguments：[正则本次匹配的内容，分组1，....分组n,index,input]
+        //ps:replace的返回值和arguments做好区分*/
+
+        //用分组$n匹配到的内容，替换reg匹配到的内容
+        var str="zhufeng2015zhufeng2016";
+        var reg=/(\d+)/g;
+        var res=str.replace(reg,"$1%");//zhufeng2015%zhufeng2016%  $1代表第一个分组
+        //var res=str.replace(reg,"$2");//zhufeng$2zhufeng$2
+        console.log(res);
+    </script>
+</body>
+</html>

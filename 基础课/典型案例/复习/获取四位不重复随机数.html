@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取四位不重复随机数</title>
+</head>
+<body>
+    <script>
+        function getRandom(n,m){
+            var ary=[];
+            n=Number(n);
+            m=Number(m);
+            if(isNaN(n)||isNaN(m)){
+                return Math.random();
+            }
+            if(n>m){
+                var temp=n;
+                n=m;
+                m=temp;
+            }
+            for(var i=0;i<4;i++){
+                var val=Math.round(Math.random()*m-n+n);
+                if(ary.indexOf(val)===-1){
+                    ary.push(val);
+                }else{
+                    i--;
+                }
+            }
+            /*while(ary.length<4){
+                var val=Math.round(Math.random()*m-n+n);
+                if(ary.indexOf(val)===-1){
+                    ary.push(val);
+                }
+            }*/
+            console.log(ary.join(' '));
+        }
+        getRandom(0,40);
+    </script>
+</body>
+</html>

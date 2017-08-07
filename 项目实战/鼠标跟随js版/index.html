@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标跟随js版</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        img{
+            width:100%;
+            height:100%;
+            border:none;
+            vertical-align: top;
+        }
+        .clearfix{
+            zoom:1;
+        }
+        .clearfix:after{
+            display: block;
+            content: "";
+            clear: both;
+        }
+        .img_box{
+            position: relative;
+            width:508px;
+            margin:30px auto;
+            border:1px solid #ccc;
+        }
+        .img_list{
+            margin:10px;
+        }
+        .img_list li{
+            float: left;
+            width:100px;
+            margin:0 10px;
+            border:1px solid #ccc;
+            cursor: pointer;
+        }
+        .big_box{
+            position: absolute;
+            top:0;
+            left:0;
+            border:1px solid #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="img_box" id="img_box">
+        <ul class="img_list clearfix">
+            <li><img src="images/apple_1.jpg" bigImgSrc="images/apple_1_bigger.jpg" /></li>
+            <li><img src="images/apple_2.jpg" bigImgSrc="images/apple_2_bigger.jpg" /></li>
+            <li><img src="images/apple_3.jpg" bigImgSrc="images/apple_3_bigger.jpg" /></li>
+            <li><img src="images/apple_4.jpg" bigImgSrc="images/apple_4_bigger.jpg" /></li>
+        </ul>
+        <div class="big_box" id="big_box">
+            <img src="images/apple_1_bigger.jpg" />
+        </div>
+    </div>
+    <script src="utils-2.0.js"></script>
+    <script src="animate.js"></script>
+    <script>
+        var img_box=document.getElementById("img_box");
+        var big_box=document.getElementById("big_box");
+        var big_img=big_box.getElementsByTagName("img")[0];
+        //如果用循环，依次给每个img绑定事件，性能不好，所以使用事件委托机制，给最外层盒子绑定事件
+        img_box.onmouseover=function (e) {
+            e=e||window.event;
+            e.target=e.target||e.srcElement;
+            e.pageX=e.pageX||e.clientX+document.documentElement.scrollLeft+document.body.scrollLeft;
+            e.pageY=e.pageY||e.clientY+document.documentElement.scrollTop+document.body.scrollTop;
+            if(e.target.nodeName=="IMG"||e.target.nodeName=="LI"){
+                if(e.target.nodeName=="IMG"){
+                    big_img.src=e.target.getAttribute("bigImgSrc");
+                }else{
+                    big_img.src=e.target.firstElementChild.getAttribute("bigImgSrc");
+                }
+                var left=e.pageX-img_box.offsetLeft+10;
+                var top=e.pageY-img_box.offsetTop+10;
+                big_box.style.left=left+"px";
+                big_box.style.top=top+"px";
+                big_box.style.display="block";
+                animate({ele:big_box,target:{"width":400,"height":300},duration:500});
+            }
+        };
+        //鼠标移动，重新计算big_box的left和top值
+        img_box.onmousemove=function (e) {
+            e=e||window.event;
+            e.pageX=e.pageX||e.clientX+document.documentElement.scrollLeft+document.body.scrollLeft;
+            e.pageY=e.pageY||e.clientY+document.documentElement.scrollTop+document.body.scrollTop;
+            var left=e.pageX-img_box.offsetLeft+10;
+            var top=e.pageY-img_box.offsetTop+10;
+            big_box.style.left=left+"px";
+            big_box.style.top=top+"px";
+        };
+        //鼠标离开，将big_box的宽度设置为0，因为下次动画还要从宽高为0开始
+        img_box.onmouseout=function (e) {
+            e=e||window.event;
+            e.target=e.target||e.srcElement;
+            if(e.target.nodeName=="IMG"||e.target.nodeName=="LI"){
+                big_box.style.display="none";
+                big_box.style.width=0;
+                big_box.style.height=0;
+            }
+        }
+    </script>
+</body>
+</html>

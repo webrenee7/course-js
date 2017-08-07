@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+    <style>
+        div{
+            width:100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="div"></div>
+    <script>
+        /*function sum(n,m){
+            var total=n+m;
+            console.log(total);
+        }
+        sum(2,"abc");*/
+
+        //1、两个数求和：得到数字类型的值
+        /*function sum(n,m){//n和m有可能是数字，也有可能不是数字
+            //方法一：
+            if(!isNaN(n)||!isNaN(m)){//判断n和m是数字的时候才相加
+                //'||'：当条件中有一个条件为真，整体为真
+                //'&&'：当条件中有一个条件为假，整体为假
+                //'!'：取反
+                //&&:n和m必须同时为数字，才能进行相加，一旦n或m不是一个数字，我们就得不到一个值
+                //||:n和m一个是数字的话，我们就求和，最终得到的值，要么是数字要么是NaN
+                var total=Number(n)+Number(m);
+            }
+            //方法二：
+            /!*n=Number(n);
+            m=Number(m);
+            if(!isNaN(n)||!isNaN(m)){
+                var total=n+m;
+            }*!/
+            console.log(total);
+        }
+        sum(1,"2");//3
+        sum(1,"2abc");//NaN*/
+
+        //return
+        /*function sum(){
+            var total=1+1;
+            //console.log(total);
+            return total;//返回total代表的值，而不是变量本身
+        }
+         //console.log(total);
+        console.log(sum());*/
+
+
+        //arguments
+        /*function sum(){
+            //console.log(arguments);
+            for(var i=0;i<arguments.length;i++){
+                console.log(arguments[i]);
+            }
+        }
+        sum(1,2,3,4,5,6);*/
+        //2、任意数求和（传递多少都可以进行求和）
+        /*function sum(){
+            var total=null;
+            for(var i=0;i<arguments.length;i++){
+                if(!isNaN(arguments[i])){
+                    total+=parseFloat(arguments[i]);
+                }
+            }
+            return total;
+        }
+        console.log(sum(1,2,3,4,'3a'));
+        
+        function sum() {
+            //arguments是接收实参的副本
+            var total=null;//声明一个变量为空，之后求和的时候，向这个变量中进行累加
+            for(var i=0;i<arguments.length;i++){//循环arguments中的每一项
+                var cur=Number(arguments[i]);//循环每一项的时候都将当前项转化为数字
+                if(!isNaN(cur)){//当前项为数字的时候，进入判断
+                    total+=cur;//将当前项累加到total这个变量中
+                }
+            }
+            return total;//将total代表的值，返值到函数外
+        }
+        console.log(sum(1,2,3,4,"3a"));//输出函数的返回值*/
+
+
+        //自执行函数
+        /*+function(){
+            var a=1;
+            console.log(a);
+        };*/
+
+        //3、函数表达式
+        var oDiv=document.getElementById("div");
+        function sum(){
+           alert(1);
+        }
+        //函数表达式：将函数直接当做值赋值给变量或者是某个对象的某个方法或者某个事件
+        //oDiv.onclick=sum();//相当于sum()。oDiv.onclick=的是函数的执行结果
+        oDiv.onclick=sum;//函数名代表的是函数本身，而不是函数执行结果，只有触发左侧事件的时候才执行
+    </script>
+</body>
+</html>

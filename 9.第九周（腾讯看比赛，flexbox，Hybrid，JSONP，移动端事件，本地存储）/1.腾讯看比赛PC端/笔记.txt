@@ -1,0 +1,162 @@
+复习：
+    H5新增标签：
+        header,main,footer...
+    新增标签在IE6-8不兼容，这样之前搭建的结构和样式都会乱，我们需要进行处理：
+        原则：使用JS把不兼容的H5标签都替换成为DIV标签，还需要把之前用标签名选择器编写的样式也进行重构
+        市面上有现成组件，可以帮我们实现上述的操作：html5.min.js
+        只有在低于ie9的浏览器中才进行替换(条件注释)
+        <!--解决H5标签在低版本浏览器中不兼容的问题-->
+        <!--[if lt IE9]>
+            <script src="js/html5.min.js"></script>
+        <![endif]-->
+    LESS不是CSS，它是CSS预编译语言，是一门独立的语言（SASS和LESS一样），用它编写完成的代码
+浏览器解析不了，我们还需要把编写完成的代码编译成正常的CSS才可以
+--》基于NODE命令操作：lessc xxx.less xxx.css -x（前提需要npm安装less），这种方式应用于即将上线的时候，我们可以手动编译一次，让项目使用的是编译后的CSS
+--》开发过程中，我们最好能够找到一个帮助我们编译的工具：我们可以导入less-2.5.3.min.js
+--》通过编译工具编译
+--》格局更高的：使用GULP/WEBPACK搭建工程化自动打包、编译、压缩、检测、上线的平台
+  LESS学习:了解LESS和编译LESS
+    http://old.zhufengpeixun.cn/qianduanjishuziliao/mobileDevelopment/2016-07-22/527.html
+  LESS学习:LESS的基础语法
+    http://old.zhufengpeixun.cn/qianduanjishuziliao/mobileDevelopment/2016-07-22/528.html
+=================================腾讯看比赛PC端====================================
+网址：http://kbs.sports.qq.com/
+技术栈：
+    HTML(5)
+    CSS(3)+LESS
+    jQuery
+    iscroll.js实现局部区域滚动
+    JSONP获取数据
+    告别字符串拼接，使用EJS模板引擎技术绑定数据
+    SEO优化
+    设计模式：单例模式/基于单例模式的命令模式
+-------------------------------------------------
+1、SEO优化
+    开始构建页面之前，我们需要保持程序员的基本素养：有一定的SEO优化意识
+    1>、页面一定要编写TITLE,TITLE是非常重要的一部分，对于SEO优化有很大的作用
+    2>、设置页面的关键词  name="keywords"  content=""
+    3>、设置页面的描述信息 name="description"  content=""
+    如何设置网页图标？
+      <link rel="icon" href="images/icon.png" type="image/x-icon" />
+    SEO：
+        作为网站开发者，我们需要从页面中的TITLE，关键词，描述，网页中的内容等方面优化我们需要推广的关键词
+        爬虫：搜索引擎的小蜘蛛，会定期到我们的网站中抓取内容，我们要做的是尽量让它多抓取一些（增加百度收录数，提高网站Alexa排名）
+        查看收录：site:www.zhufengpeixun.cn
+        保障用户在百度这类搜索网站中输入一个关键词进行搜索之后，可以找到我们企业的网站，而且是越靠前越好，这样就需要我们使用各种手段进行推广优化
+    SEM：
+        搜索引擎营销   百度竞价推广（花钱砸排位）
+    代码上的SEO优化技巧
+        H1标签的权重在页面中很高，爬虫也会优先抓取这里面的内容，但是一个页面中的H1只能使用一个
+      ，但是对于我们的案例来说，图片上已经有文字了，而我们自己还要加文字，不是给用户看的，而是给爬虫看的，我们需要在样式中把我们写的汉字隐藏才可以
+        IMG标签必须加ALT属性，当图片无法加载的时候可以用文字占位，最主要的是爬虫收录不了图片，但是会收录ALT中的内容
+2、移动端兼容处理方案
+    ->渐进增强：按照低版本浏览器开发，保证功能实现之后，再针对不同的高版本浏览器，以加前缀的方式，去单独地增加更好的体验效果
+    ->优雅降级：按照高版本浏览器开发，保证产品体验性非常好之后，到低版本浏览器中查看，对于不兼容的地方，我们可以使用其他方案代替，或者不处理也可
+3、如何制作三角箭头？
+    1>.使用CSS
+     .box{
+            width:100px;
+            height:100px;
+            border-top:2px solid red;
+            border-right:2px solid red;
+            transform:rotate(45deg);
+     }
+    2>.切图（消耗性能）
+    3>.使用大于或小于号(受限于字体样式大小)
+        大于  &gt;
+        小于  &lt;
+    4>.使用两个三角形叠加
+        三角形：width:0  height:0   padding:0 font-size:0
+                border:20px
+    5>.使用CANVAS,SVG,字体图标实现
+
+4、IScroll
+    IScroll不兼容低版本浏览器
+    1>.外层容器的宽高是固定的，内层存放内容的容器的高度需要比外层高，这样才有必要做局部滚动
+    <div class="container">
+        <ul class="wrapper">
+            <!--container-->
+        </ul>
+    </div>
+    2>.实现局部滚动的原理
+    滚动条的高度以及滚动一次运动多远都是基于容器的高度和内容的高度计算出来的
+    以后只要一个容器的高度发生改变，都需要重新计算
+    IScroll监听了最外层容器的resize事件，当外层容器大小改变的时候，会帮助我们重新计算滚动条的高度：但是如果内容的高度发生改变，它没有自行处理，需要我们手动进行处理
+    exampleIS.refresh()
+    使用CSStransform处理（translate）：在滚动的过程当中，控制wrapper的translate值一直在改变，从而实现滚动效果（当前默认的操作）
+    使用传统的JS动画：在滚动过程中，控制wrapper的top值发生改变，这样的话需要给container设置相对定位，给wrapper设置绝对定位，只有这样wrapper才能在container中来回上下滚动
+    如果我们需要展示滚动条的话，IScroll会帮我们在容器中追加一个DIV：
+    <div class="iSCcrollVerticalScrollbar" style="position:absolute..">
+        <div class="iScrollIndicator"></div>
+    </div>
+    如果想让滚动条显示在容器中，需要给容器增加：position:relative这个样式，我们还可以基于创建出的滚动条的样式类名，重构滚动条的样式
+    3>.scrollTo(x,y,duration)/scrollToElement(ele,duration)
+    在scroll区域中滚动到具体的某个位置
+
+5、JQ
+    JQ选择器获取的结果都是类数组（JQ对象），如果没有获取到指定的元素它也是一个空集合，判断是否存在的时候需要通过判断length是否为零
+        $link.get(0)/$link[0]:获取的结果是JS对象
+        $link.eq(0);//获取的结果是JQ对象
+    JQ中三个常用筛选方法:
+        childeren:在所有子元素中查找
+        find:在所有后代元素中查找
+        filter:首先获取一个集合，在集合中再进行二次筛选
+    JQ中关于盒子模型的属性：
+        height()  快捷获取高度
+        width() 快捷获取宽度
+        innerHeight()==》JS:clientHeight
+        innerWidth()==》JS:clientWidth
+        outerHeight()==》JS:offsetHeight
+        outerWidth()==》JS:offsetWidth
+        offset():获取当前元素距离body的左偏移和上偏移，结果是一个对象{top:xxx,left:xxx}
+    JQ发布订阅模式
+        var callbacks = $.Callbacks();
+        callbacks.add(function() {
+            alert('a');
+        })
+        callbacks.add(function() {
+            alert('b');
+        })
+        callbacks.fire(); //输出结果: 'a' 'b'
+6、同源/非同源（跨域）JSONP
+    当前页面URL地址（浏览器地址栏找）
+    请求数据的接口地址（后台在API文档中规定的获取数据的地址）
+    比较三个维度：协议，域名，端口号
+    看一下两个地址的三个维度是否都相同，如果都相同属于同源数据请求，我们使用AJAX技术；只要有一个不一样，就属于跨域数据请求，AJAX就解决不了这件事了，需要使用非同源数据请求策略，一般最常用的是JSONP
+    $.ajax({
+        url:"http://matchweb.sports.qq.com/kbs/calendar?columnId=100000",
+        type:"get",
+        dataType:"json",
+        success:function(result){
+            console.log(result);
+        }
+    });
+    这就是AJAX请求，如果把dataType:"jsonp"，此时就变为JSONP数据请求了
+===================================================
+具体技术：
+    基于单例模式的命令模式
+    格式化时间
+    jquery方法
+    iscroll实现局部区域滚动
+    根据HASH值定位到具体某个位置
+    jsonp
+    左右切换
+
+============================================
+//格式化时间
+(function (pro) {
+    function myFormatTime(templete) {
+        templete=templete||"{0}年{1}月{2}日{3}时{4}分{5}秒",
+            ary=this.match(/(\d+)/g);//["2017", "1", "12", "17", "10", "3"]
+        templete=templete.replace(/\{(\d+)\}/g,function () {
+            /*var n=arguments[1],
+                val=ary[n]||"00";
+            val.length<2?val="0"+val:null;
+            return val;*/
+            return (ary[arguments[1]] || '00').length < 2 ? '0' + ary[arguments[1]] : ary[arguments[1]];
+        });
+        return templete;
+    }
+    pro.myFormatTime=myFormatTime;
+})(String.prototype);
+============================================

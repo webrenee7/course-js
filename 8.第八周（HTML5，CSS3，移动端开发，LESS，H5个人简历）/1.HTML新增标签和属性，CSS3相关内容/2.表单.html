@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+    <!--contenteditable-->
+    <p contenteditable="true">fdsfsd</p>
+
+    <!--tabindex   autofocus-->
+    <input type="text" tabindex="3" >
+    <input type="text" tabindex="2">
+    <input type="text" tabindex="1" autofocus>
+
+    <!--hidden-->
+    <input type="text" hidden>
+
+    <!--spellcheck-->
+    <textarea spellcheck="true"></textarea>
+
+    <!--datalist-->
+    <input type="text" list="shop"/>
+    <datalist id="shop">
+        <option>a1</option>
+        <option>a11</option>
+        <option>a12</option>
+    </datalist>
+
+    <!--detalis-->
+    <details>
+        <summary>这是标题</summary>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+        </ul>
+    </details>
+
+    <!--output-->
+    <form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+        <input type="range" max="100" min="0" value="50" id="a"/>
+        <input type="number" value="50" id="b"/>
+        <output name="x" for="a b">100</output>
+    </form>
+
+    <!--表单验证-->
+    <form><!--novalidate-->
+        <input type="url" id="oText" autocomplete="off" pattern="\d{2}" required />
+        <input type="submit" type="提交" formnovalidate/>
+    </form>
+    <script>
+        window.document.designMode = "on";
+        var oText=document.getElementById("oText");
+        oText.addEventListener("invalid",function () {
+ /*           console.log(this.validity);*/
+            /*if(this.validity.patternMismatch){//验证不通过 true
+                this.setCustomValidity("请输入2位数字");
+            }else{
+                this.setCustomValidity("");
+            }*/
+            /*if(this.validity.valueMissing){//验证不通过 true
+                this.setCustomValidity("信息不能为空！");
+            }else{
+                this.setCustomValidity("");
+            }*/
+            if(this.validity.typeMismatch){//验证不通过 true
+                this.setCustomValidity("类型不正确！");
+            }else{
+                this.setCustomValidity("");
+            }
+        },false);
+
+    </script>
+</body>
+</html>

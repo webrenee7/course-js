@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //1、非空验证   ====>匹配所有的空(空字符串，空格，多个空格)
+        //""，" "，"      "
+        var reg=/^\s*$/;
+        console.log(reg.test(""));//true
+        console.log(reg.test(" a"));//false
+
+        //2、有效数字验证
+        var reg=/^[+-]?\d+(\.\d+)?$/;
+        console.log(reg.test("1.a"));//false
+        console.log(reg.test("1"));//true
+
+        //3、邮箱验证
+        var reg=/^\w{1,26}@[0-9a-zA-Z]{1,20}(\.[a-z]{2,3}){1,2}$/;
+        console.log(reg.test("asd@sd.com"));
+
+
+    </script>
+</body>
+</html>

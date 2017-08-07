@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索框</title>
+    <link rel="stylesheet" href="css/reset.min.css">
+    <style>
+        .search{ width:300px; margin:100px auto;}
+        .search .searchInput{ width:288px; height: 30px; line-height: 30px; border: 1px solid green; padding:0 5px; box-sizing: content-box;}
+        .search .searchItem{ display: none; border:1px solid green; margin-top:-1px;}
+        .search .searchItem li{ height: 30px; line-height: 30px; padding:0 5px; cursor: pointer;}
+        .search .searchItem li.bg,.search .searchItem li:hover{ background: green; color: #fff}
+    </style>
+</head>
+<body>
+    <div class="search">
+        <input type="search" class="searchInput">
+        <ul class="searchItem">
+            <li>珠峰</li>
+            <li>珠峰</li>
+        </ul>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script>
+        /*
+        分析需求：
+            ->文本框里面的内容发生改变时（文本框得到焦点时），向服务器发送请求获取到数据
+            ->如果数据存在，将数据绑定到页面，UL显示
+            ->如果数据不存在，UL隐藏
+
+            ->点击LI，将LI中的内容绑定到INPUT中
+            ->点击INPUT，什么也不做
+            ->点击其他，UL隐藏
+
+            ->按上键，选中上一行，按下键，选中下一行，并且文本框中显示选中的内容
+            ->当输入了新内容时，step值重新回到文本框的位置
+        */
+        var $searchInput=$(".searchInput"),
+                $searchItem=$(".searchItem"),
+                $oLis=null,
+                step=-1;
+        //为了防止fn被全局污染，使用单例模式
+        var searchRender=(function () {
+            function fn(result) {
+                if(result){
+                    result=result["s"];
+                    if(result.length==0){
+                        $searchItem.html("").css("display","none");
+                        return;
+                    }
+                    var str="";
+                    $.each(result,function (index,item) {
+                        str+='<li>'+item+'</li>';
+                    });
+                    $searchItem.html(str).css("display","block");
+                }
+            }
+            return {
+                fn:fn
+            }
+        })();
+        //使用事件委托绑定点击事件
+        $("body").on("click",function (e) {
+            var tar=e.target,
+                    tarTag=tar.tagName,
+                    $tar=$(tar);
+            //->LI
+           if(tarTag=="LI"&&$tar.parent().hasClass("searchItem")){
+               $searchInput.val($tar.html());
+               $searchItem.css("display","none");
+               return;
+           }
+            //->INPUT
+           if(tarTag=="INPUT"&&$tar.hasClass("searchInput")){
+               return;
+           }
+            //_>OTHERS
+           $searchItem.css("display","none");
+
+        });
+        //按键抬起，文本框得到焦点时，向服务器发送请求
+        $searchInput.on("keyup focus",function (e) {
+            var $oLis=$searchItem.children("li");
+            if(/^(13|46|8)$/.test(e.keyCode)) return;//排除无效的热键，减少无效的HTTP请求次数
+            if(e.keyCode==40){
+                step++;
+                if(step==$oLis.length){
+                    step=-1;
+                }
+                selectedLi();
+                return;
+            }
+            if(e.keyCode==38){
+                step--;
+                if(step==-2){
+                    step=$oLis.length-1;
+                }
+                selectedLi();
+                return;
+            }
+            function selectedLi() {
+                $oLis.each(function (index,item) {
+                    index==step?$(item).addClass("bg"):$(item).removeClass("bg");
+                });
+                $searchInput.val($oLis.eq(step).html());
+            }
+            step=-1;/*如果按的不是上下键，step重新赋值为-1,也就是文本框的位置*/
+            var val=$(this).val();
+            $.ajax({
+                url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+val,
+                type:"get",
+                dataType:"jsonp",
+                jsonp:"cb",
+                jsonpCallback:"searchRender.fn"
+            });
+        });
+    </script>
+</body>
+</html>

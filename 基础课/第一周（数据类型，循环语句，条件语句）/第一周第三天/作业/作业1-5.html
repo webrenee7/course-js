@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>99乘法表+隔行变色+移入移出+点击弹出</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        span{
+            padding:0 10px;
+        }
+        .bg1{
+            background: yellow;
+        }
+        .bg2{
+            background: pink;
+        }
+        .bg3{
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <ul id="box"></ul>
+    <script>
+        //输出99乘法表（用字符串拼接）
+        var oBox=document.getElementById("box");
+        var str="";
+        for(var i=1;i<=9;i++){
+            str+="<li>";
+            for(j=1;j<=i;j++){
+                str+='<span>'+j+'*'+i+'='+j*i+'</span>';
+            }
+            str+="</li>";
+        }
+        oBox.innerHTML=str;
+
+        //隔行变色+移入移出+点击弹出
+        var oLis=document.getElementsByTagName("li");
+        for(var i=0,n=oLis.length;i<n;i++){
+            //隔行变色用if else，移入移出用属性存旧值
+            /*if(i%2==0){
+             oLis[i].className="bg1";
+             oLis[i].bg="bg1";
+             }else{
+             oLis[i].className="bg2";
+             oLis[i].bg="bg2";
+             }
+             //隔行变色用三元运算符
+             i%2===0?(oLis[i].className="bg1",oLis[i].bg="bg1"):(oLis[i].className="bg2",oLis[i].bg="bg2");
+             oLis[i].onmouseover=function () {
+             this.className="bg3";
+             }
+             oLis[i].onmouseout=function () {
+             this.className=this.bg;
+             }*/
+            //隔行变色用简单的拓展方法，移入移出用变量存旧值
+            var oldBg;
+            oLis[i].className="bg"+(i%2+1);
+            oLis[i].onmouseover=function () {
+                oldBg=this.className;
+                this.className="bg3";
+            }
+            oLis[i].onmouseout=function () {
+                this.className=oldBg;
+            }
+
+            oLis[i].index=i;
+            oLis[i].onclick=function () {
+                alert("我是第"+(this.index+1)+"行");
+            }
+        }
+    </script>
+</body>
+</html>

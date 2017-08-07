@@ -1,0 +1,91 @@
+第三周第二节关键词：
+    ☛ 图片延迟加载
+===============================================================================
+★★★★★
+    单行显示，多余部分显示省略号：
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+    多行显示，多余部分省略号：（pc端不支持）
+            height: 36px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
+
+★★★★★图片延迟加载
+        图片延迟加载思路：
+        1.img标签的src属性就是用来加载图片资源的。然后有些图片在刚打开网页时候不在我的可视窗口内。那么这些图片暂时不用去加载
+        2.当滚动条滚动的时刻，这个图片完全进入到窗口内再去加载这张图片。其实就是让src属性赋值
+        3.这个src的属性暂时存在了标签自定义属性上
+        4.当符合判定条件（完全进入）。把这个自定义属性的值赋值给src属性
+
+        //1、获取要操作的元素
+        var oUl=document.querySelectorAll(".newsList")[0];
+        var oImgs=oUl.getElementsByTagName("img");
+        var data=null;
+
+        //2、获取数据
+        (function getData() {
+            var xhr=new XMLHttpRequest();
+            xhr.open("get","data/data.txt?t="+new Date().getTime(),false);
+            xhr.onreadystatechange=function () {
+                if(xhr.readyState==4&&/^2\d{2}$/.test(xhr.status)){
+                    var jsonStr=xhr.responseText;
+                    data=utils.jsonParse(jsonStr);
+                }
+            }
+            xhr.send(null);
+        })();
+
+        //3、绑定数据到页面
+        (function bindData() {
+            var str="";
+            if(data&&data.length>0){
+                for(var i=0;i<data.length;i++){
+                    var curDataObj=data[i];
+                    str+="<li>";
+                    str+="<div><img src='' tempSrc='"+curDataObj.src+"'/></div>"
+                    str+="<div><h3>"+curDataObj.title+"</h3><p>"+curDataObj.desc+"</p></div>"
+                    str+="</li>";
+                }
+                oUl.innerHTML=str;
+            }
+        })();
+
+        //4、多张图片延迟加载
+        function allImgDelayLoad() {
+            for(var i=0;i<oImgs.length;i++){
+                var curImg=oImgs[i];
+                if(curImg.isLoaded){
+                    continue;
+                }
+                var a=utils.win("clientHeight")+utils.win("scrollTop");
+                var b=curImg.parentNode.offsetHeight+utils.offset(curImg.parentNode).top;
+                if(a>b){
+                    singleImgLoad(curImg);
+                }
+            }
+        }
+        function singleImgLoad(curImg) {
+            var tempImg=new Image();
+            tempImg.src=curImg.getAttribute("tempSrc");
+            tempImg.onload=function () {
+                curImg.src=this.src;
+                fadeIn(curImg);
+            }
+            curImg.isLoaded=true;
+            tempImg=null;
+        }
+        function fadeIn(curImg) {
+            var op=utils.getCss(curImg,"opacity");
+            curImg.timer=window.setInterval(function () {
+                if(op>=1){
+                    window.clearInterval(this.timer);
+                }
+                op+=0.01;
+                utils.setCss(curImg,"opacity",op);
+            },10);
+        }
+        allImgDelayLoad();
+        window.onscroll=allImgDelayLoad;

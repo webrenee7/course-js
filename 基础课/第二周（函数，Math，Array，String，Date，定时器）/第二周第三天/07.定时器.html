@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100px;
+            height:100px;
+            background:black;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox=document.getElementById("box");
+        var val=0;
+        var t=window.setInterval(function right() {
+            val+=10;
+            box.style.left=val+"px";
+            box.style.top=val+"px";
+            if(val==100){
+                clearInterval(t);
+            }
+        },1000);
+    </script>
+</body>
+</html>

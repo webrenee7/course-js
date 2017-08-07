@@ -1,0 +1,29 @@
+*{ margin:0; padding:0}
+ul,li{ list-style: none;}
+body{ font:14px/24px "微软雅黑"; background: #eee;}
+a,a:hover{ text-decoration: none; color: #000;}
+input{ outline: none;}
+.wid100{ width:100px;}
+.wid120{ width:120px;}
+.wid180{ width:180px;}
+
+/*index*/
+.box{ width: 600px; margin:100px auto; border:2px solid #000; background: #066666; border-radius: 10px; padding:20px;}
+.box h2{ font-size: 26px; font-weight: bold; color: #fff; text-align: center; margin-bottom:30px;}
+.box .btn{ display: inline-block; width:100px; height: 30px; line-height: 30px; background: #eee; font-size: 15px; text-align: center; border-radius: 5px; font-weight: bold;}
+.box .btn:hover{ background: #ffeeaa;}
+.add_btn{ text-align: right; margin-bottom: 20px;}
+.tb_tit{ height: 30px; line-height: 30px; background: #000;}
+.box span{ float: left; display: block; text-align: center;}
+.tb_tit span{ color: #fff; font-size: 15px;}
+.tb_list{ background: #eee;}
+.tb_list li{ height: 30px; line-height: 30px;}
+.tb_list li:nth-child(even){ background: #fff;}
+.tb_list li:hover{ background: #ffeeaa;}
+.tb_list li a:hover{ text-decoration: underline;}
+
+/*detail*/
+.info_line{ height: 30px; margin-bottom: 10px;}
+.info_line label{ float: left; display: block; width:150px; text-align: right; margin-right: 10px; font-size: 15px; color: #fff;}
+.info_line input{ float: left; width:300px; height: 28px; line-height: 28px; padding:0 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;}
+.submit_btn{ text-align: center; margin:20px auto 0;}

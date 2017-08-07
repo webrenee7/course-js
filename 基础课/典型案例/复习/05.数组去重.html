@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+<body>
+    <script>
+        var ary=[1,2,2,4,6,3,2];
+        var obj={};
+        for(var i=0;i<ary.length;i++){
+            var cur=ary[i];
+            if(cur==obj[cur]){
+                ary[i]=ary[ary.length-1];
+                ary.length--;
+                i--;
+            }else{
+                obj[cur]=cur;
+            }
+        }
+        console.log(ary);
+    </script>
+</body>
+</html>

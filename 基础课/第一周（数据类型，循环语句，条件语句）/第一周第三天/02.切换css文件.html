@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>切换css文件</title>
+    <link rel="stylesheet" id="link"/>
+    <style>
+        html,body{
+            height:100%;
+        }
+    </style>
+</head>
+<body id="box">
+    <script>
+        /*思考：
+            有两个css文件(css1,css2)，通过link的形式引入当前html文件，点击html文件按钮，切换这两个css文件，怎样做？
+            点击body，body变色（红色，蓝色）
+            思路：操作link的href属性
+        * */
+        var oLink=document.getElementById("link");
+        var oBox=document.getElementById("box");
+        oBox.onclick=function(){
+            //var href=oLink.href;
+            //对象.href有兼容问题。标准浏览器，获取到的是绝对路径，ie6/ie7，字符串为什么，获取到什么
+            //对象.getAttribute(href)无兼容问题。
+            var href=oLink.getAttribute('href');
+            //console.log(href);
+            if(href=="css1.css"){
+                oLink.href="css2.css";
+            }else{
+                oLink.href="css1.css";
+            }
+        }
+    </script>
+</body>
+</html>

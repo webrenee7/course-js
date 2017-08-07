@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>递归</title>
+</head>
+<body>
+    <script>
+        //1-100求和
+        /*function sum(n){
+            //得设置范围，否则会报内存溢出错误
+            if(n===0){
+                return 0;
+            }
+            return n+sum(n-1);
+        }
+        console.log(sum(100));*/
+
+        //0-100可以整除2的数字相加
+        function sum(n){
+            if(n===0){
+                return 0;
+            }
+            if(n%2===0){
+                return n+sum(n-1);
+            }
+            return sum(n-1);
+        }
+        console.log(sum(100));
+    </script>
+</body>
+</html>

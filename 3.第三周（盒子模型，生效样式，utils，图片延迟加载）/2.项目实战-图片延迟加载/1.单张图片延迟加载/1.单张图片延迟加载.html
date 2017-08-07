@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单张图片延迟加载</title>
+    <style>
+        html,body,div,img{
+            margin:0;
+            padding:0
+        }
+        #box{
+            width:300px;
+            height:200px;
+            margin:900px auto;
+            border:3px solid #000;
+            background:url("1.单张图片延迟加载/images/default.jpg");
+            background-size:100% 100%;
+        }
+        #box img{
+            width:100%;
+            height:100%;
+            border: none;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"><img src="" trueImg="images/1.jpg"/></div>
+    <script src="myUtils.js"></script>
+    <script>
+        //图片延迟加载思路：
+        /*
+        * 1.img标签的src属性就是用来加载图片资源的。然后有些图片在刚打开网页时候不在我的可视窗口内。那么这些图片暂时不用去加载
+        * 2.当滚动条滚动的时刻，这个图片完全进入到窗口内再去加载这张图片。其实就是让src属性赋值
+        * 3.这个src的属性暂时存在了标签自定义属性上
+        * 4.当符合判定条件（完全进入）。把这个自定义属性的值赋值给src属性
+        * */
+        var oBox=document.getElementById("box");
+        var img=oBox.getElementsByTagName("img")[0];
+        window.onscroll=function () {
+            var a=utils.win("clientHeight")+utils.win("scrollTop");//浏览器窗口的高度(clientHeight)+浏览器窗口滚出去的高度(scrollTop)
+            var b=oBox.offsetHeight+utils.offset(oBox).top;//盒子的高度(offsetHeight)+盒子距离body的上偏移量(offsetTop)
+            if(a>b){
+                if(img.isLoaded){
+                    return;//如果已经加载过，后面的代码就没必要执行了
+                }
+                //var tempImg=new Image();
+                var tempImg=document.createElement("img");//创建一个临时的img标签
+                tempImg.src=img.getAttribute("trueImg");//存储图片的src属性
+                tempImg.onload=function () {//当图片加载成功（图片存在），才赋值，如果不这样做，图片那么图片加载失败(图片不存在)时，也会赋值，导致出现碎图
+                    img.src=this.src;
+                    //console.log(1);//==>只要滚动条就会一直执行图片加载的过程，浪费性能，没必要
+                    img.isLoaded=true;//设置一个标志，图片已经加载成功了
+                }
+                tempImg=null;
+            }
+        }
+
+    </script>
+</body>
+</html>

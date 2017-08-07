@@ -1,0 +1,203 @@
+jquery学习官网：http://jquery.cuishifeng.cn/
+***jquery对象返回值是个类数组
+    返回值包括的内容：dom对象，上下文，选择器名称
+    举例：[div#div1, context: document, selector: "#div1"]
+$===jQuery
+1.jquery选择器
+    1>.获取
+        $("#div1")  id选择器
+        $(".div1")  类选择器
+        $("div")  元素选择器
+        $("#div1>p")  获取父元素的子元素
+        $("#div1 p")  获取父元素的子子孙孙元素
+        $("#div1+")   获取prev之后的next元素
+        $("#div1~")   获取prev之后所有的兄弟元素
+    2>.过滤
+        //基本筛选器
+        $("div:first")
+        $("div:flast")
+        $("div:not(#div2)")
+        $("div:odd")
+        $("div:even")
+        $("div:lt(2)")
+        $("div:gt(2)")
+        //内容过滤
+        $("div:contains("珠峰")")  包含指定内容的
+        $("div:empty)  内容为空的
+        $("div:parent)  含有子元素或者文本的元素
+        $("div:has(span))  含有指定元素的
+        //可见性过滤
+        $("div:hidden)  隐藏的
+        $("div:visible)  显示的
+        //属性过滤
+        $('input[type=checkbox]')  [attr=value]属性过滤
+        $('input[type=checkbox][zhang=wen]')  支持多个属性过滤
+        $('input[type!=checkbox]')  属性过滤支持否定选择
+        $('input[name^=sex]')  属性值以value开头
+        $('input[name$=sex]')  属性值以value结尾
+        $('input[name*=sex]')   属性值中包含value
+        //表单元素特有的过滤
+        $('input:radio')
+        $('input:checked')  选中状态的
+        $('input:disabled')  禁用的
+2.jquery常用方法
+    实现原理：
+        function jQuery(){
+        }
+        jQuery.prototype.css=function(){
+            this[0];
+        }
+        function $(){
+            return new jQuery();
+        }
+        $('#div1');
+    如何把原生dom对象转化为jQuery对象？？
+        $(dom对象)
+    如何把jquery对象转化为dom对象？？
+        jquery对象.get(0)
+    ==》dom对象只能用dom方法
+        jquery对象只能用jquery方法
+    1>.css方法==>获取/设置元素的样式
+        $(selector).css(属性名)  ==》获取元素的样式
+        $(selector).css(属性名，属性值)  ==》设置元素的样式
+        $(selector).css({属性名1:属性值1,属性名2:属性值2})   ==》批量设置元素的样式
+    2>.offset方法==>获取偏移量（left,top） 原生js:offsetLeft/offsetTop
+    3>.position方法==>获取距离父元素的偏移
+    4>.scrollTop方法==>获取/设置元素相对于滚动条顶部的偏移
+       scrollLeft(value)==>获取/设置元素相对于滚动条左部的偏移
+    5>.height(value)==>有value设置高度，没value获取高度
+       width(value)==>有value设置宽度，没value获取宽度
+    6>.innerWidth()==>只能获取值。相当于原生的clientWidth
+       innerHeight()==>只能获取值。相当于原生的clientHeight
+    7>.outerWidth()==>只能获取值。相当于原生的offsetWidth
+       outerHeight()==>只能获取值。相当于原生的offsetHeight
+3、jquery常用属性方法
+    1>.attr(属性名，属性值)==》设置/获取元素的属性(主要用于自定义属性)   原生js：getAttribute(属性名，属性值)
+        $(selector).attr(属性名)  ==》获取元素的属性
+        $(selector).attr(属性名，属性值)  ==》设置元素的属性
+        $(selector).attr({属性名1:属性值1,属性名2:属性值2})   ==》批量设置元素的属性
+    2>.removeAttr(属性名)==》移除元素的属性     原生js：removeAttribute
+    3>.html(value)==>有value设置html，没value获取html     原生js：innerHTML
+    4>.text(value)==>有value设置text，没value获取text    原生js：innertText
+    5>.prop(属性名，属性值)==》设置/获取元素的属性(主要用于原生属性，尤其checked,disabled这种表单元素的选中和置灰操作，必须使用prop)    原生js：property
+    6>.val(value)==>有value设置val，没value获取val    原生js：value
+    7>.addClass(className)==》添加类
+       removeClass(className)==》移除类
+       toggleClass(className)==》如果有，移除类，如果没有，添加类
+       hasClass(className)==》判断是否有类名,返回true/false
+4、jquery文档处理
+    1>.append   给匹配元素“内部末尾“追加内容   原生js:appendChild()
+            $(selector).append(content|fn)
+       appendTop  原生js:
+            content.appendTo($(selector))
+    2>.prepend   给匹配元素”内部前面“追加内容
+            $(selector).prepend(content|fn)
+       prependTo
+            content.prependTo($(selector))
+    5>.insertBefore  给匹配元素开头追加内容
+            $(selector).insertBefore(content)
+       insertAfter   给匹配元素末尾追加内容
+            $(selector).insertAfter(content)
+    6>.before   给匹配元素开头追加内容
+            $(selector).before(content|fn)
+       after   给匹配元素末尾追加内容
+            $(selector).after(content|fn)
+    7>.wrap  给元素添加包裹
+            $(selector).wrap(html|ele|fn)
+       unwrap  去掉元素的包裹
+            $(selector).unwrap()
+    8>.remove  移除节点  原生js:removeChild
+       clone   克隆节点  原生js:cloneNode(true)
+5、jquery中常用的筛选方法
+    prev,next,prevAll,nextAll
+    find
+    index
+    filter()==》在一个集合中过滤出自己想要的元素
+    closest 从元素本身开始，逐级向上级元素匹配，并返回最先匹配的元素.
+6、jquery常用效果
+    hide()	隐藏被选的元素
+    show()	显示被选的元素
+    toggle()	对被选元素进行隐藏和显示的切换
+
+    fadeIn()	逐渐改变被选元素的不透明度，从隐藏到可见
+    fadeOut()	逐渐改变被选元素的不透明度，从可见到隐藏
+    fadeToggle() 通过不透明度的变化来开关所有匹配元素的淡入和淡出效果，并在动画完成后可选地触发一个回调函数。
+    fadeTo()	把被选元素逐渐改变至给定的不透明度
+
+    slideUp()	通过调整高度来滑动隐藏被选元素
+    slideDown()	通过调整高度来滑动显示被选元素
+    slideToggle()	对被选元素进行滑动隐藏和滑动显示的切换
+
+    stop()	停止在被选元素上运行动画
+
+    animate()	对被选元素应用“自定义”的动画
+        参数：target,duratioin,effect,callback
+7、jquery常用事件
+    click
+    mouseover
+    trigger主动触发事件
+    on 同一个事件类型可以绑定多个函数
+    off 移除事件
+8、ajax
+    ***工具类的方法(例如ajax())都添加在jQuery类本身，然后对于依赖于DOM结构的方法（例如css(),html()）都添加在jQuery的原型上
+    $.ajax({
+        type:"get/post",
+        url:"data.txt?_"=+Math.random(),
+        dataType:"json",    //html,text
+        async:true,       //true/false 异步还是同步
+        cache:true,       //true/false 缓存
+        data:{sex:1,age:30},//提交给后台的参数
+        success:function(data){
+            //data是成功之后获取到的数据
+        }
+        error:function(){
+            //失败后执行的代码
+        }
+    });
+9.工具
+    1>.$.trim 去除字符串首尾空格
+    2>.$.isPlainObject()   判断是否是一个{}对象
+    3>.$.unique()  数组去重
+    4>.$.toArray()  类数组转为数组
+    5>.遍历
+        var ary=[1,2,3,4]
+        原生js遍历：
+            ary.forEach(function(item,index){
+            })
+        jquery遍历：
+            方法一：调用jQuery类上的each方法  ==>$.each()
+            $.each(ary,function(index,item){
+                console.log(index,item);
+            })
+            注意：each方法中的this可以认为和item是同一个
+            方法二：调用jQuery原型上的each方法  ==>$().each
+            $(ary).each(function(index,item){
+                console.log(index,item);
+            })
+10.基于jQuery拓展组件
+    jQuery.ajax=function(){}
+    jQuery.prototype.css=function(){}
+    $.fn.extend();//$.prototype
+    $.extend();//$
+    $.fn===jQuery.prototype 返回true  *********************
+    举例：
+        将方法添加到原型上
+            $.fn.extend({
+                haha:function(){
+                    alert(2123);
+                }
+            });
+            $.prototype.haha=function(){
+                alert(2123);
+            }
+            $("#div1").haha();
+        将方法添加到类上
+            $.extend({
+                haha:function(){
+                    alert(2123);
+                }
+            });
+            $.haha();
+
+
+

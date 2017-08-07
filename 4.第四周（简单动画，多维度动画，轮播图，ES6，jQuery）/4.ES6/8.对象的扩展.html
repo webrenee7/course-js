@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象的扩展</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        .box{
+            width:500px;
+            margin:0 auto;
+        }
+        .tab{
+            position: relative;
+            top:1px;
+            overflow: hidden;
+        }
+        .tab li{
+            float: left;
+            width:100px;
+            height:40px;
+            line-height: 40px;
+            margin-right:10px;
+            background: lightcyan;
+            font-size: 18px;
+            text-align: center;
+            border:1px solid #000;
+            cursor: pointer;
+        }
+        .tab li.cur{
+            background:lightgoldenrodyellow;
+            border-bottom-color: lightgoldenrodyellow;
+        }
+        .tab li.change{
+            background:lightgoldenrodyellow;
+            border-bottom-color: lightgoldenrodyellow;
+        }
+        .con div{
+            height:250px;
+            line-height: 250px;
+            background:lightgoldenrodyellow;
+            text-align: center;
+            font-size:30px;
+            display: none;
+            border:1px solid #000;
+        }
+        .con div.cur{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <!--<ul class="tab">
+            <li class="cur">页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div class="con">
+            <div class="cur">内容一</div>
+            <div>内容二</div>
+            <div>内容三</div>
+        </div>-->
+    </div>
+    <script>
+        /*var obj1={a:1,b:2};
+        var obj2={a:2,b:4,c:6};
+        var obj3={a:5,b:8,c:3,d:9};
+        var obj4=Object.assign(obj3,obj1);//{a: 1, b: 2, c: 3, d: 9}
+        console.log(obj4);
+        var obj4=Object.assign(obj1,obj2);//{a: 2, b: 4, c: 6}
+        console.log(obj4);*/
+        function Tab(opts) {
+            var confOpts={
+                cName:"cur"
+            };
+            this.options=Object.assign({},confOpts,opts);//assign方法：后面的对象合并到第一个对象，写空对象是为了合并时不影响其他的对象
+            this.init();
+            this.renderDOM();
+            this.bindHandler();
+        }
+        //构造函数封装三部曲：初始化，渲染DOM，绑定事件
+        Tab.prototype={
+            constructor:Tab,
+            init() {//之前的写法：init:function(){   ES6可以去掉  ':function'
+                this.len=this.options.data.length;
+                this.ele=this.options.ele;
+                this.cName=this.options.cName;
+                this.zIndex=this.options.zIndex;
+            },
+            renderDOM() {
+                let cUl=document.createElement("div");
+                cUl.className="tab";
+                for(let i=0;i<this.len;i++){
+                    let cLi=document.createElement("li");
+//                    if(!i){//==>如果是第一个li
+                    if(i===this.zIndex){
+                        cLi.className=this.cName;
+                    }
+                    cLi.innerHTML=this.options.data[i].title;
+                    cUl.appendChild(cLi);
+                }
+                this.ele.appendChild(cUl);
+            },
+            bindHandler() {
+                let _this=this;
+                let oLis=this.ele.getElementsByTagName("li");
+                for(let i=0;i<this.len;i++){
+                    oLis[i].onclick=function () {
+                        for(let j=0;j<_this.len;j++){
+                            oLis[j].className="";
+                        }
+                        oLis[i].className=_this.cName;
+                    }
+                }
+            }
+        }
+
+        var data=[
+            {"title":"页卡一","con":"内容一"},
+            {"title":"页卡二","con":"内容二"},
+            {"title":"页卡三","con":"内容三"}
+        ];
+        var box=document.getElementsByClassName("box")[0];
+        var obj={
+            ele:box,
+            data:data,
+            cName:"change",
+            zIndex:1
+        };
+        //new过程发生了什么？？？
+        //1、创建了一个空对象
+        //2、this指向这个空对象
+        //3、执行构造函数的代码
+        //4、隐式返回这个对象
+        new Tab(obj);
+    </script>
+</body>
+</html>

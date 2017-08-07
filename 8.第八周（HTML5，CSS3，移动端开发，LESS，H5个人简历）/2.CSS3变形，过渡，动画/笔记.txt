@@ -1,0 +1,121 @@
+
+===============================transition 过渡===============================
+    语法：当CSS属性值发生改变时，由起始值向结束值实现平滑过渡的动画效果
+    特点：1.只有两种状态，起始状态和结束状态
+          2.过渡动画效果起作用需要通过CSS（伪类，媒体查询），js等触发（目的是为了改变CSS属性值）
+    transition细分属性(4个)：
+        transition-property:all（默认值）|具体css属性   过渡属性
+        transition-duration  过渡时间  （必设）
+        transition-delay  延迟时间
+        transition-timing-function:
+            ease(减速 默认值)  ease-in(加速)  ease-out(减速)  ease-in-out(先加速后减速)  linear(匀速)
+            贝塞尔曲线网址: cubic-bezier.com
+        transition复合写法：
+            transition: width 1s 1s ease;
+            transition: width 1s 1s ease,height 2s 2s linear;
+            如果只是transition-property不一样，其他的过渡时间，延迟时间，动画类型都一样
+            transition: all 1s 1s ease;
+    ps:transition添加在伪类上还是元素上transition执行的次数不一样，添加在伪类上执行两次，添加在元素上执行一次
+    ps:pc端页面：写5种 -webkit-  -ms-  -o-  -moz-
+       移动端页面：写两种 -webkit-  标准
+    动画结束以后触发的事件  transitionend|webkitTransitionEnd|mozTransitionEnd|msTransitionEnd
+                            ele.addEventListener('webkitTransitionEnd',function(){},false);
+    动画效果三部曲：
+        1>.确定过渡属性
+        2>.找到过渡属性的起始值和结束值
+        3>.添加transition属性
+
+===============================transform  2D变形========================================
+    rotate()  旋转
+        单位deg  正-->顺时针旋转  负-->逆时针旋转
+        transform-origin 旋转的基点
+    skew()  倾斜
+        单位deg  一个参数：水平倾斜的度数  两个参数（x,y）
+        水平方向：正-->往左，负-->往右
+        垂直方向：正-->往下，负-->往上
+    scale()  缩放
+        默认值是1  <1缩小  >1放大
+        一个参数表示水平和垂直的缩放倍数  两个参数(x,y)
+    translate()  平移
+        默认 0px
+        一个参数 表示在x轴上移动的距离  两个参数（x,y）
+        X轴  正-->往右  负-->往左
+        Y轴  正-->往下  负-->往上
+    ps:rotate()  skew()  scale()基准点可以改变，但是translate()基准点不能改变，它的基准点永远是中心点
+    ps:transform: translate(100px) rotate(45deg);
+       这几个方法可以写在一起，但是，如果不希望变形的基准点发生改变，则把translate这个方法写在最后
+=====================================animation 动画======================================
+帧动画与过渡动画的区别？
+    帧动画弥补了过渡动画的缺点
+    1、帧动画可以设置任意个状态，而过渡动画只有起始状态和结束状态
+    2、不需要触发条件
+    3、帧动画步骤：1>.通过@keyframes 动画名  声明帧动画  (设置动画运行的轨迹)
+                   2>.通过animation属性调用声明的帧动画
+    声明帧动画：
+        @keyframes move{
+        //百分比理解为，在一定时间内，某个时间点设置样式
+            0%{//0%可以用from代替
+                css样式
+            }
+            50%{
+            }
+            100%{//100%可以用to代替
+            }
+        }
+    实例（移动端写法（2种））：
+        @keyframes move {
+            0%{ transform: translate(100px,100px); -webkit-transform:translate(100px,100px); }
+            50%{ transform: translate(250px,250px); -webkit-transform: translate(250px,250px); }
+            100%{ transform: translate(400px,0); -webkit-transform: translate(400px,0); }
+        }
+        @-webkit-keyframes move {
+            0%{ transform: translate(100px,100px); -webkit-transform: translate(100px,100px); }
+            50%{ transform: translate(250px,250px); -webkit-transform: translate(250px,250px); }
+            100%{ transform: translate(400px,0); -webkit-transform: translate(400px,0); }
+        }
+    animation细分属性(8个)：
+        animation-name  帧动画名称（必设）
+        animation-duration  动画执行的时间（必设）
+        animation-timing-function
+            ease(减速 默认值)  ease-in(加速)  ease-out(减速)  ease-in-out(先加速后减速)  linear(匀速)
+            贝塞尔曲线网址: cubic-bezier.com
+        animation-delay  动画延迟时间
+        animation-iteration-count  重复次数  1(默认值)|infinite
+        animation-direction  动画运行的方向
+            normal(默认值)|reverse(反方向)|alternate(交替)|alternate-reverse(反方向交替)
+        animation-play-state  动画运行的状态
+            running(默认值)|paused(停止)
+        animation-fill-mode  动画运行结束后的状态
+            none(默认值)|backwards(起始状态)|forwards(最后一帧)|both(根据方向，可能停留在第一帧或者最后一帧)  动画运行结束的状态
+        animation复合写法：
+            animation:move 1s linear 1s 1 reverse both;
+            animation:move 1s 1 both;
+    实例演示
+
+=====================================transform  3D变换=========================================
+transform-style:flat（默认）|preserve-3d(3d空间里展示)
+perspective:2000px（一般设置在800px-2000px）
+    景深效果  近大远小的效果  作用在祖先元素（包含父标签）
+    用户到物体Z轴平面的距离
+transform:perspective(800px)  直接作用在变形元素上
+    ps:当有很多个变形元素时，通过perspective设置的所有的变形元素的效果会有差异
+       而通过transform:perspective(300px)设置的每个变形元素的效果都一样
+perspective-origin:center 透视点的位置  默认是元素的中心点
+transform 新增函数：
+    translate3d( tx , ty, tz )
+        translateX()    translateY()   translateZ()==》在Z轴上移动的距离，往前移动是正值，往后移动是负值
+    rotate3d( rx , ry , rz，a)//rx,ry,rz是向量坐标，a是角度
+        rotateX()   rotateY()   rotateZ()
+        rotateX  围绕X轴旋转  正-->往前翻  负-->往后翻
+        rotateY  围绕Y轴旋转  正-->往右翻  负-->往左翻
+        rotateZ  围绕Z轴旋转  等同于rotate()方法，但是是在Z轴上旋转:transform:rotate(0,0,1.45deg)
+    scale3d( sx , sy , sz)
+        scaleX()     scaleY()     scaleZ()
+    ps:transform: translate3d(0,0,-500px);//一般这样写，开启硬件GPU加速功能，减少动画的卡顿，闪烁，迟疑等现象
+===============================================================================
+    关于方向的总结：
+        从箭头方向开始看，顺时针是正，逆时针是负
+                箭头那头为正，另外一头为负
+                X轴  从左向右的箭头  左负 右正
+                Y轴  从上往下的箭头  上负 下正
+                Z轴  从里向外的箭头  外正  内负

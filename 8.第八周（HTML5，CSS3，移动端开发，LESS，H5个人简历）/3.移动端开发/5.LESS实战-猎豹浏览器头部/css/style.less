@@ -1,0 +1,56 @@
+@import (reference) "public";
+.header{
+  width:@percentage;
+  height: 480px;
+  .nav{
+    .pos();
+    width:@percentage;
+    height: 89px;
+    background: url("@{url}/nav-b.png") repeat-x;
+  }
+  .banner{/*less嵌套*/
+    height: @percentage;
+    background: orange;
+  }
+}
+.navCon{
+  width:@percentage;
+  h1{
+    float: left;
+    padding-top:18px;
+  }
+  ul{
+    float: right;
+    li{
+      float: left;
+      line-height: 89px;
+      font-size: 16px;
+      a{
+        position: relative;
+        display: block;
+        padding:0 30px;
+        color: @color;
+        span{
+          display: block;
+          width: @percentage;
+          height: @percentage;
+          background: rgba(0,0,0,0.3);
+          .pos(@zIndex: -1);
+          .css3(transform,scale(0,1));
+        }
+        &:hover{
+          span{
+            .css3(transform,scale(1,1));
+            .transition(@duration: 1s);
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and(min-width: 1000px) {
+  .navCon{
+    width:1000px;
+    margin:0 auto;
+  }
+}

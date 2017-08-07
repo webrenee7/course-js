@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调函数</title>
+</head>
+<body>
+    <script>
+        var ary=[1,2,3,4];
+        /*var res=ary.forEach(function (item,index) {
+            console.log(item,index);
+        });
+        console.log(res);//undefined
+        var res=ary.map(function (item,index) {
+            console.log(item,index);
+        });
+        console.log(res);//[undefined, undefined, undefined, undefined]
+        //forEach没有返回值
+        //map有返回值，返回值是map的参数的函数每次的返回值*/
+
+
+
+        //模拟foreach方法
+        //forEach原理：让回调函数执行n(数组的长度)次
+        /*var _this=this;
+        Array.prototype.myforEach=function (callback,_this) {
+            for(var i=0;i<this.length;i++){
+                callback.call(_this,this[i],i);
+            }
+        };
+        ary.myforEach(function (item,index) {
+            console.log(item,index);
+        });*/
+        /*[1,2,3,4].foreach(function (item,index) {
+            //item:1 2 3 4
+            //index:0 1 2 3
+        })*/
+
+
+        //模拟map方法
+        //map原理：让回调函数执行n(数组的长度)次，并且将每次函数执行的结果放到新数组中，最后返回该新数组
+        var _this=this;
+        Array.prototype.myMap=function (callback,_this) {
+            _this=_this||window;
+            var tempArr=[];
+            for(var i=0;i<this.length;i++){
+                tempArr.push(callback.call(_this,this[i],i));
+            }
+            return tempArr;
+        };
+        var res=ary.myMap(function (item,index) {
+            console.log(item,index);
+            console.log(this);//window   回调函数中的this是window
+        },document.body);
+        console.log(res);
+
+        //第二个参数是改前面函数中的this
+
+    </script>
+</body>
+</html>

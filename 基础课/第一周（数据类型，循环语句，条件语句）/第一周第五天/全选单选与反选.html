@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全选单选与反选</title>
+</head>
+<body>
+    <div id="btn">
+        <input type="button" value="全选"/>
+        <input type="button" value="非全选"/>
+        <input type="button" value="反选"/>
+    </div>
+    <div id="list">
+        <input type="checkbox" checked="true"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+        <input type="checkbox"/>
+    </div>
+    <script>
+        //for循环+if判断+函数表达式的综合应用
+        var oBtn=document.getElementById("btn");
+        var oBtns=oBtn.getElementsByTagName("input");
+        var oList=document.getElementById("list");
+        var oLists=oList.getElementsByTagName("input");
+        oBtns[0].onclick=function () {
+            for(var i=0;i<oLists.length;i++){
+                oLists[i].checked=true;
+            }
+        }
+        oBtns[1].onclick=function(){
+            for(var i=0;i<oLists.length;i++){
+                oLists[i].checked="";
+            }
+        }
+        oBtns[2].onclick=function () {
+            for(var i=0;i<oLists.length;i++){
+                if(oLists[i].checked=="true"){
+                    oLists[i].checked="false";
+                }else{
+                    oLists[i].checked="false";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

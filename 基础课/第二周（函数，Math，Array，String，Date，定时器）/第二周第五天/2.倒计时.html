@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>倒计时</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        /*
+        求时间差(通过时间戳)
+        * */
+
+        function countDown(){
+            var time=new Date();//--Sun Nov 13 2016 16:06:34 GMT+0800 (中国标准时间)
+            //将目标时间改成标准时间
+            var tTime=new Date('2016/11/20 17:00:06');//Sun Nov 13 2016 17:00:06 GMT+0800 (中国标准时间)
+            //不能直接求差，而是统一找到一个时间 1970年1月1日 0:00:00
+            var cha=tTime.getTime()-time.getTime();//设定时间和本机时间的时间戳差
+            //========>天，时，分，秒
+            var d=Math.floor(cha/(24*60*60*1000));//天
+            s=cha%(24*60*60*1000);//减去剩下的毫秒数
+            var h=Math.floor(s/(60*60*1000));
+            s%=60*60*1000;
+            var m=Math.floor(s/(60*1000));
+            s%=60*1000;
+            var s=Math.floor(s/1000);
+            var str='距离2016/11/20 17:00:06还有'+d+'天'+h+'时'+m+'分'+s+'秒';
+            var oBox=document.getElementById("box");
+            oBox.innerHTML=str;
+        }
+        countDown();
+        var t=setInterval(countDown,1000);
+
+
+
+
+    </script>
+</body>
+</html>

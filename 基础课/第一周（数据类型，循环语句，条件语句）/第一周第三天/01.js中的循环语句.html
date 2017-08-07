@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js中的循环语句</title>
+</head>
+<body>
+    <script>
+        //1、for循环
+        /*for(var i=0;i<4;i++){
+            console.log(i);//输出4次，值分别为：0 1 2 3
+            //i=0 i<4 console.log(0) i++=1
+            //i=1 i<4 console.log(1) i++=2
+            //i=2 i<4 console.log(2) i++=3
+            //i=3 i<4 console.log(3) i++=4
+            //i=4 i<4
+        }
+        console.log(i);//输出1次，值为4*/
+
+        /*var i=1;
+        for(i<6;i++){
+            console.log(i);//会报错，赋值必须在for()里面
+        }*/
+
+        /*for(var i=1;i<=10;){
+            console.log(i+1);
+            i+=2;
+            console.log(i);
+            //i=1 i<=10 console.log(2) i=3 console.log(3)
+            //i=3 i<=10 console.log(4) i=5 console.log(5)
+            //i=5 i<=10 console.log(6) i=7 console.log(7)
+            //i=7 i<=10 console.log(8) i=9 console.log(9)
+            //i=9 i<=10 console.log(10) i=11 console.log(11)
+            //i=11 i<=10
+            //结果：
+            //2 3
+            //4 5
+            //6 7
+            //8 9
+            //10 11
+        }*/
+
+        //break与continue
+            //break   当循环体中出现break，整个循环结束，循环体中break后的代码也不会执行
+            /*for(var i=0;i<4;i++){
+                console.log(i);//0
+                break;
+            }
+            console.log(i);//0*/
+
+            //continue  当循环体中出现continue，当前循环体continue后的代码不执行，但是循环继续
+            /*for(var i=0;i<4;i++){
+                i+=2;
+                continue;
+                i++;
+            }
+            console.log(i);//6*/
+
+            /*for(var i=0;i<10;i++){
+                //i=0 i<=5 i=1
+                //i=2 i<=5 i=3
+                //i=4 i<=5 i=5
+                if(i<=5) {
+                    i++;
+                    continue;
+                }
+                //i=6 i>=5 i=8
+                if(i>=5){
+                    i+=2;
+                    break;
+                }
+                console.log(i);//8
+            }*/
+
+        //2、while循环
+        /*var i=0;
+        while(i<5){
+            console.log(i);
+            i++;
+        }*/
+
+        //3、do-while循环
+        /*var i=0;
+        do{
+            console.log(i);
+            i++;
+        }while(i<5)*/
+
+        //实例：输出4次'我是最棒的'
+            //for循环
+            /*for(i=1;i<5;i++){
+                console.log(i+'、我是最棒的');
+            }
+            for(i=1;i<5;){
+                console.log(i+'、我是最棒的');
+                i++;
+            }*/
+
+            //while循环
+            /*var i=1;
+            while(i<5){
+                console.log(i+'、我是最棒的');
+                i++;
+            }*/
+
+            //do-while循环
+            var i=1;
+            do{
+                console.log(i+'、我是最棒的');
+                i++;
+            }while(i<5)
+
+    </script>
+</body>
+</html>

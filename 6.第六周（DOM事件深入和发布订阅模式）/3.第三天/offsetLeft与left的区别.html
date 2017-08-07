@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>offsetLeft与left的区别</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .outer{
+            position: relative;
+            width:200px;
+            height: 200px;
+            background: green;
+            border:10px solid #000;
+            margin:50px;
+        }
+        .inner{
+            position: absolute;
+            top:50px;
+            width:100px;
+            height: 100px;
+            background: lightcoral;
+            margin:5px;
+            border:10px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner" style="left:50px;"></div>
+    </div>
+    <script>
+        var inner=document.getElementsByClassName("inner")[0];
+        console.log(inner.offsetLeft);
+        //offsetLeft是从外边距开始算起
+        console.log(inner.style.left);
+        //left是从外边框开始算起
+    </script>
+</body>
+</html>

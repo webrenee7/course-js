@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>for-in循环的用法</title>
+</head>
+<body>
+    <script>
+        var obj={
+            name:'xy',
+            age:25,
+            2:123,
+            fn:function(){
+
+            },
+            ary:[]
+        }
+        console.log(obj);
+        for(arry in obj){
+           // console.log(arry);//输出每个属性
+            console.log(obj[arry]);//输出每个属性对应的值
+            //console.log(obj["arry"])//;undefined
+        }
+        
+    </script>
+</body>
+</html>

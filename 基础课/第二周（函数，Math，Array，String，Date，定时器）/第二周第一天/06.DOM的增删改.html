@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body id="body">
+123456
+<p id="old">987456</p>
+<script>
+    //1、创建元素节点
+    var oDiv=document.createElement('div');
+    var oP=document.createElement('p');
+    var oUl=document.createElement('ul');
+    oUl.setAttribute('index','1');
+
+    oUl.style.height='200px';
+    oUl.style.backgroundColor='black';
+    oP.style.height='50px';
+    oP.style.backgroundColor='red';
+    //console.log(oDiv);
+    //2、将创建的元素节点添加到html中
+    //body.innerHTML=oDiv;
+    //appendChild 将元素节点放在指定元素所有内容之后
+    oDiv.style.height='100px';
+    oDiv.style.backgroundColor='yellow';
+    //body.appendChild(oDiv);
+    //insertBefore 将创建的元素节点放在指定元素之前
+    //父级元素.insertBefore(new,old);
+    oDiv.appendChild(oP);
+    body.insertBefore(oDiv,old);
+    //删除 父级元素.removerChild(需要删除的元素)
+    //body.removeChild(old);//任何的元素节点都可以移除
+    body.appendChild(oDiv.cloneNode(true));
+    body.replaceChild(oUl,oDiv);
+
+    //createAttribute 先创建一个属性名，再给他赋值
+    //再将这个属性名给到一个对象上
+    var attr=document.createAttribute('index');
+    attr.value='234';
+    oUl.setAttributeNode(attr);
+    console.log(oUl.attr);//undefined
+    console.log(oUl.getAttribute('index'));
+    delete oUl.index;
+    oUl.removeAttribute('index');
+</script>
+</body>
+</html>

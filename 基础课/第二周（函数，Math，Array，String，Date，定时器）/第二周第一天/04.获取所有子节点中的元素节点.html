@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取所有节点中的元素节点</title>
+</head>
+<body>
+    <div id="div1">
+        <ul id="list">
+            <li>11</li>
+            <!----><li id="list2">11</li>
+            //fdsa<li>11</li>
+            <li>11</li>
+        </ul>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+        <p>22</p>
+    </div>
+    <script>
+        var oDiv=document.getElementById("div1");
+        //获取所有子节点中的元素节点
+        /*function getElementNode(ele){
+            var ary=[];
+            var nodeList=ele.childNodes;
+            for(var i=0;i<nodeList.length;i++){
+                var cur=nodeList[i];
+                if(cur.nodeType==1){
+                    ary.push(cur);
+                }
+            }
+            return ary;
+        }
+        console.log(getElementNode(oDiv));*/
+        //获取所有子节点中指定标签的元素节点
+        function getElementNode(ele,tagName){
+            var ary=[];//创建一个空数组，未来获取到的所有项，添加到这个数组中
+            var nodeList=ele.childNodes;//获取指定元素的所有子节点
+            //筛选所有子节点中的元素节点
+            for(var i=0;i<nodeList.length;i++){
+                var cur=nodeList[i];
+                if(cur.nodeType==1){
+                    //如果指定标签不传，就获取所有的元素子节点，如果传递了，就进行匹配
+                    if(tagName){//返回值为true，就证明传递了tagName的值
+                        //nodeName获取到的是大写的标签名，tagName传递的参数有可能大写，有可能小写,所以要统一转化为大写或小写
+                        if(tagName.toLowerCase()===cur.nodeName.toLowerCase()){
+                            ary.push(cur);
+                        }
+                        //continue;//后面不写else，此处得写continue
+                    }else{
+                        ary.push(cur);
+                    }
+                }
+            }
+            return ary;
+        }
+        console.log(getElementNode(oDiv,"UL"));
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js的输出方式</title>
+</head>
+<body>
+    <p><span>珠峰培训</span></p>
+    <script>
+        <!--文档中输出-->
+        window.onload=function(){
+            //document.write('写到文档输出');
+        }
+
+        <!--控制台输出-->
+        console.log('普通信息');
+        console.error('错误信息');
+        var obj=document.getElementsByTagName('p')[0];
+        console.dir(obj);
+        //console.clear();
+        console.log(obj.innerHTML);
+        console.log(obj.innerText);
+        obj.innerHTML="<p style='background: red;'>一个段落</p>";
+        document.write(obj);
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串拼接+隔行变色</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        body{
+            background-color:paleturquoise;
+        }
+        ul,li{
+            list-style: none;
+        }
+        li{
+            width:600px;
+            margin:0 auto;
+            height:20px;
+        }
+        .bg1{
+            background-color:pink;
+        }
+        .bg2{
+            background-color:green;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <script>
+        var oDiv=document.getElementById('div1');
+        var str='';//在整个文档下声明一个变量，这个变量是一个盒子，我要将我在js中拼接的所有字符串，都放在这个盒子里
+        // str='a' str='b' ==>str='b'
+        //str+='a' str+='b' ==>str='a+b'
+        //=是替换掉盒子原来的东西
+        //+= 是保存盒子原来的东西，继续累加
+        str+='<ul>';
+        for(var i=0;i<=10;i++){
+            str+='<li style="color:red;">'+i+'</li>';
+        }
+        str+='</ul>';
+        //document.write(str);//具有局限性
+        oDiv.innerHTML=str;
+        var oLis=document.getElementsByTagName('li');
+        for(var i=0;i<=oLis.length;i++){
+            i%2===0?oLis[i].className='bg1':oLis[i].className='bg2';
+        }
+    </script>
+</body>
+</html>

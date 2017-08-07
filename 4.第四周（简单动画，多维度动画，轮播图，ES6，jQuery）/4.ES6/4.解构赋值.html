@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>解构赋值</title>
+    <style>
+        body,div{
+            margin:0;
+            padding:0;
+        }
+        .outer{
+            width:400px;
+            height:400px;
+            margin-top:40px;
+            margin-left:100px;
+            background:lightseagreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer"></div>
+    <script>
+        function offset(ele) {
+            var l=null,t=null,par=ele.offsetParent;
+            l=ele.offsetLeft;
+            t=ele.offsetTop;
+            if(par){
+                if(window.navigator.userAgent.indexOf("MSIE 8")===-1){
+                    l+=par.clientLeft;
+                    t+=par.clientTop;
+                }
+                l+=par.offsetLeft;
+                t+=par.offsetTop;
+                par=par.offsetParent;
+            }
+            return {aleft:l,atop:t};
+        }
+//        var outer=document.getElementsByClassName("outer")[0];
+//        var aleft=offset(outer).aleft;
+//        var atop=offset(outer).atop;
+//        console.log(aleft,atop);
+        let outer=document.getElementsByClassName("outer")[0];
+        var offsetVal=offset(outer);
+        var {aleft,atop}=offset(outer);
+        console.log(aleft);
+        console.log(atop);
+    </script>
+</body>
+</html>

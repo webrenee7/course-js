@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数字数据类型</title>
+</head>
+<body>
+    <script>
+        //1、其他数据类型转化为数字数据类型，返回值为整数/NaN
+            //字符串直接转化
+            console.log(Number('123'));//123
+            console.log(Number('123ABC'));//NaN
+            console.log(Number('1/5'));//NaN    字符串中的运算符不起作用
+            console.log(Number(1/5));//0.2
+
+            //对象先转化为字符串，再转化为数字
+            console.log(Number([]));//0
+            console.log(Number([1]));//1
+            console.log(Number([1,2]));//NaN
+            console.log(Number({}));//NaN
+
+            //布尔值直接转化为数字
+            console.log(Number(true));//1
+            console.log(Number(false));//0
+
+            //两个特例
+            console.log(Number(null));//0
+            console.log(Number(undefined));//NaN
+
+        //2、返回整数
+        console.log(parseInt('0.2.8'));//0
+        console.log(parseInt('.5'));//NaN   此为特例，要牢记
+
+        //3、返回浮点数
+        console.log(parseFloat('0.2.8'));//0.2
+        console.log(parseFloat('.5'));//0.5
+
+        //4、判断一个值是否不是数字,如果不是数字返回true,否则返回false,判断之前先将值转化为数字数据类型
+        console.log(isNaN([]));//false
+        console.log(isNaN({}));//true
+        console.log(isNaN(false));//false
+
+    </script>
+</body>
+</html>

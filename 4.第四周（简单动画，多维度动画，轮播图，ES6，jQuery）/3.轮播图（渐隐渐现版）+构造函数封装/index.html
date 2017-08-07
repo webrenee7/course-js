@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图（渐隐渐现版）</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/utils-2.0.js"></script>
+    <script src="js/animate.js"></script>
+</head>
+<body>
+    <div id="banner" class="banner">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <div id="banner2" class="banner">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <!--<script src="js/banner.js"></script>-->
+
+    <!--引用构造函数封装好的“渐隐渐现”轮播图插件-->
+    <script src="js/BannerFadeIn.js"></script>
+    <script>
+        var banner=document.getElementById("banner");
+        var banner2=document.getElementById("banner2");
+        new BannerFadeIn(banner,"data/data.txt",2000);
+        new BannerFadeIn(banner2,"data/data2.txt",4000);
+    </script>
+</body>
+</html>

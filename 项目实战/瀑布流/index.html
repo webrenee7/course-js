@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        ul{
+            float: left;
+            width:30%;
+        }
+        ul:nth-child(2){
+            margin:0 5%;
+        }
+    </style>
+</head>
+<body>
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+    <script src="utils-1.0.js"></script>
+    <script>
+        var oUls=document.getElementsByTagName("ul");
+        oUlsAry=utils.listToArray(oUls);
+        function liappendToUl() {
+            for(var i=0;i<50;i++){
+                oUlsAry.sort(function (curUl,nextUl) {
+                    return utils.getCss(curUl,"height")-utils.getCss(nextUl,"height");
+                });
+                var shortUl=oUlsAry[0];
+                var li=createLi();
+                shortUl.appendChild(li);
+            }
+        }
+        liappendToUl();
+        //创建59个随机高度和随机背景色的li
+        function createLi() {
+            var li=document.createElement("li");
+            li.style.height=utils.getRandom(100,250)+"px";
+            li.style.background="rgb("+utils.getRandom(0,255)+","+utils.getRandom(0,255)+","+utils.getRandom(0,255)+")";
+            return li;
+        }
+        window.onscroll=function () {
+            var curTop=utils.win("scrollTop");
+            var winH=utils.win("clientHeight");
+            var conH=utils.win("scrollHeight");
+            if(curTop>conH-winH-100){
+                liappendToUl();
+            }
+        }
+    </script>
+</body>
+</html>

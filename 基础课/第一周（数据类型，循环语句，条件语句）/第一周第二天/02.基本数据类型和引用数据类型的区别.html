@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本数据类型和引用数据类型的区别</title>
+</head>
+<body>
+    <script>
+        //基本数据类型
+        var num1=1;
+        var num2=num1;
+        num2=num2+1;
+        //num2++;
+        //num2+=1;
+        console.log(num1,num2);
+
+
+        //引用数据类型
+        var obj1={
+            name:'珠峰培训',
+        }
+        var obj2=obj1;
+        obj2.name="珠峰";
+        console.log(obj1,obj2);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font:14px/24px "微软雅黑";
+    -webkit-user-select: none;
+}
+ul,li{
+    list-style: none;
+}
+.clear:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.box{
+    width:500px;
+    margin:10px auto;
+}
+.box ul{
+    /*overflow: hidden;!*清除子元素的浮动对父元素的影响*!*/
+    position: relative;
+    top:1px;
+}
+.box ul li{
+    float: left;
+    width:100px;
+    height:40px;
+    line-height: 40px;
+    margin-right:10px;
+    font-size: 18px;
+    border:1px solid #000;
+    background:lightgoldenrodyellow;
+    text-align: center;
+    cursor: pointer;
+}
+.box ul li.selected{
+    background:lightcyan;
+    border-bottom-color: lightcyan;
+}
+.box div{
+    height:250px;
+    line-height:250px;
+    background:lightcyan;
+    font-size:30px;
+    text-align: center;
+    border:1px solid #000;
+    /*clear: both;!*清除哥哥元素的浮动对弟弟元素的影响*!*/
+    display: none;
+}
+.box div.selected{
+    display: block;
+}

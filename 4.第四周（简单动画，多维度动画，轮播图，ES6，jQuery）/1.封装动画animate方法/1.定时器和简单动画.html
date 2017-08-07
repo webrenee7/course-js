@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器和简单动画</title>
+</head>
+<body>
+    <script>
+        //str[0]==>拿不到是undefined
+        //str.charAt(0)==>拿不到是""
+        var str="共产党万岁";
+        var i=0;
+        var timer=window.setInterval(function () {
+            if(i>=str.length){
+                clearInterval(timer);
+                return;
+            }
+            document.body.innerHTML+=str[i++];
+        },500);
+    </script>
+</body>
+</html>

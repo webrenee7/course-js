@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标跟随</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #outer{
+            position: relative;
+            width:250px;
+            height: 250px;
+            margin:0 auto;
+            background: rebeccapurple;
+        }
+        #inner{
+            position: absolute;
+            top:0;
+            left: 0;
+            width:100px;
+            height: 100px;
+            background: lightcyan;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner"></div>
+    </div>
+    <script>
+        var outer=document.getElementById("outer");
+        var inner=document.getElementById("inner");
+        var minL=0,minT=0,maxL=null,maxT=null;
+        outer.onmouseenter=function (e) {
+            e=e||window.event;
+            var left=e.clientX-outer.offsetLeft;
+            var top=e.clientY-outer.offsetTop;
+            maxL=outer.offsetWidth-inner.offsetWidth;
+            maxT=outer.offsetHeight-inner.offsetHeight;
+            inner.style.left=left+"px";
+            inner.style.top=top+"px";
+            console.log("over");
+        }
+        outer.onmousemove=function (e) {
+            e=e||window.event;
+            var left=e.clientX-outer.offsetLeft;
+            var top=e.clientY-outer.offsetTop;
+            left=left>maxL?maxL:left<minL?minL:left;
+            top=top>maxT?maxT:top<minT?minT:top;
+            inner.style.left=left+"px";
+            inner.style.top=top+"px";
+            console.log("move");
+        }
+        outer.onmouseleave=function (e) {
+            e=e||window.event;
+            var left=e.clientX-outer.offsetLeft;
+            var top=e.clientY-outer.offsetTop;
+            console.log("out");
+        }
+        //这样阻止不了，直接用onmouseenter，onmouseleave代替 这两个事件不支持冒泡
+        /*inner.onmouseover=function (e) {
+            e=e||window.event;
+            e.stopPropagation?e.stopPropagation():e.cancelable=true;
+        }
+        inner.onmouseout=function (e) {
+            e=e||window.event;
+            e.stopPropagation?e.stopPropagation():e.cancelable=true;
+        }*/
+    </script>
+</body>
+</html>

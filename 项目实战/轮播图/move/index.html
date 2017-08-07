@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图（左右运动版）</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <script src="js/utils-2.0.js"></script>
+    <script src="js/animate.js"></script>
+    <div class="banner" id="banner">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <div class="banner" id="banner2">
+        <div class="bannerInner"></div>
+        <ul class="focusList"></ul>
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <!--<script src="js/banner.js"></script>-->
+
+    <!--引用使用构造函数封装好的轮播图插件-->
+        <script src="js/BannerMove.js"></script>
+        <script>
+            var banner=document.getElementById("banner");
+            var banner2=document.getElementById("banner2");
+            new BannerMove(banner,"data/data.txt",500);
+            new BannerMove(banner2,"data/data2.txt",800,4000);
+        </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>总结</title>
+</head>
+<body>
+    <script>
+        //1.null与undefined情况
+        /*获取一个对象，如果获取不到，默认为null
+        获取一组对象，如果获取不到，默认为[]
+        获取对象的方法，如果获取不到，默认值为null**********
+        获取对象的属性，如果获取不到，默认为undefined
+        打印对象的属性，从来不会报错，没有就是undefined
+        */
+        //console.log(n);//n is not defined
+
+        //var n;
+        //console.log(n);//undefined
+
+        //console.log(document.body.xxx);//undefined
+        //console.log(document.body.onclick);//null
+
+        //console.log(document.getElementsByClassName("bo"));//[]
+        //console.log(document.getElementById("bo"));//null
+        //console.log(window.n);//undefined  输出一个对象的属性是不会报错的
+
+
+        //2.有参函数与无参函数
+        /*
+        *函数有形参，无实参，实参默认值为undefined
+        * 函数无形参，有实参，不能进行传值，从私有作用域开始查找相关变量一直到window,如果没有就报错
+        * */
+        /*function num(a){
+            console.log(a);
+        }
+        num();//undefined
+
+        function num2(){
+            console.log(a);
+        }
+        num2(2);//a is not defined*/
+
+
+        //3.函数执行结果
+        //如果有return，返回return后面的，没有return，返回undefined
+        /*function fn(){
+            var a=2;
+        }
+         var f=fn();
+         console.log(f);//undefined
+        function foo() {
+            var b=2;
+            return b;
+        }
+        var f2=foo();
+        console.log(f2);//2*/
+
+
+        //4.对象在赋值过程中不能引用自己，如果引用了会报错
+        //函数在赋值过程中可以引用自己，因为函数预解释时声明和定义一起完成
+        /*var obj={
+            name:'xy',
+            age:20,
+            myage:obj.age//Cannot read property 'age' of undefined
+        }
+
+        function fn(){
+            console.log(fn);
+        }
+        fn();//function fn(){}*/
+
+        //只要声明过一个变量，'变量' in window==》ture
+
+
+
+        //函数的三种角色
+        function Foo(){//开始的时候不能确定它是函数的哪种身份
+            getName = function(){console.log(1);};//全局变量getName赋值
+            return this;
+        }
+        Foo.getName = function(){console.log(2);};//Foo是对象，给对象添加一个getName方法==》私有的
+        Foo.prototype.getName = function(){console.log(3);};//Foo的原型上添加一个getName方法==》公有的
+        var getName = function(){console.log(4);};//全局变量getName重新赋值
+        function getName(){console.log(5);};//函数和变量重名，以变量的值为准
+
+        Foo.getName();//2
+        getName();//4
+        new Foo.getName();//2
+        new Foo().getName();//3
+        new new Foo().getName();//3
+        getName();//1   new Foo()之后全局的getName被重新赋值
+
+
+
+    </script>
+</body>
+</html>

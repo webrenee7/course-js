@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background: red;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+//        $("#div1").hide(300);
+//        $("#div1").show(400).hide(600);
+        $("#div1").click(function () {
+            alert(this);
+        });
+//        $("#div1").on("click",function () {
+//            $(this).css({"width":300});
+//        }).on("click",function () {
+//            $(this).css({"height":600});
+//        }).off("click");
+        var ary=[1,2,3,4,5];
+        $(ary).each(function (index,item) {
+            console.log(index,item);
+
+        })
+
+    </script>
+</body>
+</html>

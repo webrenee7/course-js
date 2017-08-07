@@ -1,0 +1,30 @@
+*{ margin:0; padding:0; }
+body{ font:14px/24px "Microsoft YaHei"; background: #ccc; }
+a,a:hover{ text-decoration: none; }
+ul,li{ list-style: none; }
+input{ border:none; outline:none;}
+.wid100{ width: 100px;}
+.wid120{ width: 120px;}
+.wid180{ width: 180px;}
+
+/*index*/
+/*颜色值：066666 000  eee ccc aaa fff  ffeeaa*/
+.info_box{ width:600px; margin:60px auto; border:2px solid #000; padding:20px; border-radius: 10px; background: #066666; }
+.info_box h2{ color: #fff; margin-bottom:30px; text-align: center; }
+.info_box .btn{ display: inline-block; width:100px; height: 30px; line-height: 30px; text-align: center; border-radius: 5px; color: #000; font-weight: bold; font-size: 15px; background: #eee; }
+.info_box .add_btn{ text-align: right;}
+.info_box .btn:hover{ background: #ffeeaa; }
+.tb_tit{ height: 30px; line-height: 30px; border-radius: 5px; margin-top:10px; background:#000; }
+.tb_tit span{ color: #fff; font-size: 15px; }
+.info_box span{ float: left; display: inline-block; text-align: center; }
+.tb_list li{ height: 30px; line-height: 30px; background: #eee; }
+.tb_list li:nth-child(odd){ background: #fff; }
+.tb_list li:hover{ background: #ffeeaa; }
+.tb_list li a{ margin:0 5px; color: #000; }
+.tb_list li a:hover{ text-decoration: underline;}
+
+/*--detail--*/
+.info_line{ height: 30px; line-height: 30px; margin-bottom: 12px;}
+.info_line label{ float:left; width:150px; text-align: right; font-size: 15px; color: #fff; margin-right: 10px;}
+.info_line input{ float: left; width:280px; height: 28px; line-height: 28px; border: 1px solid #ccc; border-radius: 5px; padding:0 10px; font-size: 14px;}
+.info_box .submit_btn{ text-align:center; margin:20px auto 0; }

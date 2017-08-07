@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+    <script>
+        /*
+        快速排序思想：跟基准点比较
+            找到数组的基准点（一般将中间项作为基准点，--向下取整（数组长度/2））
+            将数组中的每一项跟基准点进行比较，如果比基准点小，将该项放到一个空数组，如果比基准点大，将该项放到另一个空数组
+            直到数组中只有一个数为止
+        * */
+
+        var ary=[3,1,5,2,4,6,4,5,1,8,6,7];
+        function quickSort(arr){
+            if(arr.length<=1){
+                return arr;
+            }
+            var eg=Math.floor(arr.length/2);
+            var val=arr.splice(eg,1)[0];
+            var lAry=[],rAry=[];
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]<val){
+                    lAry.push(arr[i]);
+                }else{
+                    rAry.push(arr[i]);
+                }
+            }
+            return quickSort(lAry).concat([val],quickSort(rAry));
+        }
+        var res=quickSort(ary);
+        console.log(res);
+    </script>
+</body>
+</html>

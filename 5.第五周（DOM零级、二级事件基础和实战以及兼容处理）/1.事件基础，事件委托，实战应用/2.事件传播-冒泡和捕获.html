@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件传播-冒泡和捕获</title>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        #outer{
+            width:200px;
+            height:200px;
+            background: greenyellow;
+        }
+        #inner{
+            width:100px;
+            height:100px;
+            background: indigo;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner"></div>
+    </div>
+    <a href="http://www.baidu.com" id="link">点我</a>
+    <script>
+        var outer=document.getElementById("outer");
+        var inner=document.getElementById("inner");
+        var link=document.getElementById("link");
+        //dom 0级事件绑定
+        /*inner.onclick=function () {
+            alert("inner");
+        };
+        outer.onclick=function () {
+            alert("outer");
+        };
+        document.body.onclick=function () {
+            alert("body");
+        };
+        document.documentElement.onclick=function () {
+            alert("document");
+        };*/
+
+        //dom 2级事件绑定 addEventListener
+        /*inner.addEventListener("click",function () {
+            alert("inner");
+        },false);//false是冒泡阶段，true是捕获阶段
+        outer.addEventListener("click",function () {
+            alert("outer");
+        },true);//在捕获阶段就触发了
+        document.body.addEventListener("click",function () {
+            alert("document.body");
+        },false);
+        document.documentElement.addEventListener("click",function () {
+            alert("document.documentElement");
+        },false);*/
+
+        //移除事件   removeEventListener
+        /*function fn1() {
+            console.log(1);
+        }
+        function fn2() {
+            inner.removeEventListener("click",fn1,false);
+            console.log(2);
+        }
+        inner.addEventListener("click",fn1,false);
+        inner.addEventListener("click",fn2,false);*/
+
+        //阻止事件冒泡  e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+        /*inner.onclick=function (e) {
+            e=e||window.event;
+            alert("inner");
+            e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+//            e.stopPropagation=e.stopPropagation||function () {
+//                e.cancelBubble=true;
+//            }
+        };
+        outer.onclick=function () {
+            alert("outer");
+        };*/
+
+        //阻止默认行为  e.preventDefault?e.preventDefault():e.returnValue=false;
+        link.onclick=function (e) {
+//            e=e||window.event;
+//            e.preventDefault?e.preventDefault():e.returnValue=false;
+            return false;
+        }
+
+        //事件源
+        inner.onclick=function (e) {
+            e=e||window.event;
+            console.log(e.target);//<div id="inner"></div>   ie6-8下是"undefined"
+            e.target=e.target||e.srcElement;
+            console.log(e.target);
+        }
+
+
+    </script>
+</body>
+</html>

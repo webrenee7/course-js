@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>utils_test</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #outer{
+            position: relative;
+            margin:100px;
+            width:500px;
+            height:500px;
+            background: lightsalmon;
+            border:10px solid #000;
+        }
+        #inner{
+            position: absolute;
+            width:200px;
+            height:200px;
+            background: lightgreen;
+            margin:10px 40px;
+            /*opacity:0.5;
+            filter: alpha(opacity=80);*/
+            font:14px/24px "微软雅黑";
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner" class="inner ab a b a">
+            <p class="inner_p1"></p>
+            <p class="inner_p2"></p>
+            <p class="inner_p3"></p>
+        </div>
+        <p class="p1"></p>
+        <p class="p2"></p>
+        <p class="p3"></p>
+        <p class="p4"></p>
+    </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script src="utils-2.0.js"></script>
+    <script>
+        var outer=document.getElementById("outer");
+        var inner=document.getElementById("inner");
+        var p1=utils.getElesByClass("p1")[0];
+        var p2=utils.getElesByClass("p2")[0];
+        var p3=utils.getElesByClass("p3")[0];
+        var p4=utils.getElesByClass("p4")[0];
+        var lis=document.getElementsByTagName("li");
+//        console.log(utils.getRandom(2,20));
+//        console.log(lis);
+//        console.log(utils.listToArray(lis));
+//        var jsonStr='{"name":"xy"}';
+//        console.log(utils.jsonParse(jsonStr));
+
+//        console.log(utils.offset(inner));
+//        console.log(utils.getCss(inner,"opacity"));//ie6-8如果不设置透明度，默认为""
+//        console.log(utils.getCss(inner,"background"));//currentStyle不支持组合属性的获取例如background
+//        console.log(utils.getCss(inner,"width"));
+//       utils.setCss(inner,"opacity",1);
+//        utils.setGroupCss(inner,{
+//            width:300,
+//            height:300,
+//            background:"skyblue"
+//        });
+//            console.log(utils.css(inner,"width"));
+//            utils.css(inner,"width",400);
+//            utils.css(inner,{
+//                width:300,
+//                height:100,
+//                background:"green"
+//            });
+//        console.log(utils.getElesByClass("inner",outer));
+        console.log(utils.children(outer,"p"));
+        //ie6-8下不兼容的属性******************
+//        console.log(inner.children);//Object对象
+//        console.log(inner.nextElementSibling);//undefined
+//        console.log(inner.previousElementSibling);//undefined
+//        console.log(inner.firstElementChild);//undefined
+//        console.log(inner.lastElementChild);//undefined
+//        console.log(utils.prev(p2));
+//        console.log(utils.next(p1));
+//        console.log(utils.prevAll(p2));
+//        console.log(utils.nextAll(p1));
+//        console.log(utils.sibling(p1));
+//        console.log(utils.index(inner));
+//        console.log(utils.firstChild(inner));
+//        console.log(utils.lastChild(inner));
+//        console.log(utils.append(p3,inner));
+//        console.log(utils.prepend(p3,inner));
+//        console.log(utils.insertBefore(inner,p3));
+//        console.log(utils.insertAfter(inner,p3));
+//        console.log(utils.hasClass(inner,"a"));
+        console.log(utils.addClass(inner," bacd "));
+//        console.log(utils.removeClass(inner," a "));
+    </script>
+</body>
+</html>

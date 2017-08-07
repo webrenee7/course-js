@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标跟随jquery版</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        img{
+            width:100%;
+            height:100%;
+            border:none;
+            vertical-align: top;
+        }
+        .clearfix{
+            zoom:1;
+        }
+        .clearfix:after{
+            display: block;
+            content: "";
+            clear: both;
+        }
+        .img_box{
+            position: relative;
+            width:508px;
+            margin:30px auto;
+            border:1px solid #ccc;
+        }
+        .img_list{
+            margin:10px;
+        }
+        .img_list li{
+            float: left;
+            width:100px;
+            margin:0 10px;
+            border:1px solid #ccc;
+            cursor: pointer;
+        }
+        .big_box{
+            position: absolute;
+            top:0;
+            left:0;
+            width:400px;
+            height: 300px;
+            border:1px solid #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script src="jquery-1.11.3.js"></script>
+    <div class="img_box">
+        <ul class="img_list clearfix">
+            <li><img src="images/apple_1.jpg" bigImgSrc="images/apple_1_bigger.jpg" /></li>
+            <li><img src="images/apple_2.jpg" bigImgSrc="images/apple_2_bigger.jpg" /></li>
+            <li><img src="images/apple_3.jpg" bigImgSrc="images/apple_3_bigger.jpg" /></li>
+            <li><img src="images/apple_4.jpg" bigImgSrc="images/apple_4_bigger.jpg" /></li>
+        </ul>
+        <div class="big_box">
+            <img src="images/apple_1_bigger.jpg" />
+        </div>
+    </div>
+    <script>
+        var $imgBox=$(".img_box");
+        var $imgList=$(".img_list").find("img");
+        var $bigBox=$(".big_box");
+        $imgList.on({
+            "mouseover":function (e) {
+                e=e||window.event;
+                e.target=e.target||e.srcElement;
+                var left=e.clientX-$imgBox.offset().left+10;
+                var top=e.clientY-$imgBox.offset().top+10;
+                $bigBox.css({"left":left,"top":top}).stop().show(500).find("img").attr("src",$(e.target).attr("bigImgSrc"));
+            },
+            "mousemove":function (e) {
+                e=e||window.event;
+                var left=e.clientX-$imgBox.offset().left+10;
+                var top=e.clientY-$imgBox.offset().top+10;
+                $bigBox.css({"left":left,"top":top});
+            },
+            "mouseout":function () {
+                $bigBox.stop().hide();
+            }
+        });
+
+    </script>
+</body>
+</html>

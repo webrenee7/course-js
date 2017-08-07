@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>隔行变色+移入移出+点击弹出</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        li{
+            text-align: center;
+        }
+        .bg1{
+            background:yellow;
+        }
+        .bg2{
+            background:pink;
+        }
+        .bg3{
+            background:skyblue;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+    <script>
+        var oLis=document.getElementsByTagName("li");
+        for(var i=0;i<oLis.length;i++){
+            if(i%2==0){
+                oLis[i].className="bg1";
+            }else{
+                oLis[i].className="bg2";
+            }
+            oLis[i].onmouseover=function () {
+                oldBg=this.className;
+                this.className="bg3";
+            }
+            oLis[i].onmouseout=function () {
+                this.className=oldBg;
+            }
+            oLis[i].index=i;
+            oLis[i].onclick=function () {
+                alert('我是第'+(this.index+1)+'行');
+            }
+        }
+    </script>
+</body>
+</html>

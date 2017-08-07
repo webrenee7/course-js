@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSONP</title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<script>
+    /*
+    前后端分离项目数据请求：
+        如何判断是同源数据请求还是非同源数据请求？
+        当前页面的地址与请求数据的地址进行比较，如果协议，域名，端口号都相同，就是同源数据请求，只要有一项不相同，就是非同源数据请求
+     ->AJAX:在同源请求下，使用AJAX进行操作
+     ->JSONP:在非同源请求下，使用JSONP进行操作
+    &&使用原生js进行jsonp跨域请求:
+    客户端：
+       1>.创建一个函数
+       2>.增加一个script标签，在src中引入请求数据的接口地址，通过问号传参形式，传递一个回调函数来接收数据，让浏览器帮我们发送请求 &wb=z&cb=fn  cb是一个标识，一般服务器中定义的标识是callback，但是也可以按照约定来命名，百度中是"cb"
+       3>.客户端的浏览器接收到返回的结果  ==>函数名(数据内容)
+     服务器端：
+       1>.接收客户端的请求，解析传递的URL参数
+       2>.根据传递的参数到数据库中获取与用户输入的关键词相匹配的数据
+       3>.把获取的结果返回给浏览器  fn({q:"z",p:false,s:["知乎","直播吧","支付宝","在线翻译","中国银行","智联招聘","战旗tv","中国知网","招商银行","真正男子汉第二季"]})
+      */
+    /*https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=z&callback=jQuery111305075543671304548_1484370499785&_=1484370*/
+    function fn(result) {
+        console.log(result);
+    }
+</script>
+<!--<script src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=z&cb=fn"></script>-->
+<script>
+    //&&使用jQuery进行jsonp跨域请求(项目中通常这样用)
+    $.ajax({
+        url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=z",
+        type:"get",//jsonp都是get请求，jquery默认就把缓存清掉了
+        dataType:"jsonp",
+        jsonp:"cb",//把callback变为cb,jQ中默认是callback
+        jsonpCallback:"fn"//把随机函数名变为fn
+    });
+    //https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=z&callback=jQuery111305075543671304548_1484370499785&_=1484370
+    //jQ会帮我们自动给服务器传递标识：callback=jQuery...（这个函数名是jQuery随机生成的）
+    /*link,script,img,iframe,audio,video..这些标签都有一个共同的特点，没有同源和非同源的限制，只要放在src或者href中引入进来，都可以向指定的地址发送请求，获取到需要的数据
+    **********jsonp请求需要后台做支持才可以：
+    cb=fn
+    限制哪些用户能够跨域*/
+</script>
+</body>
+</html>
